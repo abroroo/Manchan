@@ -1,15 +1,23 @@
 import React from 'react'
+import Link from 'next/link';
 
-interface Props {}
 
 const Landing = () => {
+
+
+
+
   return (
 
 
 
     <div>
       <h1 className='text-6xl font-bold'>Manchan Food Service </h1>
-      <button className='btn btn-blue h-12 w-32 mt-24'>Reserve an Event</button>
+      <Link href= "/choose-date">
+  
+<button>Reserve an Event!</button>
+
+</Link>
     </div>
     
     
@@ -19,3 +27,4 @@ const Landing = () => {
 }
 
 export default Landing
+
