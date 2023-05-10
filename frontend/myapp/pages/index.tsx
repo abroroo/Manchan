@@ -3,8 +3,8 @@ import Landing from '../components/Landing'
 
 export default function Home() {
   return (
-    <main className="flex h-screen flex-col items-center justify-between ">
-      <div className="mt-32">
+    <main className="flex h-screen flex-col items-center justify-between landing">
+      <div className="mt-10">
         <Landing />
       </div>
     </main>
