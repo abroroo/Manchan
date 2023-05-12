@@ -37,7 +37,7 @@ export default function DateForm() {
         id="address"
         {...register("address", { required: false })}
       />
-      {errors.address && <span>This field is required</span>}
+      {errors.address && <span>Please fill out the address</span>}
 
       <button className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded'  type="submit">Check Availability</button>
     </form>
