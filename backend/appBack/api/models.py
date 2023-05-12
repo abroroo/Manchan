@@ -1,71 +1,96 @@
 from django.db import models
-from multiselectfield import MultiSelectField
+#from multiselectfield import MultiSelectField
 from django.forms.models import model_to_dict
 import json
 from django import forms
-# Create your models here.
-
-food_category = ((1, 'Item title 2.1'),
-               (2, 'Item title 2.2'),
-               (3, 'Item title 2.3'),
-               (4, 'Item title 2.4'),
-               (5, 'Item title 2.5'))
-
-drink_category = ((1, 'Item title 2.1'),
-               (2, 'Item title 2.2'),
-               (3, 'Item title 2.3'),
-               (4, 'Item title 2.4'),
-               (5, 'Item title 2.5'))
-
+from rest_framework import serializers
 
 class Customer(models.Model):
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
     phone_number = models.IntegerField()
     #date_registered = models.DateTimeField(auto_now_add=True, default=0)
-    ticket_number = models.IntegerField()
+    ticket_number = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+class CustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = ['name', 'address', 'phone_number', 'ticket_number']
+
+class FoodCategory(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+class DrinkCategory(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
 
 class Food(models.Model):
     name = models.CharField(max_length=200)
     price = models.IntegerField()
-    category = MultiSelectField(choices=food_category, max_length=3)
+    category = models.ManyToManyField(FoodCategory)
+
+    def __str__(self):
+        return self.name
 
 class Drink(models.Model):
     name = models.CharField(max_length=200)
     price = models.IntegerField()
-    category = MultiSelectField(choices=drink_category, max_length=3)
-
-foods = []
-
-for k in range(0, Food.objects.count()):
-    #print(Food.objects.all()[k].name)
-    data_food = Food.objects.all()[k]
+    category = models.ManyToManyField(DrinkCategory)
     
-    result_food = ((data_food, data_food.name))
-    foods.append(result_food)
-    
-#print(foods)
-
-drinks = []
-
-for k in range(0, Drink.objects.count()):
-    #print(Food.objects.all()[k].name)
-    data_drink = Drink.objects.all()[k]
-    
-    result_drink = ((data_drink, data_drink.name))
-    drinks.append(result_drink)
-    
+    def __str__(self):
+        return self.name
 
 class Menu(models.Model):
-    foods = MultiSelectField(choices=foods, max_length=200)
-    drinks = MultiSelectField(choices=drinks, max_length=200, default=0)
+    foods = models.ManyToManyField(Food)
+    drinks = models.ManyToManyField(Drink)
     table = models.BooleanField()
     tent = models.BooleanField()
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
 
+class FoodCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FoodCategory
+        fields = ['name']
+
+class DrinkCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DrinkCategory
+        fields = ['name']
+
+class FoodSerializer(serializers.ModelSerializer):
+    category = FoodCategorySerializer(many=True)
+    class Meta:
+        model = Food
+        fields = ['name', 'price', 'category']
+
+class DrinkSerializer(serializers.ModelSerializer):
+    category = DrinkCategorySerializer(many=True)
+    class Meta:
+        model = Drink
+        fields = ['name', 'price', 'category']
+
+class MenuSerializer(serializers.ModelSerializer):
+    foods = FoodSerializer(many=True)
+    drinks = DrinkSerializer(many=True)
+    customer = CustomerSerializer()
+    class Meta:
+        model = Menu
+        fields = "__all__"
 
 class Date(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
     menu = models.ManyToManyField(Menu)
     event_date = models.DateTimeField()
-    
+
+class DateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Date
+        fields = ['event_date']

@@ -4,6 +4,9 @@ from . import views
 urlpatterns = [
     path('api/', views.api, name='api'),
     path('api/check_date/', views.check_date, name='check_date'),
-    path('api/choose_menu/', views.get_menu, name='choose_menu'),
-    path('api/new_customer/', views.get_ticket_number, name='get_ticket_number')
+    path('api/get_menu/', views.get_menu, name='get_menu'),
+    path('api/submit_menu', views.UpdateMenuAPIView.as_view(), name='submit_menu'),
+    path('api/new_customer', views.CustomerCreateAPIView.as_view(), name='new_customer'),
+    path('api/<int:ticket_number>', views.CustomerViewAPIView.as_view()),
+    path('api/check_dateapi/<int:ticket_number>', views.CheckDateAPIView.as_view())
 ]
