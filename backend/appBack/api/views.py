@@ -29,6 +29,7 @@ class CustomerCreateAPIView(generics.CreateAPIView):
             my_ticket_number = random.randint(1, 100000000)
             if my_ticket_number not in all_tickets:
                     serializer.save(ticket_number=my_ticket_number)
+                    Response({'ticket_number': my_ticket_number})
             break
 
 class CustomerViewAPIView(generics.RetrieveAPIView):

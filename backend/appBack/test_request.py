@@ -2,7 +2,7 @@ import requests, json
 from datetime import datetime
 date = datetime(2023, 5, 25, 6, 25, 0)
 print(date)
-name = "Last profile"
+name = "Testing profileadsklfjaslfkjk"
 phone_number = 258852369
 address = "Uzbekistan Tashkent"
 ticket_number = 95372671
@@ -24,31 +24,31 @@ ticket_number = 95372671
 
 #endpoint = "http://127.0.0.1:8000/api/new_customer"
 
-#apidata = {'name': name, 'phone_number': phone_number, 'address': address}
+apidata = {'name': name, 'phone_number': phone_number}
 
 #response = requests.post(endpoint, json=apidata)
 
 
-data = {
-        "id": 22,
-        "foods": 
-            {
-            "id" : 6
-}
-        ,
-        "drinks":
-            [{
-            }]
-        ,
-        "customer": {
-            "name": "Ilhom",
-            "address": "Jeonjusi Jeonbuk university",
-            "phone_number": 1025654585,
-            "ticket_number": 32165488
-        },
-        "table": True,
-        "tent": True
-}
+# data = {
+#         "id": 22,
+#         "foods": 
+#             {
+#             "id" : 6
+# }
+#         ,
+#         "drinks":
+#             [{
+#             }]
+#         ,
+#         "customer": {
+#             "name": "Ilhom",
+#             "address": "Jeonjusi Jeonbuk university",
+#             "phone_number": 1025654585,
+#             "ticket_number": 32165488
+#         },
+#         "table": True,
+#         "tent": True
+# }
 #Menu Submit
-response = requests.put(f"http://127.0.0.1:8000/api/menu_detail/32165488", json=data)
+response = requests.post(f"http://127.0.0.1:8000/api/new_customer", json=apidata)
 print(response.content)

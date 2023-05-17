@@ -8,7 +8,7 @@ from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 class Customer(models.Model):
     name = models.CharField(max_length=200)
-    address = models.CharField(max_length=200)
+    address = models.CharField(max_length=200, blank=True, null=True)
     phone_number = models.IntegerField()
     #date_registered = models.DateTimeField(auto_now_add=True, default=0)
     ticket_number = models.IntegerField(blank=True, null=True)
