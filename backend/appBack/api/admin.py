@@ -9,7 +9,7 @@ class MenuAdmin(admin.ModelAdmin):
     list_display = ['customer']
 
 class DateAdmin(admin.ModelAdmin):
-    list_display = ['event_date','customer']
+    list_display = ['event_date']
 
 class FoodAdmin(admin.ModelAdmin):
     list_display = ['name', 'price']
