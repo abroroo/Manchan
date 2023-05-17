@@ -10,10 +10,11 @@ export default function DateForm() {
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    const response = await fetch(`/api/checkAvailability?date=${data.date}`);
+    console.log(data.date)
+    const response = await fetch(`http://localhost:8000/api/check_date/?datetime=${data.date}&ticket_number=32165488`);
     const json = await response.json();
     if (json.available) {
-      // TODO: Submit the form data to the backend
+      console.log(JSON.stringify(json))
     } else {
       alert('Sorry, that date is already booked.');
     }
@@ -32,7 +33,7 @@ export default function DateForm() {
 
       <label className="p-1" htmlFor="address">Address</label>
       <input
-      className='mr-10 p-1'
+      className='mr-10 p-1 w-96'
         type="text"
         id="address"
         {...register("address", { required: false })}

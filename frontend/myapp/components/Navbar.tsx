@@ -6,7 +6,7 @@ interface Props {}
 const Navbar = () => {
 
   return (
-  <div>
+  <div className='absolute m-10'>
     
     <div className='flex flex-row p-2 items-center justify-center'>
     <Link href="/menu"><p className='mx-5'>Menu</p></Link>
