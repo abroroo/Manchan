@@ -4,6 +4,7 @@ from django.forms.models import model_to_dict
 import json
 from django import forms
 from rest_framework import serializers
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 class Customer(models.Model):
     name = models.CharField(max_length=200)
@@ -21,7 +22,7 @@ class CustomerSerializer(serializers.ModelSerializer):
         fields = ['name', 'address', 'phone_number', 'ticket_number']
 
 class FoodCategory(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
 
     def __str__(self):
         return self.name
@@ -58,24 +59,24 @@ class Menu(models.Model):
 class FoodCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = FoodCategory
-        fields = ['name']
+        fields = "__all__"
 
 class DrinkCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = DrinkCategory
-        fields = ['name']
+        fields = "__all__"
 
 class FoodSerializer(serializers.ModelSerializer):
     category = FoodCategorySerializer(many=True)
     class Meta:
         model = Food
-        fields = ['name', 'price', 'category']
+        fields = "__all__"
 
 class DrinkSerializer(serializers.ModelSerializer):
     category = DrinkCategorySerializer(many=True)
     class Meta:
         model = Drink
-        fields = ['name', 'price', 'category']
+        fields = "__all__"
 
 class MenuSerializer(serializers.ModelSerializer):
     foods = FoodSerializer(many=True)
@@ -86,7 +87,6 @@ class MenuSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class Date(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
     menu = models.ManyToManyField(Menu)
     event_date = models.DateTimeField()
 

@@ -5,7 +5,7 @@ print(date)
 name = "Last profile"
 phone_number = 258852369
 address = "Uzbekistan Tashkent"
-ticket_number = 96064993
+ticket_number = 95372671
 #Create a new customer with a ticket number request
 #response = requests.get(f"http://127.0.0.1:8000/api/new_customer?name={name}&phone_number={phone_number}&address={address}")
 
@@ -22,21 +22,33 @@ ticket_number = 96064993
 
 #API Create customer
 
-endpoint = "http://127.0.0.1:8000/api/new_customer"
+#endpoint = "http://127.0.0.1:8000/api/new_customer"
 
-apidata = {'name': name, 'phone_number': phone_number, 'address': address}
+#apidata = {'name': name, 'phone_number': phone_number, 'address': address}
 
-response = requests.post(endpoint, json=apidata)
+#response = requests.post(endpoint, json=apidata)
 
 
-data = {'menu': {'id': 6, 
-                  'foods': [{'name': 'Rice', 'price': 5000, 'category': [{'name': 'light'}]}], 
-                  'drinks': [{'name': 'coke', 'price': 2000, 'category': [{'name': 'fizzy'}]}], 
-                  'customer': {'name': 'Mynewprofile', 'address': 'Uzbekistan Tashkent', 'phone_number': 258852369, 'ticket_number': 29319475}, 
-                  'table': True, 
-                  'tent': False}, 
-                  'errors': []}
-
+data = {
+        "id": 22,
+        "foods": 
+            {
+            "id" : 6
+}
+        ,
+        "drinks":
+            [{
+            }]
+        ,
+        "customer": {
+            "name": "Ilhom",
+            "address": "Jeonjusi Jeonbuk university",
+            "phone_number": 1025654585,
+            "ticket_number": 32165488
+        },
+        "table": True,
+        "tent": True
+}
 #Menu Submit
-#response = requests.put("http://127.0.0.1:8000/api/submit_menu", json = data)
-print(response.json())
+response = requests.put(f"http://127.0.0.1:8000/api/menu_detail/32165488", json=data)
+print(response.content)
