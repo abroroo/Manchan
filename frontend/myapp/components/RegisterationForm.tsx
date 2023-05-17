@@ -23,17 +23,20 @@ const RegistrationForm: React.FC = () => {
         },
         body: JSON.stringify(postData),
       });
-  
+      console.log(JSON.stringify(postData))
       if (!response.ok) {
         throw new Error('Failed to submit registration form.');
        
       }
-      const router = useRouter();
-      router.push('/choose-date');
+      const json = await response.json();
+      
+      // const router = useRouter();
+      // router.push('/choose-date');
       console.log('Registration form submitted');
       console.log('Name:', name);
       console.log('Phone Number:', phoneNumber);
       console.log('Email:', email);
+      alert(json.ticket_number)
     } catch (error) {
       console.error(error);
     }
@@ -71,7 +74,7 @@ const RegistrationForm: React.FC = () => {
         />
       </div>
 
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <label htmlFor="email" className="block mb-1 font-medium">
           Email
         </label>
@@ -83,7 +86,7 @@ const RegistrationForm: React.FC = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-      </div>
+      </div> */}
 
       <button
         type="submit"

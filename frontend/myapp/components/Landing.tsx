@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link';
 import Polygon from './Polygon';
 import Navbar from './Navbar';
-
+import { motion } from 'framer-motion';
 
 const Landing = () => {
 
@@ -29,7 +29,14 @@ const Landing = () => {
     
       <Link className="flex mt-10 items-start justify-center " href= "/register-page">
   
-<button className='bg-transparent font-semibold  hover:text-green py-2 px-4 z-20'>Reserve </button>
+<motion.button style={{
+                    width: 100,
+                    height: 50,
+                    borderRadius: 20,
+                    backgroundColor: "#000",
+                    cursor: "pointer",
+                }}
+                whileHover={{  scale: 0.75 }}className='bg-transparent font-semibold text-white hover:text-green py-2 px-4 z-20'>Reserve </motion.button>
 
 
 

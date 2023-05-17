@@ -13,8 +13,9 @@ export default function DateForm() {
     console.log(data.date)
     const response = await fetch(`http://localhost:8000/api/check_date/?datetime=${data.date}&ticket_number=32165488`);
     const json = await response.json();
-    if (json.available) {
+    if (json.date_available) {
       console.log(JSON.stringify(json))
+      alert('Yes, date is available');
     } else {
       alert('Sorry, that date is already booked.');
     }
