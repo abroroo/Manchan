@@ -67,6 +67,14 @@ def check_date(request):
         error = str(e)
     return Response({"date_available" : date_available, "error" : error})
 
+class FoodListAPIView(generics.ListAPIView):
+    queryset = models.Food.objects.all()
+    serializer_class = models.FoodSerializer
+
+class SetListAPIView(generics.ListAPIView):
+    queryset = models.Set.objects.all()
+    serializer_class = models.SetSerializer
+
 @api_view(['GET'])
 def get_menu(request, ticket_number):
     customer = models.Customer.objects.get(ticket_number=ticket_number)
@@ -86,48 +94,28 @@ def get_menu(request, ticket_number):
         return Response({'menu' : menu, 'errors' : str(e)})
 
 
-class MenuDetail(APIView):
-    def get_object(self, ticket_number):
-        try:
-            customer = models.Customer.objects.get(ticket_number=ticket_number)
-            return models.Menu.objects.get(customer=customer)
-        except models.Menu.DoesNotExist:
-            raise Http404
+# class MenuDetail(APIView):
+#     def get_object(self, ticket_number):
+#         try:
+#             customer = models.Customer.objects.get(ticket_number=ticket_number)
+#             return models.Menu.objects.get(customer=customer)
+#         except models.Menu.DoesNotExist:
+#             raise Http404
         
-    def get(self, request, ticket_number, format=None):
-        menu = self.get_object(ticket_number)
-        serializer = models.MenuSerializer(menu)
-        return Response(serializer.data)
-    def put(self, request, ticket_number, format=None):
-        menu = self.get_object(ticket_number)
-        menu.foods.set(request.data['foods'])
-        menu.drinks.set(request.data['drinks'])
-        serializer = models.MenuSerializer(menu, data=request.data)
-        if serializer.is_valid():
-            return Response(serializer.data)
-        print(serializer.errors)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     def get(self, request, ticket_number, format=None):
+#         menu = self.get_object(ticket_number)
+#         serializer = models.MenuSerializer(menu)
+#         return Response(serializer.data)
+#     def put(self, request, ticket_number, format=None):
+#         menu = self.get_object(ticket_number)
+#         menu.foods.set(request.data['foods'])
+#         menu.drinks.set(request.data['drinks'])
+#         serializer = models.MenuSerializer(menu, data=request.data)
+#         if serializer.is_valid():
+#             return Response(serializer.data)
+#         print(serializer.errors)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class DrinkDetail(APIView):
-    def get_object(self, pk):
-        try:
-            return models.Drink.objects.get(pk=pk)
-        except models.Drink.DoesNotExist:
-            raise Http404
-    def get(self, request, pk, format=None):
-        drink = self.get_object(pk)
-        serializer = models.DrinkSerializer(drink)
-        return Response(serializer.data)
-    def put(self, request, pk, format=None):
-        drink = self.get_object(pk)
-        drinkSerializer = models.DrinkSerializer(drink, data=request.data)
-        if drinkSerializer.is_valid():
-            drinkSerializer.save()
-            return Response(drinkSerializer.data)
-        print(drinkSerializer.errors)
-        print(drinkSerializer.data['category'])
-        return Response(drinkSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
 
 class UpdateMenuAPIView(generics.UpdateAPIView):
     queryset = models.Menu.objects.all()
