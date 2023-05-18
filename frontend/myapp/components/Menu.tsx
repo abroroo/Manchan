@@ -63,25 +63,25 @@ const MenuPage: React.FC = () => {
   };
 
   return (
-    <div className="h-screen grid gap-6 grid-cols-1 ">
+    <div className="h-screen grid gap-32 grid-cols-1 ">
       {menuItems.map((menuItem) => (
         <div
           key={menuItem.id}
-          className="relative p-4 bg-white rounded-md shadow-md hover:shadow-lg"
+          className="relative p-4  rounded-md hover:shadow-lg"
           onMouseEnter={() => handleMouseEnter(menuItem.id)}
           onMouseLeave={handleMouseLeave}
         >
-          <h3 className="text-lg font-semibold">{menuItem.title}</h3>
+          <h2 className="text-5xl font-semibold ">{menuItem.title}</h2>
           {hoveredCard === menuItem.id && (
             
             <img
               src={menuItem.image}
               alt={menuItem.title}
-              className="absolute left-[-600px] w-full h-80 object-cover rounded-md"
+              className="absolute -top-[70%] left-[-600px] w-full h-80 object-cover rounded-md"
             />
             
           )}
-          <p className="text-gray-600">{menuItem.description}</p>
+          <p className="text-gray-600 mt-5 ">{menuItem.description}</p>
         </div>
       ))}
     </div>

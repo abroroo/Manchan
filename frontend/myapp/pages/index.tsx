@@ -1,5 +1,6 @@
 import Landing from '../components/Landing'
 import {motion} from 'framer-motion'
+import SmoothScroll from '../components/Scolling/SmoothScroll'
 
 
 const variants = {
@@ -16,11 +17,14 @@ export default function Home() {
     animate="enter"
     exit="exit"
     variants={variants}
-    transition={{ duration: 1, ease: [0.32, 0, 0.67, 0] }} className="flex h-screen flex-col items-center justify-between ">
+    transition={{ duration: 1, ease: [0.32, 0, 0.67, 0] }} className="flex h-screen flex-col items-center justify-between landing">
+    
       <div className="mt-10">
         <Landing />
       </div>
+     
     </motion.main>
+    
   )
 }
 
