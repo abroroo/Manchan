@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 
+
 interface Props { }
 
 const Index = () => {
@@ -15,7 +16,7 @@ const Index = () => {
   };
 
   return (
-    <div className='flex h-screen flex-col items-start justify-start mt-10'>
+    <motion.div className='flex h-screen flex-col items-start justify-start mt-10'>
       <h1 className='text-3xl font-bold mx-10'>Event Table</h1>
 
 
@@ -88,7 +89,7 @@ const Index = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 export default Index;

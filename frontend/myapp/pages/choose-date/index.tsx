@@ -1,6 +1,8 @@
 import React from 'react'
 import Link from 'next/link';
 import DateForm from '../../components/DateForm';
+import { motion } from 'framer-motion';
+
 
 interface Props {}
 
@@ -8,7 +10,7 @@ const index = () => {
   return (
   
 
-    <div className='flex h-screen flex-col items-center justify-start'>
+    <motion.div className='flex h-screen flex-col items-center justify-start'>
       <h1 className='text-6xl font-bold mt-20'>Choose the Date Page</h1>
       <div className='flex flex-row mt-10 p-10 items-center justify-between'>
       <DateForm />
@@ -28,7 +30,7 @@ const index = () => {
       </div>
 
      
-    </div>
+    </motion.div>
  
   )
 }

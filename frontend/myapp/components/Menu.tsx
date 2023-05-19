@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import {motion } from 'framer-motion';
+
 
 const MenuPage: React.FC = () => {
   const mealNames = [
@@ -63,7 +65,7 @@ const MenuPage: React.FC = () => {
   };
 
   return (
-    <div className="h-screen grid gap-32 grid-cols-1 ">
+    <div className="h-screen grid gap-32 grid-cols-1">
       {menuItems.map((menuItem) => (
         <div
           key={menuItem.id}
@@ -74,7 +76,10 @@ const MenuPage: React.FC = () => {
           <h2 className="text-5xl font-semibold ">{menuItem.title}</h2>
           {hoveredCard === menuItem.id && (
             
-            <img
+            <motion.img
+            initial={{ opacity: 0, scale: 0.95}}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: 'easeInOut' }}
               src={menuItem.image}
               alt={menuItem.title}
               className="absolute -top-[70%] left-[-600px] w-full h-80 object-cover rounded-md"
@@ -89,3 +94,5 @@ const MenuPage: React.FC = () => {
 };
 
 export default MenuPage;
+
+

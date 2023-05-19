@@ -13,11 +13,12 @@ export default function Home() {
   return (
    
     <motion.main
-    initial="hidden"
-    animate="enter"
-    exit="exit"
-    variants={variants}
-    transition={{ duration: 1, ease: [0.32, 0, 0.67, 0] }} className="flex h-screen flex-col items-center justify-between landing">
+    // initial="hidden"
+    // animate="enter"
+    // exit="exit"
+    // variants={variants}
+    // transition={{ type: "spring", stiffness: 200, damping: 40, }} 
+    className="flex h-screen flex-col items-center justify-between ">
     
       <div className="mt-10">
         <Landing />

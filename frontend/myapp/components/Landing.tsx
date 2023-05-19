@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link';
 import Polygon from './Polygon';
 import Navbar from './Navbar';
-import { motion } from 'framer-motion';
+import { motion, spring } from 'framer-motion';
 
 const Landing = () => {
 
@@ -36,7 +36,9 @@ const Landing = () => {
                     backgroundColor: "#49111c",
                     cursor: "pointer",
                 }}
-                whileHover={{  scale: 1.05 , backgroundColor: "#561421",}}className='bg-transparent font-semibold text-white hover:text-green py-2 px-4 z-20'>Reserve </motion.button>
+                whileHover={{  scale: 1.10 , backgroundColor: "#561421"}}
+                transition={{type: "spring", stiffness: 100}}
+                className='bg-transparent font-semibold text-white hover:text-green py-2 px-4 z-20'>Reserve </motion.button>
 
 
 
