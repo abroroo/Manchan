@@ -35,12 +35,6 @@ class Food(models.Model):
     def __str__(self):
         return self.name
 
-class Menu(models.Model):
-    foods = models.ManyToManyField(Food)
-    table = models.BooleanField()
-    tent = models.BooleanField()
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
-
 class Set(models.Model):
     name = models.CharField(max_length=200)
     price = models.IntegerField()
@@ -48,21 +42,22 @@ class Set(models.Model):
     def __str__(self):
         return self.name
     
-
-
-# class FoodCategorySerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = FoodCategory
-#         fields = "__all__"
+class Menu(models.Model):
+    custom_menu = models.ManyToManyField(Food)
+    table = models.BooleanField()
+    tent = models.BooleanField()
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
+    is_set = models.BooleanField(default=False)
+    food_set = models.ForeignKey(Set, on_delete=models.CASCADE, blank=True, null=True)
 
 class FoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Food
-        fields = ['name', 'description', 'price', 'image_location', 'category']
+        fields = "__all__"
 
 class MenuSerializer(serializers.ModelSerializer):
-    foods = FoodSerializer(many=True)
-    customer = CustomerSerializer()
+    custom_menu = serializers.PrimaryKeyRelatedField(queryset=Food.objects.all(), many=True)
+    customer = CustomerSerializer(read_only=True)
     class Meta:
         model = Menu
         fields = "__all__"
@@ -71,13 +66,8 @@ class SetSerializer(serializers.ModelSerializer):
     foods = FoodSerializer(many=True)
     class Meta:
         model = Set
-        fields = ['name', 'price', 'foods']
+        fields = "__all__"
 
 class Date(models.Model):
-    menu = models.ManyToManyField(Menu)
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, blank=True, null=True)
     event_date = models.DateTimeField()
-
-class DateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Date
-        fields = ['event_date']

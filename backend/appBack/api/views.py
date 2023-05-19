@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse, Http404
 from . import models
 from django.core import serializers
-import random
+import random, json
 from django.forms.models import model_to_dict
 from rest_framework.decorators import api_view
 from rest_framework import generics, status
@@ -75,57 +75,43 @@ class SetListAPIView(generics.ListAPIView):
     queryset = models.Set.objects.all()
     serializer_class = models.SetSerializer
 
-@api_view(['GET'])
-def get_menu(request, ticket_number):
-    customer = models.Customer.objects.get(ticket_number=ticket_number)
-    try:
-        if models.Menu.objects.get(customer=customer):
-            data = models.Menu.objects.get(customer=customer)
-            menu = models.MenuSerializer(data).data
-            return Response({'menu' : menu})
-    except Exception as e:
-        foods = models.Food.objects.all()
-        drinks = models.Drink.objects.all()
-        print(foods, drinks)
-        instance = models.Menu.objects.create(table=False, tent=False, customer=customer)
-        instance.foods.set(foods)
-        instance.drinks.set(drinks)
-        menu = models.MenuSerializer(instance).data
-        return Response({'menu' : menu, 'errors' : str(e)})
-
-
-# class MenuDetail(APIView):
-#     def get_object(self, ticket_number):
-#         try:
-#             customer = models.Customer.objects.get(ticket_number=ticket_number)
-#             return models.Menu.objects.get(customer=customer)
-#         except models.Menu.DoesNotExist:
-#             raise Http404
+class MenuDetail(APIView):
+    def get_object(self, ticket_number):
+        try:
+            customer = models.Customer.objects.get(ticket_number=ticket_number)
+            return models.Menu.objects.get(customer=customer)
+        except models.Menu.DoesNotExist:
+            raise Http404
         
-#     def get(self, request, ticket_number, format=None):
-#         menu = self.get_object(ticket_number)
-#         serializer = models.MenuSerializer(menu)
-#         return Response(serializer.data)
-#     def put(self, request, ticket_number, format=None):
-#         menu = self.get_object(ticket_number)
-#         menu.foods.set(request.data['foods'])
-#         menu.drinks.set(request.data['drinks'])
-#         serializer = models.MenuSerializer(menu, data=request.data)
-#         if serializer.is_valid():
-#             return Response(serializer.data)
-#         print(serializer.errors)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def get(self, request, ticket_number, format=None):
+        menu = self.get_object(ticket_number)
+        serializer = models.MenuSerializer(menu)
+        mydata = serializer.data
 
+        custom_menu_index = mydata['custom_menu']
+        custom_menu = []
+        for k in custom_menu_index:
+            food_object = models.Food.objects.get(id=k)
+            serialized_food_object = models.FoodSerializer(food_object)
+            custom_menu.append(serialized_food_object.data)
+        
+        mydata['custom_menu'] = custom_menu
 
-class UpdateMenuAPIView(generics.UpdateAPIView):
-    queryset = models.Menu.objects.all()
-    serializer_class = models.MenuSerializer
+        food_set_index = mydata['food_set']
+        food_set_object = models.Set.objects.get(id=food_set_index)
+        serialized_food_set = models.SetSerializer(food_set_object)
+        mydata['food_set'] = serialized_food_set.data
 
-    def perform_update(self, serializer):
-        instance = serializer.save(customer=self.request.data.menu.customer)
-        if not instance.content:
-            instance.content = instance.title
-
+        return Response(mydata)
+    def put(self, request, ticket_number, format=None):
+        customer = models.Customer.objects.get(ticket_number=ticket_number)
+        menu = models.Menu.objects.get(customer=customer)
+        serializer = models.MenuSerializer(menu, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        print(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 #@api_view(['GET'])

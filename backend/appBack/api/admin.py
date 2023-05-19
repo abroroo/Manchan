@@ -12,13 +12,13 @@ class DateAdmin(admin.ModelAdmin):
     list_display = ['event_date']
 
 class FoodAdmin(admin.ModelAdmin):
-    list_display = ['name', 'category']
+    list_display = ['id', 'name', 'category']
 
 class FoodCategoryAdmin(admin.ModelAdmin):
     list_display = ['name']
 
 class SetAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price']
+    list_display = ['id', 'name', 'price']
 
 admin.site.register(models.Customer, CustomerAdmin)
 admin.site.register(models.Menu, MenuAdmin)
