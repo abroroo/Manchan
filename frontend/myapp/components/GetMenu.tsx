@@ -12,7 +12,7 @@ const GetMenu: React.FC = () => {
 
   useEffect(() => {
     // Fetch menu data from backend API
-    fetch('http://localhost:8000/api/getMenu')
+    fetch('http://localhost:3000/public/images/menu')
       .then((response) => response.json())
       .then((data) => setMenuItems(data))
       .catch((error) => console.error(error));
