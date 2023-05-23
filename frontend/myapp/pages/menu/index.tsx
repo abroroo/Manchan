@@ -9,8 +9,8 @@ interface Props {}
 
 const index = () => {
   return (
-    <motion.div className=' bg-[#6f1a07] text-white'>
-  <div className='h-screen flex items-center justify-end pt-96 pr-56'>
+    <motion.div className='  '>
+  <div className='h-screen flex items-center justify-end pt-96 pr-56 '>
 <SmoothScroll>
     <Menu />
     </SmoothScroll>

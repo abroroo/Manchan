@@ -5,6 +5,8 @@ import '../styles/fonts.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { cubicBezier } from "framer-motion"
+import 'flowbite/dist/flowbite.css';
+
 
 
 
@@ -18,6 +20,8 @@ const App = ({ Component, pageProps, router }: AppProps) => {
  
   return (
     <>
+    
+
       <Navbar />
       <AnimatePresence mode="popLayout">
         <motion.div
@@ -39,8 +43,8 @@ const App = ({ Component, pageProps, router }: AppProps) => {
                 // type: 'spring',
                 // stiffness: 230,
                 // damping: 50,
-                ease: [0, 0.55, 0.45, 1],
-                duration: 0.9,
+                ease: [0.76, 0, 0.24, 1],
+                duration: 1.2,
                 
               },
             },

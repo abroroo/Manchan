@@ -7,8 +7,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Kalam&display=swap');
 body {
     color: rgb(var(--foreground-rgb));
-    /* background: linear-gradient( to bottom, transparent, #FFFBF5, #FFFBEB); */
-    background-color: #fffbff;
+    /* background: linear-gradient( to bottom, transparent, #FFFBF5, #FFFBEB);   #fffbff;*/
+    background-color: rgb(250 250 249);
     /* #FFFBEB; */
 }
 

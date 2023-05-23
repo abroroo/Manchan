@@ -19,7 +19,7 @@ const Landing = () => {
       </div> */}
       
       <div className='flex items-center justify-center flex-col h-screen -mt-20'>
-      <h1 className='text-6xl font-bold text-[#49111c]'>Manchan Food Service </h1>
+      <h1 className='text-6xl font-bold text-[#fdfefd]'>Manchan Food Service </h1>
       {/* <svg id="svg-96" viewBox="0, 0, 150, 150" className="w-[150px] h-[150px] top-[75px] left-[-75px]">
 			<g transform="translate(75,75)">
 				<polygon id="poly-97" opacity="1" stroke="#4A464E" stroke-width="0" stroke-miterlimit="10" fill="#000000" points="-17.365 49.24 -43.969 26.917 -50 -7.285 -32.635 -37.362 0 -49.24 32.635 -37.362 50 -7.285 43.969 26.917 17.365 49.24" className="opacity-[0.9]"></polygon>
@@ -33,12 +33,12 @@ const Landing = () => {
                     width: 100,
                     height: 50,
                     borderRadius: 10,
-                    backgroundColor: "#49111c",
+                    backgroundColor: "#fdfefd",
                     cursor: "pointer",
                 }}
-                whileHover={{  scale: 1.10 , backgroundColor: "#561421"}}
+                whileHover={{  scale: 1.10 , backgroundColor: "#561421", color: "#fdfefd" }}
                 transition={{type: "spring", stiffness: 100}}
-                className='bg-transparent font-semibold text-white hover:text-green py-2 px-4 z-20'>Reserve </motion.button>
+                className='bg-transparent font-semibold text-[#49111c] hover:text-green py-2 px-4 z-20'>Reserve </motion.button>
 
 
 
