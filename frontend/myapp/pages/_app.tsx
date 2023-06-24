@@ -5,10 +5,14 @@ import '../styles/fonts.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { cubicBezier } from "framer-motion"
-import 'flowbite/dist/flowbite.css';
+
+import {BaseProvider, LightTheme} from 'baseui';
+import { Provider as StyletronProvider } from "styletron-react";
+import { Client as Styletron } from "styletron-engine-atomic";
 
 
 
+// const engine = new Styletron();
 
 
 const App = ({ Component, pageProps, router }: AppProps) => {
@@ -21,7 +25,8 @@ const App = ({ Component, pageProps, router }: AppProps) => {
   return (
     <>
     
-
+    {/* <StyletronProvider value={engine}>
+    <BaseProvider theme={LightTheme}> */}
       <Navbar />
       <AnimatePresence mode="popLayout">
         <motion.div
@@ -68,6 +73,8 @@ const App = ({ Component, pageProps, router }: AppProps) => {
           <Component {...pageProps} />
         </motion.div>
       </AnimatePresence>
+      {/* </BaseProvider>
+  </StyletronProvider> */}
     </>
   );
 };

@@ -8,12 +8,13 @@ module.exports = {
             'dm': ['DM Sans', 'sans-serif'],
             'outfit': ['Outfit', 'sans-serif'],
             'kalam': ['Kalam', 'cursive'],
+            'poppins': ['Poppins', 'sans-serif'],
+            'quick': ['Quicksand', 'sans-serif'],
+            'caveat': ['Caveat', 'cursive'],
         }
     },
     variants: {},
-    plugins: [
-        require('flowbite/plugin')
-    ],
+
     content: [
         "./node_modules/flowbite-react/**/*.js",
         "./pages/**/*.{ts,tsx}",

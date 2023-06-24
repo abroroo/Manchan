@@ -21,6 +21,7 @@ const Index = () => {
 
 
       <div className='w-full h-screen flex items-center justify-center'>
+        
         <div className="max-w-2xl rounded overflow-hidden shadow-lg">
           <div className="px-6 py-4">
             <div className="font-bold text-xl mb-2">The Menu</div>

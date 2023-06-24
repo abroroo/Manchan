@@ -18,7 +18,7 @@ export default function Home() {
     // exit="exit"
     // variants={variants}
     // transition={{ type: "spring", stiffness: 200, damping: 40, }} 
-    className="flex h-screen flex-col items-center justify-between bg-[#49111c] ">
+    className="flex h-screen flex-col items-center justify-between bg-[#49111c] landing ">
     
       <div className="mt-10">
         <Landing />
