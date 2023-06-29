@@ -22,7 +22,7 @@ const Landing = () => {
       initial={{ opacity: 0, }}
       animate={{ opacity: 1,  }}
       transition={{ duration: 2, }}
-      className=" bg-[#fff]/90 px-5 rounded-md"
+      className=" bg-[#F3F3EF] px-5 rounded-md"
      
 
     >
@@ -42,7 +42,7 @@ const Landing = () => {
                 }}
                 whileHover={{  scale: 1.15  }}
                 transition={{type: "spring", stiffness: 100}}
-                className='bg-[#fff]/90 font-semibold text-[#49111c] hover:text-green text-[20px] p-2 z-20'>이벤트 계획 </motion.button>
+                className='bg-[#F3F3EF] font-semibold text-[#49111c] hover:text-green text-[20px] p-2 z-20'>이벤트 계획 </motion.button>
 
 
 

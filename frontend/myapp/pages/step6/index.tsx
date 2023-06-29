@@ -5,7 +5,7 @@ interface Props {}
 
 
 const index = () => {
-  return (<div>
+  return (<div className='steps-background'>
    <Step6 />
   </div>)
 }

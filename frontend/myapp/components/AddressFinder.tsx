@@ -54,8 +54,13 @@ const AddressFinder: React.FC = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="">
+       <h1 className='mb-5 flex items-center justify-center text-[24px]'>행사 예정 지역을 선택해주세요.</h1>
       <div className="flex">
+       
+       
+       
+       
         <input
           type="text"
           value={addressQuery}
@@ -64,7 +69,7 @@ const AddressFinder: React.FC = () => {
         />
         <button
           onClick={handleAddressSearch}
-          className="px-4 py-2 bg-blue-500 text-white rounded"
+          className="px-4 py-2 bg-[#49111c] text-white rounded"
         >
           Search
         </button>
@@ -95,7 +100,7 @@ const AddressFinder: React.FC = () => {
         <div className="mt-4">
           <button
             onClick={handleSubmitAddress}
-            className="px-4 py-2 bg-green-500 text-white rounded"
+            className="px-4 py-2 bg-[#49111c] text-white rounded"
           >
             Submit Address
           </button>

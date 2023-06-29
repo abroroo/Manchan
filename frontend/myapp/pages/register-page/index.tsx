@@ -8,7 +8,7 @@ interface Props {}
 
 const index = () => {
   return (
-  <motion.div className='h-screen '>
+  <motion.div className='h-screen steps-background '>
   
   <Step1 />
   </motion.div>
