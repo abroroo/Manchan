@@ -8,11 +8,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@900&display=swap');
 body {
     /* color: rgb(var(--foreground-rgb));
     /* background: linear-gradient( to bottom, transparent, #FFFBF5, #FFFBEB);   #fffbff;*/
-    background-color: #000000;
+    background-color: #1d040b;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
     /* #FFFBEB; */
+    /* overflow-y: hidden;  rgb(243, 243, 239);   #F9FCFB;  */
 }
 
 .landing {
@@ -24,11 +28,12 @@ body {
 }
 
 .steps-background {
-    /* background-image: url("/images/bert-wedd.jpeg"); */
+    /* background-image: url("/images/bert-wedd.jpeg");     #F9FCFB; */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: rgb(243, 243, 239);
+    background-color: #F9FCFB;
+    ;
 }
 
 
@@ -48,3 +53,89 @@ body {
         transform: translateY(0);
     }
 }  */
+
+@keyframes moveBgRow1 {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes moveBgRow2 {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes moveBgRow3 {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.animate-bg-row1 {
+    animation: moveBgRow1 50s linear infinite;
+}
+
+.animate-bg-row2 {
+    animation: moveBgRow2 25s linear infinite;
+}
+
+.animate-bg-row3 {
+    animation: moveBgRow3 30s linear infinite;
+}
+
+.datePicker {
+    width: 100%;
+}
+
+.react-datepicker {
+    width: 100% !important;
+    border-radius: 2%;
+    font-size: 16px !important;
+}
+
+.react-datepicker__header {
+    background-color: rgb(73 17 28 / 0.1) !important;
+}
+
+.react-datepicker__month-container {
+    float: inherit !important;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+    width: 2.7rem !important;
+    line-height: 2rem !important;
+}
+
+.react-datepicker__month {
+    margin: 1.4rem !important;
+    text-align: center !important;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+    width: 2.7rem !important;
+    line-height: 2rem !important;
+}
+
+.react-datepicker__navigation-icon {
+    top: 12px !important;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+    font-size: 1.1rem !important;
+}

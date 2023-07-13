@@ -11,6 +11,7 @@ module.exports = {
             'poppins': ['Poppins', 'sans-serif'],
             'quick': ['Quicksand', 'sans-serif'],
             'caveat': ['Caveat', 'cursive'],
+            'kr': ['Noto Serif KR', 'serif'],
         }
     },
     variants: {},

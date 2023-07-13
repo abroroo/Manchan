@@ -38,16 +38,16 @@ const StartForm = () => {
 
   return (<div>
     <div className="flex flex-col h-screen items-center justify-center ">
-        <div className='flex items-center justify-center '>
+        <div className='flex items-center justify-center border bg-white border-slate-300 shadow-sm rounded-md p-4 w-full mx-auto max-w-md'>
             <form onSubmit={handleSubmit}>
-            <h1 className='text-3xl text-center mb-5 bg-[#fff]/80 p-2 rounded-md'>기본 정보를 입력하시면 <span className=''><br /></span>
+            <h1 className='text-2xl text-center mb-5 p-2 rounded-md'>기본 정보를 입력하시면 <span className=''><br /></span>
 딱 맞는 고수의 견적을 보내드립니다.</h1>
          
 
          {/* Name */}
          <div>
-         <label htmlFor="input2" className="block text-sm font-medium text-gray-900 dark:text-gray-100">이름</label>
-         <input className="block w-full h-14 mt-1 text-gray-900  focus:outline-none rounded shadow-sm  pl-8 text-[18px] bg-[#fff]/80" placeholder="" type="text" id="input1" 
+         <label htmlFor="input2" className="block text-sm font-medium text-gray-900 ">이름</label>
+         <input className="block w-full h-14 mt-1 text-gray-900  focus:outline-none rounded shadow-sm  pl-8 text-[18px] bg-[#49111c]/10" placeholder="" type="text" id="input1" 
          value={name}
          onChange={(e) => setName(e.target.value)}
          required/>
@@ -56,9 +56,9 @@ const StartForm = () => {
 
          {/* Phone number */}
          <div className='mt-7'>
-           <label htmlFor="input2" className="block text-sm font-medium text-gray-900 dark:text-gray-100">전화번호</label>
+           <label htmlFor="input2" className="block text-sm font-medium text-gray-900">전화번호</label>
            <div className="relative mt-1">
-             <input type="number" id="input2" className="block w-full h-14 pl-8 pr-3 mt-1 text-[18px] text-gray-900  rounded shadow-sm  bg-[#fff]/80" placeholder="010" 
+             <input type="number" id="input2" className="block w-full h-14 pl-8 pr-3 mt-1 text-[18px] text-gray-900  rounded shadow-sm  bg-[#49111c]/10" placeholder="010" 
              value={phoneNumber}
              onChange={(e) => setPhoneNumber(e.target.value)}
              required/>
@@ -71,7 +71,7 @@ const StartForm = () => {
 
          <button
         type="submit"
-        className="w-full h-14 text-md py-2 text-white tracking-wider rounded-md bg-[#49111c] hover:bg-[#49111c]/90 focus:outline-none focus:bg-blue mt-10"
+        className="w-full h-14 text-md py-2 text-white tracking-wider rounded-md bg-[#49111c] hover:bg-[#49111c]/90 focus:outline-none focus:bg-blue mt-10 mb-3"
       >
        
         Next

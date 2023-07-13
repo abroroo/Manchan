@@ -10,4 +10,5 @@ module.exports = {
     //         destination: 'http://localhost:8000/:path*'
     //     }]
     // },
+
 };

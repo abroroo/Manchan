@@ -20,12 +20,12 @@ const Navbar = () => {
   return (
     <>
     
-      <motion.div className="fixed w-full z-[100] p-6 bg-opacity-90 font-outfit ">
-      <Link href="/"  className={`font-bold text-2xl md:text-3xl xl:text-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${isCurrentPage('/') ? 'text-white' : 'text-black'}  `}>Food컴</Link>
+      <motion.div className="fixed w-full z-[100] p-2 md:p-4 bg-opacity-90 font-outfit  shadow-inner">
+      <Link href="/"  className={`font-bold text-xl  absolute top-1/2 left-20 transform -translate-x-1/2 -translate-y-1/2 ${isCurrentPage('/') ? 'text-[#49111c]' : 'text-[#49111c]'}  `}>Food컴</Link>
         <div className="flex flex-row p-2 items-center justify-end tracking-wide">
           {/* <p className={`mx-5 ${isCurrentPage('/menu') ? 'text-black' : 'text-slate-200'}`}>Menu</p>
           <p className={`mx-5 ${isCurrentPage('/') ? 'text-white' : 'text-slate-200'}`}>Order</p> */}
-          <button onClick={handleMenuClick} className={`mx-5 ${isCurrentPage('/about') ? 'text-white' : 'text-slate-200'}`}>
+          <button onClick={handleMenuClick} className={`mx-5 ${isCurrentPage('/register-page') ? 'text-[#fff]' : 'text-[#49111c]'}`}>
           메뉴
           </button>
         </div>
@@ -39,13 +39,13 @@ const Navbar = () => {
         >
           <div className="flex flex-col items-center text-[100px] font-bold">
             <Link href="/about">
-              <p className={`my-3 ${isCurrentPage('/about') ? 'text-white' : 'text-black'}`}>About</p>
+              <p className={`my-3 ${isCurrentPage('/about') ? 'text-white' : 'text-[#49111c]'}`}>About</p>
             </Link>
             <Link href="/contact">
-              <p className={`my-3 ${isCurrentPage('/contact') ? 'text-white' : 'text-black'}`}>Contact</p>
+              <p className={`my-3 ${isCurrentPage('/contact') ? 'text-white' : 'text-[#49111c]'}`}>Contact</p>
             </Link>
             <Link href="/work">
-              <p className={`my-3 ${isCurrentPage('/work') ? 'text-white' : 'text-black'}`}>Work</p>
+              <p className={`my-3 ${isCurrentPage('/work') ? 'text-white' : 'text-[#49111c]'}`}>Work</p>
             </Link>
           </div>
         </motion.div>

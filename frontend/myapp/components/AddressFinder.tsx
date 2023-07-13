@@ -54,8 +54,8 @@ const AddressFinder: React.FC = () => {
   };
 
   return (
-    <div className="">
-       <h1 className='mb-5 flex items-center justify-center text-[24px]'>행사 예정 지역을 선택해주세요.</h1>
+    <div className="w-full">
+       <h1 className='mb-5 flex items-center justify-center text-[24px] text-[#49111c]'>행사 예정 지역을 선택해주세요</h1>
       <div className="flex">
        
        
@@ -66,6 +66,7 @@ const AddressFinder: React.FC = () => {
           value={addressQuery}
           onChange={handleChange}
           className="w-full mr-2 p-3 border border-gray-300 rounded"
+          required
         />
         <button
           onClick={handleAddressSearch}

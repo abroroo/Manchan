@@ -16,7 +16,7 @@ const App = ({ Component, pageProps, router }: AppProps) => {
   const navLoader = useAnimation();
 
   useEffect(() => {
-    navLoader.start({ opacity: 1, y: 0 });
+    navLoader.start({ opacity: 1, y: 0,  });
   }, []);
 
 
@@ -25,9 +25,10 @@ const App = ({ Component, pageProps, router }: AppProps) => {
   return (
     <>
     <motion.div
-    // initial={{opacity: 0, y: -500}}
-    // animate={navLoader}
-    // transition={{duration: 1, delay: 2.5 }}
+    initial={{opacity: 0, y: -100, }}
+    animate={navLoader}
+    transition={{duration: 1, delay: 2.7 }}
+    style={{display: isHomePage ? "none" : "block"}}
     >
     <Navbar />
     </motion.div>
@@ -59,9 +60,12 @@ const App = ({ Component, pageProps, router }: AppProps) => {
                             },
                           },
             pageExit: {
-              opacity: 1,
+              
               x: isHomePage ? 0 : '100%',
-              //y: isHomePage ? '-100%' : isRegisterPage ? '-100%' : 0,
+              y: isHomePage ? "-100%" : 0,
+              opacity: isHomePage ? 0 : 1,
+              
+              
             },
           }}
           transition={{
