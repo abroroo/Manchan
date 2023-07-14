@@ -5,6 +5,8 @@ import { useEffect, useRef, useState, ChangeEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBellConcierge } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function Home() {
@@ -74,30 +76,21 @@ const [isHovered, setIsHovered] = useState(false);
                       
                       }}
                       transition={{ type: "spring", stiffness: 400, damping: 100 }}
-                      className={`bg-[#6161FF] hover:bg-[#6161FF]/80 text-[#fff] border text-[17px] p-2 z-20 `}
+                      className={`bg-[#6161FF] hover:bg-[#6161FF]/80 text-[#fff] border text-[17px] p-2 z-20 flex flex-row justify-center items-center`}
                       whileTap={{ scale: [1, 1.1, 1] }}
                       onHoverStart={() => setIsHovered(true)} // Set isHovered to true when hovering starts
                       onHoverEnd={() => setIsHovered(false)} // Set isHovered to false when hovering ends
                     
                     >
-                      <span className="flex flex-row items-center justify-center">
-                        Get Started
-                        <motion.svg
-                          aria-hidden="true"
-                          className={`w-5 h-10 ml-1 ${isHovered ? "animate-spin" : ""}`} // Add the animate-bounce class when isHovered is true
-                          fill="none"
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M12 6v12M18 12l-6 6-6-6"></path>
-                        </motion.svg>{" "}
-                      </span>
+                     
+                        Get Started <motion.div 
+                        // initial={{rotate: 0}} 
+                        // animate={isHovered ? {rotate: [ -15, 15, -15, 0]} : {}} 
+                        // transition={{}}
+                        className='ml-2 ' ><FontAwesomeIcon bounce icon={faBellConcierge}  /></motion.div>
+                      
                     </motion.button>
-
+                   
 
                 
               </Link>

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const index: React.FC = () => {
   return (
-    <motion.div className="flex flex-col items-center justify-center h-screen font-outfit bg-[#0d1010] text-white">
+    <motion.div className="flex flex-col items-center justify-center h-screen font-outfit bg-[#1d040b] text-white">
       <header className="py-10">
         <div className="container mx-auto px-4">
           <h1 className="text-3xl font-bold text-white">About Us</h1>

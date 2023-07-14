@@ -25,9 +25,9 @@ const App = ({ Component, pageProps, router }: AppProps) => {
   return (
     <>
     <motion.div
-    initial={{opacity: 0, y: -100, }}
-    animate={navLoader}
-    transition={{duration: 1, delay: 2.7 }}
+    // initial={{opacity: 0, y: -100, }}
+    // animate={navLoader}
+    // transition={{duration: 1, delay: 2.7 }}
     style={{display: isHomePage ? "none" : "block"}}
     >
     <Navbar />

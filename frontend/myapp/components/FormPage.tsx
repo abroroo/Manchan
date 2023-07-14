@@ -223,18 +223,18 @@ const handleCheckboxChange = (value: string) => {
         
         <div id='leftDiv' className='hidden xl:flex absolute  w-screen h-full '> 
 
-            
+          
       </div>
 
         {/* LEFT HALF */}
-        <div id='rightDiv' className=' h-screen  w-screen md:flex-shrink-0 flex items-center justify-start z-[100]'>
+        <div id='rightDiv' className=' h-screen  w-screen md:flex-shrink-0 flex items-center justify-start  overflow-y-scroll md:overflow-hidden z-10'>
           <div style={{ background: buttonBackground }} className='h-[90vh] w-2 bg-[#6161FF] absolute left-0 bottom-0'></div>
 
           
         
         
 
-          <form className='w-full max-w-[40rem] h-full bg-[#fff] bg-opacity-[0.98]  p-10 md:p-24 py-10 flex items-center justify-center flex-col overflow-y-scroll' onSubmit={handleSubmit}>
+          <form className='w-full xl:max-w-[40rem] h-full bg-[#fff] bg-opacity-[0.98] mt-16 p-10 md:p-24 py-10 flex items-center justify-center flex-col  ' onSubmit={handleSubmit}>
 
 
           {/* Intro to Form */}
@@ -797,7 +797,7 @@ const handleCheckboxChange = (value: string) => {
                 {/* Name and Phone Number */}
                 {currentQuestion === 9 && (
                 <div className='w-full mx-auto'>
-                        <h1 className='text-2xl text-center mb-5 p-2 rounded-lg flex items-center justify-center text-[#49111c]'>기본 정보를 입력하시면 딱 맞는 고수의 견적을 보내드립니다.</h1>
+                        <h1 className='text-xl lg:text-2xl text-[#49111c] font-semibold mb-5 flex items-center justify-center'>기본 정보를 입력하시면 딱 맞는 <br/>고수의 견적을 보내드립니다</h1>
                 
 
                 {/* Name */}
@@ -857,9 +857,14 @@ const handleCheckboxChange = (value: string) => {
           
           </form>
 
-          <div className=' h-full flex items-start justify-end'>
+          <div className=' h-full xl:flex items-start justify-end hidden z-20 '>
           <div style={{ background: buttonBackground }} className='h-[100vh] w-2 bg-[#1d040b] '></div>
           </div>
+
+
+          <div className="text-[#49111c] py-4 text-center absolute bottom-1 left-10 block xl:hidden ">
+        <p className="text-sm">&copy; {new Date().getFullYear()} 만찬. All rights reserved.</p>
+      </div>
         </div>
       </div>
     </div>
