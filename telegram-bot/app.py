@@ -9,7 +9,7 @@ bot = Bot(token=BOT_TOKEN)
 #https://api.telegram.org/botYOUR_BOT_TOKEN/getUpdates  - To get the chatid
 
 owner_chat_id = '958063934'
-directory_path = '../documents/'
+directory_path = r"D:\\Github\\Manchan\\documents\\"
 
 async def send_pdf_to_owner(file_path, chat_id):
     try:
