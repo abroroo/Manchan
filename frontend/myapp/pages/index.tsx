@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBellConcierge } from '@fortawesome/free-solid-svg-icons'
+import { faBellConcierge, faUtensils, faSpoon, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function Home() {
@@ -46,44 +46,47 @@ const [isHovered, setIsHovered] = useState(false);
 
  {/*  Title Text Start */}
               <motion.div   
-              className=' landing_loader flex flex-col items-start justify-center absolute  w-[100vw] h-[100vh] z-[100] bg-[#fff] p-5 md:px-10 '
+              className=' landing_loader flex flex-col items-center md:items-center justify-center absolute  w-[100vw] h-[100vh] z-[100] bg-[#fff]/80 p-5 md:px-10 '
               initial={{ opacity: 0, y: 70,  }}
               animate={landingLoader}
               transition={{ duration: 1.6, delay: 2.8, ease: [0.445, 0.05, 0.058, .96],  }}
               >
                 {/* <h1 className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-screen h-screen flex items-center justify-center text-gray-50 font-bold text-[250px] -z-[10]'>FOODCOM</h1> */}
-
-              <h1  className=' text-[35px] md:text-[50px] xl:text-[125px] font-[900] text-[#49111c]  px-5 rounded-md font-kr '>행사고객 맞춥형 <span className=''><br /></span>무료 견적 플랫폼 
+                <div className='flex text-[#49111c] items-center justify-center   '>
+                <FontAwesomeIcon icon={faSpoon} className='-rotate-45 text-[31px]'/>
+                <FontAwesomeIcon icon={faUtensils}  flip='horizontal' className='text-[40px]' />
+                
+                </div>
+                
+              <h1  className=' mt-5 text-[35px] md:text-[50px] xl:text-[80px] font-[900] text-[#49111c]  px-5 rounded-md font-kr '>임식이 필요한 모든행사 <br /><span className='flex items-center justify-center'>  <FontAwesomeIcon icon={faPlus}  className='text-[25px] mr-16' />무료 견적 플랫폼 <FontAwesomeIcon icon={faPlus}  className='text-[25px] ml-16' /></span>
               </h1>
 
-              <div className=' flex items-center justify-center flex-col p-5 md:px-7 xl:px-10 pb-0'>
-                <p className='text-[#49111c]/90  text-[16px] md:text-[20px]    '> 당신의 모든 행사의 기획, 서빙, 식사가 <br className='md:hidden xl:hidden block ' />푸드컴 팀에 의해 관리되는 플랫폼</p>
+              <div className=' flex items-center justify-center flex-col p-5 md:px-7 xl:px-10 pb-0 font-kr font-bold'>
+                <p className='text-[#49111c]/90  text-[16px] md:text-[30px]    '> 고객 맞춤형 서비스 <br/><span className='flex items-center justify-center'>우한화사 푸드컴</span></p>
                 
               </div>
 
              
-             
-
-
-              <Link className="flex  items-start justify-center p-5 xl:px-8 " href= "/register-page">
+             <div className=' w-full flex items-center justify-center mt-5 md:mt-5'  >
+              <Link className="flex  items-start justify-center p-7 xl:px-16  " href= "/intro">
               
                     <motion.button
                       style={{
                         width: 155,
                         height: 65,
-                        borderRadius: 30,
+                        borderRadius: 40,
                         cursor: "pointer",
                       
                       }}
                       transition={{ type: "spring", stiffness: 400, damping: 100 }}
-                      className={`bg-[#6161FF] hover:bg-[#6161FF]/80 text-[#fff] border text-[17px] p-2 z-20 flex flex-row justify-center items-center`}
+                      className={`bg-[#6161FF] hover:bg-[#6161FF]/80 text-[#fff] border text-[17px] p-3 md:p-10 md:px-24 z-20 flex flex-row justify-center items-center shadow-sm`}
                       whileTap={{ scale: [1, 1.1, 1] }}
                       onHoverStart={() => setIsHovered(true)} // Set isHovered to true when hovering starts
                       onHoverEnd={() => setIsHovered(false)} // Set isHovered to false when hovering ends
                     
                     >
                      
-                        Get Started <motion.div 
+                        Get&nbsp;Started <motion.div 
                         // initial={{rotate: 0}} 
                         // animate={isHovered ? {rotate: [ -15, 15, -15, 0]} : {}} 
                         // transition={{}}
@@ -94,6 +97,7 @@ const [isHovered, setIsHovered] = useState(false);
 
                 
               </Link>
+              </div>
               </motion.div>
            
 

@@ -1,6 +1,4 @@
 import React from 'react'
-import RegistrationForm from '../../components/RegisterationForm'
-import MainForm from '../../components/MainForm'
 import { motion } from 'framer-motion';
 import Step1 from '../../components/FormSteps/Step1';
 import FormPage from '../../components/FormPage';
@@ -10,10 +8,10 @@ interface Props {}
 
 const index = () => {
   return (
-  <motion.div className='h-screen steps-background'>
-  <SmoothScroll>
+  <motion.div className=''>
+ 
   <FormPage />
-  </SmoothScroll>
+  
   
   </motion.div>
   )

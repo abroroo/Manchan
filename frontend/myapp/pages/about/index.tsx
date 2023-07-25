@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const index: React.FC = () => {
   return (
-    <motion.div className="flex flex-col items-center justify-center h-screen font-outfit bg-[#1d040b] text-white">
+    <motion.div className="flex flex-col items-center justify-center h-screen font-outfit bg-[#1d040b] text-white overflow-y-scroll mt-20 md:mt-10 ">
       <header className="py-10">
         <div className="container mx-auto px-4">
           <h1 className="text-3xl font-bold text-white">About Us</h1>
@@ -14,7 +14,7 @@ const index: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div>
             <img
-              src="/images/about-image.jpg"
+              src="/images/optimized/ciling.jpeg"
               alt="About Us"
               className="rounded-lg w-full"
             />

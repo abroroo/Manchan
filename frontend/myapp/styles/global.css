@@ -12,12 +12,15 @@
 body {
     /* color: rgb(var(--foreground-rgb));
     /* background: linear-gradient( to bottom, transparent, #FFFBF5, #FFFBEB);   #fffbff;*/
-    background-color: #1d040b;
+    background-color: #fff;
     overflow: hidden;
     -webkit-font-smoothing: antialiased;
     /* #FFFBEB; */
-    /* overflow-y: hidden;  rgb(243, 243, 239);   #F9FCFB;  */
+    /* overflow-y: hidden;  rgb(243, 243, 239);   #F9FCFB;   #1d040b;  */
 }
+
+
+/* Adjust the size and opacity of the noise pattern as needed */
 
 .landing {
     background-image: url("/images/bert-hall.jpeg");
@@ -104,7 +107,7 @@ body {
 }
 
 .react-datepicker__header {
-    background-color: rgb(73 17 28 / 0.1) !important;
+    background-color: #F8F8F8 !important;
 }
 
 .react-datepicker__month-container {
@@ -114,20 +117,22 @@ body {
 .react-datepicker__day-name,
 .react-datepicker__day,
 .react-datepicker__time-name {
-    width: 2.7rem !important;
+    width: 3.25rem !important;
     line-height: 2rem !important;
+}
+
+@media (max-width: 767px) {
+    .react-datepicker__day-name,
+    .react-datepicker__day,
+    .react-datepicker__time-name {
+        width: 2rem !important;
+        line-height: 2rem !important;
+    }
 }
 
 .react-datepicker__month {
     margin: 1.4rem !important;
     text-align: center !important;
-}
-
-.react-datepicker__day-name,
-.react-datepicker__day,
-.react-datepicker__time-name {
-    width: 2.7rem !important;
-    line-height: 2rem !important;
 }
 
 .react-datepicker__navigation-icon {

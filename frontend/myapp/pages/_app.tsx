@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-
+import SmoothScroll from '../components/Scolling/SmoothScroll';
 
 
 
@@ -83,6 +83,7 @@ const App = ({ Component, pageProps, router }: AppProps) => {
           <Component {...pageProps} />
          </motion.div>
       </AnimatePresence>
+      
     </>
   );
 };
