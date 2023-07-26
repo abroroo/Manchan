@@ -68,6 +68,7 @@ const AddressFinder: React.FC<AddressFinderProps> = ({ setEventAddress, buttonBa
           placeholder='주소를 입력'
         />
         <button
+        type='button'
           onClick={handleSubmitAddress}
           className="px-4 md:px-10 py-2 bg-[#49111c] text-white rounded ml-2"
           style={{ background: buttonBackground }}

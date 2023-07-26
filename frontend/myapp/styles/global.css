@@ -98,12 +98,18 @@ body {
 
 .datePicker {
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    
 }
 
 .react-datepicker {
     width: 100% !important;
     border-radius: 2%;
     font-size: 16px !important;
+    
 }
 
 .react-datepicker__header {

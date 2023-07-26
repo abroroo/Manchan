@@ -110,17 +110,17 @@ const handleRadioChange = (e: any) => {
  useEffect(() => {
     setFormData((prevFormData: any) => ({
       ...prevFormData,
-      eventAddress: eventAddress,
-      accesories: selectedAccesories,
+      address: eventAddress,
+      tool: selectedAccesories,
     }));
   }, [eventAddress,  selectedAccesories]);
 
    // Initialize state to store the selected options for each question
    const [formData, setFormData] = useState<any>({
-    eventDate: eventDate, // initial date value
-    eventAddress: eventAddress,
-    phoneNumber: phoneNumber,
-    accesories: selectedAccesories
+    date_rigistered: eventDate, // initial date value
+    address: eventAddress,
+    phone_number: phoneNumber,
+    tool: selectedAccesories
   });
 
   // Handle changes in radio inputs and update the formData state
@@ -263,7 +263,7 @@ const checkboxAnimationsGeneral = {
   return (<>
   
 
-          <form className='w-full  h-full  bg-opacity-[0.98] mt-16 p-10 md:p-24 py-10 flex items-center justify-center flex-col  ' onSubmit={handleSubmit}>
+          <form className='w-full  h-full  bg-opacity-[0.98] mt-16 p-10 md:p-32 py-10 flex items-center justify-center flex-col  ' onSubmit={handleSubmit}>
 
 
 {/* Intro to Form */}
@@ -365,7 +365,7 @@ const checkboxAnimationsGeneral = {
       <motion.label 
       whileTap={checkboxAnimationsGeneral}
       className='flex border   text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer'>
-        <input type='radio' required  name='event'  value={1} onChange={handleInputChange}/>
+        <input type='radio' required  name='event_type'  value={1} onChange={handleInputChange}/>
         <span className='pl-2 text-[14px] md:text-[17px]'>개인 행사</span>
         
       </motion.label>
@@ -373,7 +373,7 @@ const checkboxAnimationsGeneral = {
       <motion.label 
       whileTap={checkboxAnimationsGeneral}
       className='flex border  text-[#49111c] rounded-lg py-[4px] md:py-[8px] pl-5 my-3  hover:bg-indigo-50 cursor-pointer'>
-        <input type='radio' required  name='event'  value={2} onChange={handleInputChange} />
+        <input type='radio' required  name='event_type'  value={2} onChange={handleInputChange} />
         <div className='flex flex-col'>
           <span className='pl-2 text-[14px] md:text-[17px]'>기업 행사</span>
           <span className='text-sm text-[#49111c]/50 pl-2'>워크숍, 신년/송년회, 기념식 등</span>
@@ -383,7 +383,7 @@ const checkboxAnimationsGeneral = {
       <motion.label 
        whileTap={checkboxAnimationsGeneral}
       className='flex border  text-[#49111c] rounded-lg py-[4px] md:py-[8px] pl-5 my-3  hover:bg-indigo-50 cursor-pointer'>
-        <input type='radio' required  name='event' value={3} onChange={handleInputChange} />
+        <input type='radio' required  name='event_type' value={3} onChange={handleInputChange} />
         <div className='flex flex-col'>
           <span className='pl-2 text-[14px] md:text-[17px]'>지역 행사</span>
           <span className='text-sm text-[#49111c]/50 pl-2'>축제, 체험행사 등</span>
@@ -393,7 +393,7 @@ const checkboxAnimationsGeneral = {
       <motion.label 
        whileTap={checkboxAnimationsGeneral}
        className='flex border  text-[#49111c] rounded-lg py-[4px] md:py-[8px] pl-5 my-3  hover:bg-indigo-50 cursor-pointer'>
-        <input type='radio' required  name='event' value={4} onChange={handleInputChange} />
+        <input type='radio' required  name='event_type' value={4} onChange={handleInputChange} />
         <div className='flex flex-col'>
           <span className='pl-2 text-[14px] md:text-[17px]'>홍보 행사</span>
           <span className='text-sm text-[#49111c]/50 pl-2'>전시, 박람회, 쇼케이스 등</span>
@@ -403,14 +403,14 @@ const checkboxAnimationsGeneral = {
       <motion.label 
        whileTap={checkboxAnimationsGeneral}
        className='flex border  text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer'>
-        <input type='radio' required name='event' value={5} onChange={handleInputChange} />
+        <input type='radio' required name='event_type' value={5} onChange={handleInputChange} />
         <span className='pl-2 text-[14px] md:text-[17px]'>강연/간담회</span>
       </motion.label>
 
       <motion.label 
        whileTap={checkboxAnimationsGeneral}
        className='flex border  text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer'>
-        <input type='radio' required name='event' value='other' onChange={handleRadioChange} title='직접 입력' />
+        <input type='radio' required name='event_type' value='other' onChange={handleRadioChange} title='직접 입력' />
         <span className='pl-2 text-[14px] md:text-[17px]'>기타</span>
       </motion.label>
 
@@ -419,7 +419,7 @@ const checkboxAnimationsGeneral = {
           <input
             type='text'
             className='ml-10 w-[90%] px-[15px] py-[14px]  rounded-lg text-[#49111c] border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-            name='event'
+            name='event_type'
             onChange={handleInputChange}
             
           />
@@ -440,21 +440,21 @@ const checkboxAnimationsGeneral = {
               <motion.label 
                whileTap={checkboxAnimationsGeneral}
                className="flex border text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                    <input type='radio'  required name="attendies" value={30} onChange={handleInputChange}/>
+                    <input type='radio'  required name="people_count" value={30} onChange={handleInputChange}/>
                     <span className="pl-2 text-[14px] md:text-[17px]">30명 미만</span>
               </motion.label>
 
               <motion.label 
                whileTap={checkboxAnimationsGeneral}
                className="flex border text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                  <input type='radio' required  name="attendies" value={50} onChange={handleInputChange}/>
+                  <input type='radio' required  name="people_count" value={50} onChange={handleInputChange}/>
                   <span className="pl-2 text-[14px] md:text-[17px]">50명 미만</span>
               </motion.label>
 
               <motion.label 
                whileTap={checkboxAnimationsGeneral}
                className="flex border text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                  <input type='radio' required  name="attendies"  value={100} onChange={handleInputChange}/>
+                  <input type='radio' required  name="people_count"  value={100} onChange={handleInputChange}/>
             
                   <span className="pl-2 text-[14px] md:text-[17px]">100명 미만</span>
                 
@@ -465,7 +465,7 @@ const checkboxAnimationsGeneral = {
               <motion.label 
                whileTap={checkboxAnimationsGeneral}
                className="flex border text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                  <input type='radio' required  name="attendies" value={200} onChange={handleInputChange}/>
+                  <input type='radio' required  name="people_count" value={200} onChange={handleInputChange}/>
                   
                   <span className="pl-2 text-[14px] md:text-[17px]">200명 미만</span>
                   
@@ -475,7 +475,7 @@ const checkboxAnimationsGeneral = {
               <motion.label 
                whileTap={checkboxAnimationsGeneral}
                className="flex border text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                    <input type='radio' required name="attendies"  value={300} onChange={handleInputChange}/>
+                    <input type='radio' required name="people_count"  value={300} onChange={handleInputChange}/>
                     
                     <span className="pl-2 text-[14px] md:text-[17px]">300명 미만</span> 
                     
@@ -484,7 +484,7 @@ const checkboxAnimationsGeneral = {
                 <motion.label 
                  whileTap={checkboxAnimationsGeneral}
                  className="flex border text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                    <input type='radio' required name="attendies" value={400} onChange={handleInputChange}/>
+                    <input type='radio' required name="people_count" value={400} onChange={handleInputChange}/>
                     
                     <span className="pl-2 text-[14px] md:text-[17px]">400명 미만</span>
                     
@@ -497,7 +497,7 @@ const checkboxAnimationsGeneral = {
                  className="flex border text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer">
               <input
                 type='radio' required
-                name="attendies"
+                name="people_count"
                 value="other"
                 onChange={handleRadioChange}
                 placeholder='직접 입력'
@@ -507,7 +507,7 @@ const checkboxAnimationsGeneral = {
 
             {showInput == 'true' && (
               <div className="mt-3">
-                <input type="text" className="ml-10 w-[90%] px-[15px] py-[14px] text-[#49111c]  rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name='attendies' onChange={handleInputChange}/>
+                <input type="text" className="ml-10 w-[90%] px-[15px] py-[14px] text-[#49111c]  rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name='people_count' onChange={handleInputChange}/>
               </div>
             )}
 
@@ -528,21 +528,21 @@ const checkboxAnimationsGeneral = {
               <motion.label 
                whileTap={checkboxAnimationsGeneral}
                className="flex border text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                    <input type='radio'  required name="budget" value={10000} onChange={handleInputChange}/>
+                    <input type='radio'  required name="meal_cost" value={10000} onChange={handleInputChange}/>
                     <span className="pl-2 text-[14px] md:text-[17px]">10.000 원 </span>
               </motion.label>
 
               <motion.label 
                whileTap={checkboxAnimationsGeneral}
                className="flex border text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                  <input type='radio' required  name="budget" value={15000} onChange={handleInputChange}/>
+                  <input type='radio' required  name="meal_cost" value={15000} onChange={handleInputChange}/>
                   <span className="pl-2 text-[14px] md:text-[17px]">15.000 원</span>
               </motion.label>
 
               <motion.label 
                whileTap={checkboxAnimationsGeneral}
                className="flex border text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                  <input type='radio' required  name="budget" value={20000} onChange={handleInputChange} />
+                  <input type='radio' required  name="meal_cost" value={20000} onChange={handleInputChange} />
             
                   <span className="pl-2 text-[14px] md:text-[17px]">20.000 원</span>
                 
@@ -553,7 +553,7 @@ const checkboxAnimationsGeneral = {
               <motion.label 
                whileTap={checkboxAnimationsGeneral}
                className="flex border text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                  <input type='radio' required  name="budget" value={30000} onChange={handleInputChange} />
+                  <input type='radio' required  name="meal_cost" value={30000} onChange={handleInputChange} />
                   
                   <span className="pl-2 text-[14px] md:text-[17px]">30.000 원</span>
                   
@@ -563,7 +563,7 @@ const checkboxAnimationsGeneral = {
               <motion.label 
                whileTap={checkboxAnimationsGeneral}
                className="flex border text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                    <input type='radio' required name="budget" value={40000} onChange={handleInputChange} />
+                    <input type='radio' required name="meal_cost" value={40000} onChange={handleInputChange} />
                     
                     <span className="pl-2 text-[14px] md:text-[17px]">40.000 원</span> 
                     
@@ -572,7 +572,7 @@ const checkboxAnimationsGeneral = {
                 <motion.label 
                  whileTap={checkboxAnimationsGeneral}
                  className="flex border text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                    <input type='radio' required name="budget" value={50000} onChange={handleInputChange}/>
+                    <input type='radio' required name="meal_cost" value={50000} onChange={handleInputChange}/>
                     
                     <span className="pl-2 text-[14px] md:text-[17px]">50.000 원</span>
                     
@@ -585,7 +585,7 @@ const checkboxAnimationsGeneral = {
                  className="flex border text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer">
               <input
                 type='radio' required
-                name="budget"
+                name="meal_cost"
                 value="other"
                 onChange={handleRadioChange}
                 placeholder='직접 입력'
@@ -595,7 +595,7 @@ const checkboxAnimationsGeneral = {
 
             {showInput == 'true' && (
               <div className="mt-3">
-                <input type="text" className="ml-10 w-[90%] px-[15px] py-[14px] text-[#49111c]  rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name='budget' onChange={handleInputChange}/>
+                <input type="text" className="ml-10 w-[90%] px-[15px] py-[14px] text-[#49111c]  rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name='meal_cost' onChange={handleInputChange}/>
               </div>
             )}
 
@@ -616,14 +616,14 @@ const checkboxAnimationsGeneral = {
             <motion.label 
              whileTap={checkboxAnimationsGeneral}
              className="flex border  text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                  <input type='radio' required name="venue" value={1} onChange={handleInputChange} />
+                  <input type='radio' required name="event_place" value={1} onChange={handleInputChange} />
                   <span className="pl-2 text-[14px] md:text-[17px]">호텔</span>
             </motion.label>
 
             <motion.label 
              whileTap={checkboxAnimationsGeneral}
              className="flex border  text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                <input type='radio' required  name="venue"  value={2} onChange={handleInputChange}/>
+                <input type='radio' required  name="event_place"  value={2} onChange={handleInputChange}/>
                 <div className='flex flex-col'>
                 <span className="pl-2 text-[14px] md:text-[17px]">이벤트/컨벤션홀</span>
                 </div>
@@ -633,7 +633,7 @@ const checkboxAnimationsGeneral = {
             <motion.label
              whileTap={checkboxAnimationsGeneral}
             className="flex border  text-[#49111c] rounded-lg py-[4px] md:py-[8px] pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                <input type='radio' required  name="venue" value={3} onChange={handleInputChange} />
+                <input type='radio' required  name="event_place" value={3} onChange={handleInputChange} />
                 <div className='flex flex-col'>
                 <span className="pl-2 text-[14px] md:text-[17px]">주거 공간</span>
                 <span className='text-sm text-[#49111c]/50 pl-2'>주택, 빌라 등</span>
@@ -644,7 +644,7 @@ const checkboxAnimationsGeneral = {
             <motion.label
              whileTap={checkboxAnimationsGeneral} 
             className="flex border  text-[#49111c] rounded-lg py-[4px] md:py-[8px] pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                <input type='radio' required  name="venue" value={4} onChange={handleInputChange}/>
+                <input type='radio' required  name="event_place" value={4} onChange={handleInputChange}/>
                 <div className='flex flex-col'>
                 <span className="pl-2 text-[14px] md:text-[17px]">사내 공간</span>
                 <span className='text-sm text-[#49111c]/50 pl-2'>강당, 사무실, 로비 등</span>
@@ -655,7 +655,7 @@ const checkboxAnimationsGeneral = {
             <motion.label 
              whileTap={checkboxAnimationsGeneral}
              className="flex border  text-[#49111c] rounded-lg py-[4px] md:py-[8px] pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                  <input type='radio' required name="venue" value={5} onChange={handleInputChange}/>
+                  <input type='radio' required name="event_place" value={5} onChange={handleInputChange}/>
                   <div className='flex flex-col'>
                   <span className="pl-2 text-[14px] md:text-[17px]">기타 실내</span> 
                   <span className='text-sm text-[#49111c]/50 pl-2'>극장, 공연장, 클럽 등</span>
@@ -665,7 +665,7 @@ const checkboxAnimationsGeneral = {
               <motion.label 
                whileTap={checkboxAnimationsGeneral}
                className="flex border  text-[#49111c] rounded-lg py-[4px] md:py-[8px] pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                  <input type='radio' required name="venue" value={6} onChange={handleInputChange}/>
+                  <input type='radio' required name="event_place" value={6} onChange={handleInputChange}/>
                   <div className='flex flex-col'>
                   <span className="pl-2 text-[14px] md:text-[17px]">기타 야외</span>
                   <span className='text-sm text-[#49111c]/50 pl-2'>체육관, 공원, 캠핑장 등</span>
@@ -675,7 +675,7 @@ const checkboxAnimationsGeneral = {
               <motion.label 
                whileTap={checkboxAnimationsGeneral}
                className="flex border  text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                  <input type='radio' required name="venue" value={7} onChange={handleInputChange}/>
+                  <input type='radio' required name="event_place" value={7} onChange={handleInputChange}/>
                   <span className="pl-2 text-[14px] md:text-[17px]">미정</span>
                   
               </motion.label>
@@ -685,7 +685,7 @@ const checkboxAnimationsGeneral = {
                className="flex border  text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer">
             <input
               type='radio' required
-              name="venue"
+              name="event_place"
               value="other"
               onChange={handleRadioChange}
               placeholder='직접 입력'
@@ -695,7 +695,7 @@ const checkboxAnimationsGeneral = {
 
           {showInput == 'true' && (
             <div className="mt-3">
-              <input type="text" className="ml-10 w-[90%] px-[15px] py-[14px] text-[#49111c]  rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name='venue' onChange={handleInputChange} />
+              <input type="text" className="ml-10 w-[90%] px-[15px] py-[14px] text-[#49111c]  rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name='event_place' onChange={handleInputChange} />
             </div>
           )}
 
@@ -718,7 +718,7 @@ const checkboxAnimationsGeneral = {
             <motion.label 
              whileTap={checkboxAnimationsGeneral}
              className="flex border  text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                  <input type='checkbox' required name="accessory" value='chairs' onChange={handleCheckboxAccesories}/>
+                  <input type='checkbox' required name="tool" value='chairs' onChange={handleCheckboxAccesories}/>
                   <div className='flex flex-col'>
                 <span className="pl-2 text-[14px] md:text-[17px]">Chairs</span>
                 <span className="text-sm text-[#49111c]/50 pl-2">Plastic chairs with cover</span>
@@ -728,7 +728,7 @@ const checkboxAnimationsGeneral = {
             <motion.label 
              whileTap={checkboxAnimationsGeneral}
              className="flex border  text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                <input type='checkbox' required  name="accessory" value='table' onChange={handleCheckboxAccesories}/>
+                <input type='checkbox' required  name="tool" value='table' onChange={handleCheckboxAccesories}/>
                 <div className='flex flex-col'>
                 <span className="pl-2 text-[14px] md:text-[17px]">Table</span>
                 <span className="text-sm text-[#49111c]/50 pl-2">Circle or square wood tables with cover</span>
@@ -739,7 +739,7 @@ const checkboxAnimationsGeneral = {
             <motion.label 
              whileTap={checkboxAnimationsGeneral}
              className="flex border  text-[#49111c] rounded-lg py-[4px] md:py-[8px] pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                <input type='checkbox' required  name="accessory" value='tent' onChange={handleCheckboxAccesories}/>
+                <input type='checkbox' required  name="tool" value='tent' onChange={handleCheckboxAccesories}/>
                 <div className='flex flex-col'>
                 <span className="pl-2 text-[14px] md:text-[17px]">Tent</span>
                 <span className='text-sm text-[#49111c]/50 pl-2'>One set 10 meters long</span>
@@ -750,7 +750,7 @@ const checkboxAnimationsGeneral = {
             <motion.label
              whileTap={checkboxAnimationsGeneral}
              className="flex border  text-[#49111c] rounded-lg py-[4px] md:py-[8px] pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                <input type='checkbox' required  name="accessory" value='music' onChange={handleCheckboxAccesories}/>
+                <input type='checkbox' required  name="tool" value='music' onChange={handleCheckboxAccesories}/>
                 <div className='flex flex-col'>
                 <span className="pl-2 text-[14px] md:text-[17px]">Music</span>
                 <span className='text-sm text-[#49111c]/50 pl-2'>Speakers, microphone</span>
@@ -761,7 +761,7 @@ const checkboxAnimationsGeneral = {
             <motion.label 
              whileTap={checkboxAnimationsGeneral}
              className="flex border  text-[#49111c] rounded-lg py-[4px] md:py-[8px] pl-5 my-3  hover:bg-indigo-50 cursor-pointer ">
-                  <input type='checkbox' required name="accessory" value='ceremony' onChange={handleCheckboxAccesories}/>
+                  <input type='checkbox' required name="tool" value='ceremony' onChange={handleCheckboxAccesories}/>
                   <div className='flex flex-col'>
                   <span className="pl-2 text-[14px] md:text-[17px]">Ceremony Accesosories </span> 
                   <span className='text-sm text-[#49111c]/50 pl-2'>Red carpet, ribbon, scissors</span>
@@ -774,7 +774,7 @@ const checkboxAnimationsGeneral = {
                className="flex border  text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3  hover:bg-indigo-50 cursor-pointer">
             <input
               type='radio' required
-              name="accessory"
+              name="tool"
               value="other"
               onChange={handleRadioChange}
               placeholder='직접 입력'
@@ -784,7 +784,7 @@ const checkboxAnimationsGeneral = {
 
           {showInput == 'true' && (
             <div className="mt-3">
-              <input type="text" className="ml-10 w-[90%] px-[15px] py-[14px] text-[#49111c]  rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name='accessory' onChange={handleCheckboxAccesories}/>
+              <input type="text" className="ml-10 w-[90%] px-[15px] py-[14px] text-[#49111c]  rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name='tool' onChange={handleCheckboxAccesories}/>
             </div>
           )}
 
@@ -806,21 +806,21 @@ const checkboxAnimationsGeneral = {
               <motion.label 
                whileTap={checkboxAnimationsGeneral}
                className="flex border text-[#49111c] rounded-lg  p-3 md:p-4 pl-5 my-3 hover:bg-indigo-50 cursor-pointer ">
-                    <input type='radio' required name="duration" value={1} onChange={handleInputChange}/>
+                    <input type='radio' required name="event_duration" value={1} onChange={handleInputChange}/>
                     <span className="pl-2 text-[14px] md:text-[17px]">1시간</span>
               </motion.label>
 
               <motion.label 
                whileTap={checkboxAnimationsGeneral}
                className="flex border text-[#49111c] rounded-lg  p-3 md:p-4 pl-5 my-3 hover:bg-indigo-50 cursor-pointer ">
-                  <input type='radio' required  name="duration" value={2} onChange={handleInputChange}/>
+                  <input type='radio' required  name="event_duration" value={2} onChange={handleInputChange}/>
                   <span className="pl-2 text-[14px] md:text-[17px]">2시간</span>
               </motion.label>
 
               <motion.label 
                whileTap={checkboxAnimationsGeneral}
                className="flex border text-[#49111c] rounded-lg  p-3 md:p-4 pl-5 my-3 hover:bg-indigo-50 cursor-pointer ">
-                  <input type='radio' required  name="duration" value={3} onChange={handleInputChange}/>
+                  <input type='radio' required  name="event_duration" value={3} onChange={handleInputChange}/>
             
                   <span className="pl-2 text-[14px] md:text-[17px]">3시간</span>
                 
@@ -831,7 +831,7 @@ const checkboxAnimationsGeneral = {
               <motion.label 
                whileTap={checkboxAnimationsGeneral}
                className="flex border text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3 hover:bg-indigo-50 cursor-pointer ">
-                  <input type='radio' required  name="duration" value={4} onChange={handleInputChange}/>
+                  <input type='radio' required  name="event_duration" value={4} onChange={handleInputChange}/>
                   
                   <span className="pl-2 text-[14px] md:text-[17px]">4시간</span>
                   
@@ -841,7 +841,7 @@ const checkboxAnimationsGeneral = {
               <motion.label 
                whileTap={checkboxAnimationsGeneral}
                className="flex border text-[#49111c] rounded-lg  p-3 md:p-4 pl-5 my-3 hover:bg-indigo-50 cursor-pointer ">
-                    <input type='radio' required name="duration" value={5} onChange={handleInputChange}/>
+                    <input type='radio' required name="event_duration" value={5} onChange={handleInputChange}/>
                     
                     <span className="pl-2 text-[14px] md:text-[17px]">5시간</span> 
                     
@@ -854,7 +854,7 @@ const checkboxAnimationsGeneral = {
                  className="flex border text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3 hover:bg-indigo-50 cursor-pointer">
               <input
                 type='radio' required
-                name="duration"
+                name="event_duration"
                 value="allDay"
                 onChange={handleInputChange}
                 
@@ -868,7 +868,7 @@ const checkboxAnimationsGeneral = {
                  className="flex border text-[#49111c] rounded-lg p-3 md:p-4 pl-5 my-3 hover:bg-indigo-50 cursor-pointer">
               <input
                 type='radio' required
-                name="duration"
+                name="event_duration"
                 value="other"
                 onChange={handleRadioChange}
                 placeholder='직접 입력'
@@ -878,7 +878,7 @@ const checkboxAnimationsGeneral = {
 
             {showInput == 'true' && (
               <div className="mt-3">
-                <input type="text" className="ml-10 w-[90%] px-[15px] py-[14px] text-[#49111c]  rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name='duration' onChange={handleInputChange} />
+                <input type="text" className="ml-10 w-[90%] px-[15px] py-[14px] text-[#49111c]  rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name='event_duration' onChange={handleInputChange} />
               </div>
             )}
 
@@ -896,9 +896,12 @@ const checkboxAnimationsGeneral = {
             onChange={(date) => setEventDate(date || new Date())}
             minDate={new Date()}
             inline
+            showTimeSelect
             locale={ko} // Set the Korean locale
             wrapperClassName="datePicker"
             required
+            
+            
             />
       </div>
        )}
