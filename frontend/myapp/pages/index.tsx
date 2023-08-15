@@ -1,10 +1,7 @@
-import Navbar from '../components/Navbar';
-import SmoothScroll from '../components/Scolling/SmoothScroll'
-import { motion, useAnimation, AnimatePresence } from 'framer-motion';
-import { useEffect, useRef, useState, ChangeEvent } from 'react';
+import { motion, useAnimation } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBellConcierge, faUtensils, faSpoon, faPlus } from '@fortawesome/free-solid-svg-icons'
 

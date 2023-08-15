@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Form from './Form';
 import Link from 'next/link';
@@ -17,17 +17,13 @@ const FormPage = () => {
 
 
   const [parentButtonBackground, setParentButtonBackground] =
-  useState<string>("");
+  useState<string>("#6161ff");
 
 // Callback function to update the parent's button background
 const handleButtonBackgroundChange = (background: string) => {
   setParentButtonBackground(background);
+  console.log(background)
 };
-
-
-
-
-
 
 
 
@@ -35,12 +31,9 @@ const handleButtonBackgroundChange = (background: string) => {
 
   return (
     <div className='flex w-screen h-screen '>
-      <div style={{ background: parentButtonBackground }} className=' flex flex-col md:flex-row w-full bg-[#6161ff] '>
+      <div  className={` flex flex-col md:flex-row w-full bg-${parentButtonBackground}  `}>
       
-      
-      
-      
-
+    
         {/* LEFT HALF */}
 
 

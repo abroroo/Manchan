@@ -1,8 +1,8 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBellConcierge, faUtensils, faSpoon, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { motion, useAnimation, AnimatePresence } from 'framer-motion';
-import { useEffect, useRef, useState, ChangeEvent } from 'react';
+import { faBellConcierge, faUtensils, faSpoon } from '@fortawesome/free-solid-svg-icons'
+import { motion, useAnimation } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 interface Props {}

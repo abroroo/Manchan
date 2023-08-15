@@ -5,7 +5,7 @@ import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import SmoothScroll from '../components/Scolling/SmoothScroll';
-
+import {Html, Head, Main, NextScript} from 'next/document'
 
 
 const App = ({ Component, pageProps, router }: AppProps) => {
@@ -24,6 +24,14 @@ const App = ({ Component, pageProps, router }: AppProps) => {
 
   return (
     <>
+    <Head>
+    <link rel="manifest" href={"/manifest.json"}/>
+    <link rel={"apple-touch-icon"} href={".icons/apple-icon-180.png"}></link>
+    <meta name={"theme-color"} content={"#FFF"}/>
+    <meta charSet='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1 shrink-to-fit=no' />
+    
+    </Head>
     <motion.div
     // initial={{opacity: 0, y: -100, }}
     // animate={navLoader}

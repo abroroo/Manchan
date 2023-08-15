@@ -6,7 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import Image from 'next/image';
 import ko from "date-fns/locale/ko"; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronLeft, faChevronRight, faCaretRight, faCaretLeft } from '@fortawesome/free-solid-svg-icons'
+import { faCaretRight, faCaretLeft } from '@fortawesome/free-solid-svg-icons'
+import { init } from 'next/dist/compiled/@vercel/og/satori';
 
 
 
@@ -105,7 +106,6 @@ const handleRadioChange = (e: any) => {
 
 
 
-
  // Update formData whenever eventAddress changes
  useEffect(() => {
     setFormData((prevFormData: any) => ({
@@ -119,7 +119,7 @@ const handleRadioChange = (e: any) => {
    const [formData, setFormData] = useState<any>({
     date_rigistered: eventDate, // initial date value
     address: eventAddress,
-    phone_number: phoneNumber,
+    //phone_number: phoneNumber,
     tool: selectedAccesories
   });
 
@@ -132,19 +132,62 @@ const handleRadioChange = (e: any) => {
 
 
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        
-       
-        
-        try {
-          // Perform your API request or any other necessary actions
-          console.log('Form Data!')
-          console.log(JSON.stringify(formData));
-          console.log(formData)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const [customer_id, setCustomer_id] = useState(null as any);
+
+
+
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     
-        } catch (error) {
-          console.error(error);
+    try {
+      const formData = new FormData(e.currentTarget);
+      
+      
+      if (customer_id === null) {
+        // Create a new customer if customer_id is null
+        const response = await fetch('http://127.0.0.1:8000/api/new_customer', {
+          method: 'GET',
+        });
+        
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        
+        const newCustomer = await response.json();
+        // customer_id = newCustomer.id;
+      }
+      
+      // Update the customer with the form data
+      const response = await fetch(`http://127.0.0.1:8000/api/customer_update/${customer_id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+        }
+        
+        console.log('Customer updated successfully!');
+
+      }catch (error) {
+          console.error("Couldn't get customer id or can't update customer data: " + error);
         }
       };
   
@@ -186,6 +229,12 @@ const handleRadioChange = (e: any) => {
     setFormData((prevFormData : any) => ({ ...prevFormData, [name]: value }));
     setPhoneNumberError('');
   };
+
+
+
+
+
+
 
 
 
@@ -238,6 +287,7 @@ const checkboxAnimationsGeneral = {
     else if (selectedEvent === "birthday") initialButtonBackground = "#9D174D";
     else if (selectedEvent === "other") initialButtonBackground = "#C05621";
     setButtonBackground(initialButtonBackground);
+   
   }, [selectedEvent]);
 
   const handleCheckboxChange = (value: string) => {
@@ -321,7 +371,7 @@ const checkboxAnimationsGeneral = {
         <motion.div 
         whileTap={checkboxAnimations}
         className='event_range_wrapper w-28 h-28 md:w-36 md:h-36 relative m-1 md:m-2 xl:m-4 text-[#49111c] border rounded-md cursor-pointer peer-checked:border-[#7C3AED] peer-checked:text-[#7C3AED] hover:text-[#7C3AED] hover:bg-gray-50 text-md select-none pl-[6px] pt-[2px]'>
-            <input type='checkbox' value='festival' id='festival' checked={selectedEvent === 'festival'} onChange={() => handleCheckboxChange('festival')} style={{ alignSelf: 'flex-start' }} />
+            <input type='checkbox' value='festival' id='festival' checked={selectedEvent === 'festival'} onChange={() => handleCheckboxChange('festival')} className='flex justify-start items-start' />
             <label htmlFor="festival" className="absolute inset-0 flex flex-col items-center justify-center">
             <img width="64" height="64" src="/images/icons/festival.png" alt="festival" className=''/>
             제전
@@ -896,9 +946,8 @@ const checkboxAnimationsGeneral = {
             onChange={(date) => setEventDate(date || new Date())}
             minDate={new Date()}
             inline
-            showTimeSelect
             locale={ko} // Set the Korean locale
-            wrapperClassName="datePicker"
+           // wrapperClassName="datePicker"
             required
             
             
@@ -966,10 +1015,10 @@ const checkboxAnimationsGeneral = {
   </button>
   )}
  <motion.button
-    style={{ background: buttonBackground, color: "#fff" }}
+    
     onClick={handleNext} 
     type='submit'
-    className='w-[100%] h-12 text-md py-2  tracking-wider rounded-[5px] border text-[#49111c] focus:outline-none focus:bg-blue mt-5 max-w-sm  text-[14px] md:text-[16px] bg-[#6161ff]'
+    className={`w-[100%] h-12 text-md py-2  tracking-wider rounded-[5px] border text-[#49111c] focus:outline-none focus:bg-blue mt-5 max-w-sm  text-[14px] md:text-[16px] bg-${buttonBackground}}`} 
   >
     {currentQuestion < totalQuestions - 1 ? (
       <>
