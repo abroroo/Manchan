@@ -5,13 +5,15 @@ import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import SmoothScroll from '../components/Scolling/SmoothScroll';
-
+import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Script from "next/script"
 
 
 const App = ({ Component, pageProps, router }: AppProps) => {
   const currentRoute = router.route;
   const isHomePage = currentRoute === '/';
   const isRegisterPage = currentRoute === '/register-page';
+  const isIntroPage = currentRoute === '/intro';
 
   const navLoader = useAnimation();
 
@@ -24,16 +26,19 @@ const App = ({ Component, pageProps, router }: AppProps) => {
 
   return (
     <>
+  
+       
     <motion.div
     // initial={{opacity: 0, y: -100, }}
     // animate={navLoader}
     // transition={{duration: 1, delay: 2.7 }}
-    style={{display: isHomePage ? "none" : "block"}}
+    style={{display: isHomePage || isIntroPage ? "none" : "block"}}
     >
     <Navbar />
     </motion.div>
-     
+    
        <AnimatePresence mode="sync">
+       
         <motion.div
           key={currentRoute}
           initial="pageInitial"
@@ -43,7 +48,7 @@ const App = ({ Component, pageProps, router }: AppProps) => {
             pageInitial: {
               opacity: 1,
               y: isRegisterPage ? '100%' : 0,
-              x: isHomePage || isRegisterPage ? 0 : '-100%',
+              x: isHomePage || isIntroPage || isRegisterPage ? 0 : '-100%',
             },
             pageAnimate: {
                             opacity: 1,
@@ -54,22 +59,22 @@ const App = ({ Component, pageProps, router }: AppProps) => {
                               // stiffness: 230,
                               // damping: 50,
                               ease: [0.83, 0, 0.17, 1],
-                              duration: 1.1,
+                              duration: 0.6,
                               
                               
                             },
                           },
             pageExit: {
               
-              x: isHomePage ? 0 : '100%',
-              y: isHomePage ? "-100%" : 0,
-              opacity: isHomePage ? 0 : 1,
+              x: isHomePage || isIntroPage ? 0 : '100%',
+              y: isHomePage || isIntroPage ? "-100%" : 0,
+              opacity: isHomePage || isIntroPage ? 0 : 1,
               
               
             },
           }}
           transition={{
-            duration: 1.1,
+            duration: 0.6,
             ease: [0.83, 0, 0.17, 1],
           }}
           style={{
@@ -83,6 +88,9 @@ const App = ({ Component, pageProps, router }: AppProps) => {
           <Component {...pageProps} />
          </motion.div>
       </AnimatePresence>
+      
+     
+    
       
     </>
   );

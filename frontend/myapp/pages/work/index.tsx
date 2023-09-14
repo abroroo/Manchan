@@ -5,9 +5,9 @@ interface Props {}
 const index = () => {
   return (<div className='bg-[#fff] h-screen w-screen'>
 
-    <h1 className='text-[120px] text-gray-300 font-extrabold  h-[20%] w-[70%] flex items-center justify-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-40'>최근 이벤트</h1>
+    <h1 className='text-[120px] text-gray-300 font-extrabold  h-[20%] w-[100%] flex items-center justify-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-40'>최근 이벤트</h1>
 {/* Top container */}
-     <div className='top_image_wrapper  flex flex-row z-10 absolute  w-screen mt-5  '>
+     <div className='top_image_wrapper  flex flex-row z-10 absolute  w-full mt-5  '>
        {/* Container for small images in the top */}
        <div className='small_images_top flex flex-row absolute h-screen animate-bg-row1'>
        <div className='sm_image_container m-10  flex h-[90vh] items-start mx-20'>
