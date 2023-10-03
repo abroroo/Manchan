@@ -178,6 +178,48 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
 
 
 
+// post formDataTransferred to the backend and save it to the database
+
+useEffect(() => {
+
+  const createNewCustomer = async () => {
+
+    try {
+      const res = await fetch('/api/new_customer', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
+  const saveFormData = async () => {
+    try {
+      const res = await fetch('/api/form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formDataTransfered),
+      });
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  if (isCurrentQuestion === 8) {
+    saveFormData();
+  }
+})
+
 
 
 
