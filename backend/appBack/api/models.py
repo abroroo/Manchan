@@ -71,7 +71,7 @@ class Customer(models.Model):
     event_date = models.DateTimeField(blank=True, null=True)
     address = models.CharField(max_length=200, blank=True, null=True)
     meal_cost = models.CharField(max_length=200, choices=meal_costs, blank=True, null=True)
-    tool = models.ManyToManyField(Tool, blank=True)
+    tool = models.ManyToManyField(Tool, blank=True, null=True)
 
     date_registered = models.DateTimeField(auto_now_add=True)
     ticket_number = models.IntegerField(blank=True, null=True)

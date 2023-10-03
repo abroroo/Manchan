@@ -78,22 +78,23 @@ tools = (
 def api(request):
     return Response({"message": "Welcome to the API"})
 
-class CustomerCreateAPIView(generics.CreateAPIView):
-    queryset = models.Customer.objects.all()
-    serializer_class = models.CustomerSerializer
-    def perform_create(self, serializer):
-        all_customers = models.Customer.objects.values()
-        all_tickets = []
 
-        for k in all_customers:
-            all_tickets.append(k['ticket_number'])
+# class CustomerCreateAPIView(generics.CreateAPIView):
+#     queryset = models.Customer.objects.all()
+#     serializer_class = models.CustomerSerializer
+#     def perform_create(self, serializer):
+#         all_customers = models.Customer.objects.values()
+#         all_tickets = []
 
-        while True:
-            my_ticket_number = random.randint(1, 100000000)
-            if my_ticket_number not in all_tickets:
-                    serializer.save(ticket_number=my_ticket_number)
-                    Response({'ticket_number': my_ticket_number})
-            break
+#         for k in all_customers:
+#             all_tickets.append(k['ticket_number'])
+
+#         while True:
+#             my_ticket_number = random.randint(1, 100000000)
+#             if my_ticket_number not in all_tickets:
+#                     serializer.save(ticket_number=my_ticket_number)
+#                     Response({'ticket_number': my_ticket_number})
+#             break
 
 class CustomerViewAPIView(generics.RetrieveAPIView):
     queryset = models.Customer.objects.all()
@@ -244,18 +245,18 @@ def generatePDF(request, ticket_number):
 #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-#@api_view(['GET'])
-# def new_customer(request):
-#     all_customers = models.Customer.objects.values()
-#     all_tickets = []
+@api_view(['GET'])
+def new_customer(request):
+    all_customers = models.Customer.objects.values()
+    all_tickets = []
 
-#     for k in all_customers:
-#         all_tickets.append(k['ticket_number'])
+    for k in all_customers:
+        all_tickets.append(k['ticket_number'])
 
-#     while True:
-#         ticket_number = random.randint(1, 100000000)
-#         if ticket_number not in all_tickets:
-#             models.Customer.objects.create(name=request.GET.get('name'), address=request.GET.get('address'), \
-#                                         phone_number=request.GET.get('phone_number'), ticket_number=ticket_number)
-#         break
-#     return Response({'ticket_number' : ticket_number})
+    while True:
+        ticket_number = random.randint(1, 100000000)
+        if ticket_number not in all_tickets:
+            models.Customer.objects.create(name=request.GET.get('name'), address=request.GET.get('address'), \
+                                        phone_number=request.GET.get('phone_number'), ticket_number=ticket_number)
+        break
+    return Response({'ticket_number' : ticket_number})
