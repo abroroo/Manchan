@@ -55,17 +55,21 @@ const Navbar = () => {
     
       <motion.div className="fixed w-screen  z-[100] p-2 md:p-3  font-outfit  shadow-inner bg-[#fff] xl:bg-transparent">
      
-        <div className={`flex flex-row p-2 items-center justify-between tracking-wide  ${isCurrentPage('/about') ? 'text-[#fff]' : 'text-[#1d040b]'} `}>
+        <div className={`flex flex-row p-2 items-center justify-between tracking-wide  ${isCurrentPage('/about') ? 'text-[#49111c]' : 'text-[#1d040b]'} `}>
         <Link href="/"  className={`font-bold text-xl mx-1   `}>Food컴</Link>
-          {/* <p className={`mx-5 ${isCurrentPage('/menu') ? 'text-black' : 'text-slate-200'}`}>Menu</p>
-          <p className={`mx-5 ${isCurrentPage('/') ? 'text-white' : 'text-slate-200'}`}>Order</p> */}
-          <button onClick={handleMenuClick} className={`mx-1 w-12 h-10 block   ${isCurrentPage('/register-page') ? 'text-[#fff]' : 'text-[#49111c]'}`}>
-          {isModalOpen ? <FontAwesomeIcon icon={faXmark} size='lg' className='text-[#49111c]'/> :<FontAwesomeIcon icon={faBars} className='text-[#49111c] md:text-[#49111c]' size='lg' />  }
-          </button>
+        {currentRoute === '/register-page' ? 
+          <Link href="/about"  className='hidden md:block mx-1 w-10 h-10 text-[16px] font-semibold'>
+         대해
+          </Link>
+          : <Link href="/register-page"  className='hidden mx-1 w-10 h-10 md:block text-[16px] font-semibold'>
+          용지
+           </Link>}
           
           
           
-         
+          {isModalOpen ? <button onClick={handleMenuClick}>
+          <FontAwesomeIcon icon={faXmark} size='lg' className='text-[#49111c] text-[20px]'/>
+          </button> : <button onClick={handleMenuClick}><FontAwesomeIcon icon={faBars} className='text-[#49111c] md:text-[#49111c]' size='lg'  /> </button>}
         </div>
       </motion.div>
       {isModalOpen && (

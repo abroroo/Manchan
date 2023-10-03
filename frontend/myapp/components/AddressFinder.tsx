@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import getAddressData, { AddressData } from '../utils/getAddressData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faMapLocationDot } from '@fortawesome/free-solid-svg-icons'
 import {motion} from 'framer-motion';
 import { createKakaoMap, createMarker } from '../utils/kakaoMap'; 
 //import * as kakao from 'kakao-maps-sdk';
@@ -132,7 +132,7 @@ const AddressFinder: React.FC<AddressFinderProps> = ({ setEventAddress, buttonBa
       whileInView={{ x: 0}}
       transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
       className="mb-5 flex items-center justify-center text-lg lg:text-[22px] font-semibold font-kr">
-        행사 예정 지역을 선택해주세요
+        <FontAwesomeIcon icon={faMapLocationDot} style={{color: buttonBackground}} className='w-9 h-9 mr-2' /> 행사 예정 지역을 선택해주세요
       </motion.h1>
       <motion.div 
       initial={{ x: -200}}
@@ -143,9 +143,9 @@ const AddressFinder: React.FC<AddressFinderProps> = ({ setEventAddress, buttonBa
           type="text"
           value={addressQuery}
           onChange={handleChange}
-          className="flex-grow px-3 border border-gray-300 rounded"
+          className="flex-grow  w-[100%] h-10 mt-1 text-[#49111c] my-0 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c]"
           required
-          placeholder='주소를 입력'
+          placeholder='주소를 입력하세요'
         />
         <button
         type='submit'
@@ -185,7 +185,7 @@ const AddressFinder: React.FC<AddressFinderProps> = ({ setEventAddress, buttonBa
         </div>
       )}
 
-<Map className="w-full h-full" 
+<Map className="w-full h-full border" 
 center={{ lat: 37.5566803113882, lng: 126.904501286522 }} 
 style={{ height: '300px' }} level={3}
 onClick={(_t, mouseEvent) => {

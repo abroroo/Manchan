@@ -14,6 +14,7 @@ module.exports = {
             'kr': ['Noto Serif KR', 'serif'],
         }
     },
+    
     variants: {},
 
     content: [

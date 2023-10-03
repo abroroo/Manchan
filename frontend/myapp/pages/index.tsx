@@ -117,7 +117,7 @@ const yPostionDivText = useTransform(scrollY, [0, 400], [0, -200])
 
 
                 
-              <h1  className=' mt-[50px] md:mt-[200px]   text-[25px] md:text-[35px] xl:text-[45px] font-[900]  text-[#49111c] px-2 md:px-5 rounded-md font-kr leading-relaxed'>임식이 필요한 <br className='block md:hidden' />모든행사 <br /><span className='flex items-center justify-center'>  
+              <h1  className='flex flex-col mt-[50px] md:mt-[100px]   text-[25px] md:text-[35px] xl:text-[45px] font-[900]  text-[#49111c] px-2 md:px-5 rounded-md font-kr leading-relaxed'><span className='flex items-center justify-center'>음식이 필요한 모든행사</span>  <span className='flex items-center justify-center'>  
               {/* <FontAwesomeIcon icon={faPlus}  className='text-[25px] mr-16 hidden md:block' /> */}
               무료 견적 플랫폼 
               {/* <FontAwesomeIcon icon={faPlus}  className='text-[25px] ml-16 hidden md:block' /> */}
@@ -176,7 +176,8 @@ const yPostionDivText = useTransform(scrollY, [0, 400], [0, -200])
               transition={{delay: 3.9, type: "spring", duration: 0.7, bounce: 0 }}
               viewport={{once: true}}
               className=' flex items-center justify-center flex-col p-5 md:px-7 xl:px-10 pb-0  font-light '>
-                <p className='text-[#49111c]/90  text-[18px] md:text-[20px]  leading-relaxed  '> 식사, 음식이 필요한 <br className='block md:hidden' />행사의 기획에서 견적, 실행, <br className='hidden md:block' /> 이밴드진행까지 책이지는 도작 푸드전물 플랫폼. <br className='hidden md:block' />고객 맞춤형 서비스 우한화사 푸드컴</p>
+                <p className='text-[#49111c]/90  text-[18px] md:text-[20px]  leading-relaxed  '> <span className='flex items-center justify-center'>30년경력 실무 전문가들의 고객 맞춤형 무료견적 플랫폼 -  “FOOD COM”
+ </span> <span className='flex items-center justify-center'>가족. 기업. 단체등 식사에서 이벤트까지 30년 경력의 전문가들이 </span><span className='flex items-center justify-center'>모여 맞춤형 서비스로 최고의 만족을 드립니다. </span><span className='flex justify-center items-center'>– 언제나 함께하는 푸드컴 –</span></p>
                 
               </motion.div>
 
@@ -218,14 +219,14 @@ const yPostionDivText = useTransform(scrollY, [0, 400], [0, -200])
                       
                       }}
                       //transition={{ type: "spring", stiffness: 400, damping: 100 }}
-                      className={`bg-[#900C3F] hover:bg-[#900C3F]/80 text-[#fff] border text-[17px]  md:px-10 z-20 flex flex-row justify-center items-center shadow-sm font-semibold leading-relaxed`}
+                      className={`bg-[#900C3F] hover:bg-[#900C3F]/80 text-[#fff] border text-[20px]  md:px-10 z-20 flex flex-row justify-center items-center shadow-sm font-semibold leading-relaxed`}
                       //whileTap={{ scale: [1, 1.1, 1] }}
                       onHoverStart={() => setIsHovered(true)} // Set isHovered to true when hovering starts
                       onHoverEnd={() => setIsHovered(false)} // Set isHovered to false when hovering ends
                     
                     >
                      
-                     시&nbsp;작&nbsp;하&nbsp;다 <motion.div 
+                     START <motion.div 
                         // initial={{rotate: 0}} 
                         // animate={isHovered ? {rotate: [ -15, 15, -15, 0]} : {}} 
                         // transition={{}}

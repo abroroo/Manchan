@@ -19,7 +19,7 @@ const SmoothScroll: React.FC<Props> = ({ children }) => {
   const [isScrolling, setIsScrolling] = useState(false);
 
   const data: Data = {
-    ease: windowSize.width > 500 ? 0.04 : 1,
+    ease: windowSize.width > 500 ? 0.08 : 1,
     current: 0,
     previous: 0,
     rounded: 0,

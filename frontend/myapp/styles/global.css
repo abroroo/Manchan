@@ -15,6 +15,8 @@ body {
     background-color: #fff;
     overflow: hidden;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
     /* #FFFBEB; */
     /* overflow-y: hidden;  rgb(243, 243, 239);   #F9FCFB;   #1d040b;  */
     -webkit-touch-callout: none;
@@ -27,7 +29,14 @@ user-select: none;
 /* font-family: 'NanumGothic', "Malgun Gothic", 'dotum', '돋움', sans-serif; */
 }
 
-
+  
+datalist {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    writing-mode: horizontal-tb;
+    
+  }
 /* Adjust the size and opacity of the noise pattern as needed */
 
 .landing {
@@ -47,6 +56,8 @@ user-select: none;
     ;
 }
 
+
+  
 
 /* .background-fade {
     background-color: transparent;
@@ -119,10 +130,18 @@ user-select: none;
     font-size: 16px !important;
     display: flex !important;
     flex-direction: row !important;
+    border: 1px solid #eeeeee !important;
+}
+.react-datepicker__year-read-view--down-arrow, .react-datepicker__month-read-view--down-arrow, .react-datepicker__month-year-read-view--down-arrow, .react-datepicker__navigation-icon::before {
+    border-color: #000000 !important;
+    height: 10px !important;
+
 }
 
+
 .react-datepicker__header {
-    background-color: #F8F8F8 !important;
+    background-color: #fff !important;
+    border-bottom: 1px solid #eeeeee !important;
 }
 
 .react-datepicker__month-container {
@@ -132,7 +151,7 @@ user-select: none;
 .react-datepicker__day-name,
 .react-datepicker__day,
 .react-datepicker__time-name {
-    width: 3.25rem !important;
+    width: 3.05rem !important;
     line-height: 2rem !important;
 }
 
@@ -140,8 +159,8 @@ user-select: none;
     .react-datepicker__day-name,
     .react-datepicker__day,
     .react-datepicker__time-name {
-        width: 2rem !important;
-        line-height: 1.7rem !important;
+        width: 1.5rem !important;
+        line-height: 1.9rem !important;
     }
 
     .react-datepicker {
@@ -151,6 +170,14 @@ user-select: none;
         flex-direction: row !important;
         
     }
+    .react-datepicker__time-container {
+        height: 15rem !important;
+    }
+    .react-datepicker-time__header {
+        height: 3.37rem !important;
+    
+    }
+    
 }
 
 .react-datepicker__month {
@@ -171,9 +198,37 @@ user-select: none;
 
 
 .react-datepicker__time-container {
-    height: 19rem;
+    height: 20rem !important;
+    border-left: 1px solid #eeeeee !important;
+    
 }
 .react-datepicker-time__header {
-    height: 3.4rem;
+    height: 3.47rem;
 
 }
+
+
+
+/*  range input datalist circles  */
+
+/* Custom CSS class for styling datalist options */
+.circle-options {
+    list-style-type: none; /* Remove the default list-style */
+    padding: 0; /* Remove default padding */
+    
+  }
+  
+  /* Style each option as a circle */
+  .circle-options option {
+    border-radius: 50%; /* Make each option a circle */
+    width: 5px; /* Adjust the size of the circle */
+    height: 5px; /* Adjust the size of the circle */
+    background-color: #007bff; /* Set the color of the circle */
+    margin-right: 0px; /* Adjust the spacing between circles */
+  }
+  
+  
+
+
+
+

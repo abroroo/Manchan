@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import SmoothScroll from '../components/Scolling/SmoothScroll';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import Script from "next/script"
+import SmoothScrollSimple from '../components/Scolling/SmoothScrollSimple';
 
 
 const App = ({ Component, pageProps, router }: AppProps) => {
@@ -89,7 +90,7 @@ const App = ({ Component, pageProps, router }: AppProps) => {
          </motion.div>
       </AnimatePresence>
       
-     
+      
     
       
     </>
