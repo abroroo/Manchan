@@ -6,33 +6,24 @@ from rest_framework import serializers
 from multiselectfield import MultiSelectField
 
 event_types = (
-    ('1', '개인 행사'),
-    ('2', '기업 행사'),
-    ('3', '지역 행사'),
-    ('4', '홍보 행사'),
-    ('5', '강연/간담회'),
-    ('6', '기타')
+    ('가족 개인행사', '가족 개인행사'),
+    ('기업 이벤트', '기업 이벤트'),
+    ('사회 단체행사', '사회 단체행사'),
+    ('기관, 축제등', '기관, 축제등'),
+    ('스몰웨딩, 야외결혼', '스몰웨딩, 야외결혼'),
+    ('스테이크 행사', '스테이크 행사'),
+    ('핑거푸드', '핑거푸드'),
+    ('키타 행사', '키타 행사')
 )
 
 event_places = (
-    ('1', '호텔'),
-    ('2', '이벤트/컨벤션홀'),
-    ('3', '주거 공간'),
-    ('4', '사내 공간'),
-    ('5', '기타 실내'),
-    ('6', '기타 야외'),
-    ('7', '미정'),
-    ('8', '기타')
-)
-
-people_counts = (
-    ('1', '30명 미만'),
-    ('2', '50명 미만'),
-    ('3', '100명 미만'),
-    ('4', '200명 미만'),
-    ('5', '300명 미만'),
-    ('6', '400명 미만'),
-    ('7', '기타')
+    ('실내', '실내'),
+    ('야외', '야외'),
+    ('체육관', '체육관'),
+    ('연회장', '연회장'),
+    ('호텔', '호텔'),
+    ('미정', '미정'),
+    ('기타', '기타')
 )
 
 event_durations = (
@@ -42,16 +33,6 @@ event_durations = (
     ('4', '4시간'),
     ('5', '5시간'),
     ('6', '하루 이상'),
-    ('7', '기타')
-)
-
-meal_costs = (
-    ('1', '10.000 원'),
-    ('2', '15.000 원'),
-    ('3', '20.000 원'),
-    ('4', '30.000 원'),
-    ('5', '40.000 원'),
-    ('6', '50.000 원'),
     ('7', '기타')
 )
 
@@ -66,11 +47,11 @@ class Customer(models.Model):
 
     event_type = models.CharField(max_length=200, choices=event_types, blank=True, null=True)
     event_place = models.CharField(max_length=200, choices=event_places, blank=True, null=True)
-    people_count = models.CharField(max_length=200, choices=people_counts, blank=True, null=True)
+    people_count = models.IntegerField(blank=True, null=True)
     event_duration = models.CharField(max_length=200, choices=event_durations, blank=True, null=True)
     event_date = models.DateTimeField(blank=True, null=True)
     address = models.CharField(max_length=200, blank=True, null=True)
-    meal_cost = models.CharField(max_length=200, choices=meal_costs, blank=True, null=True)
+    meal_cost = models.IntegerField(blank=True, null=True)
     tool = models.ManyToManyField(Tool, blank=True, null=True)
 
     date_registered = models.DateTimeField(auto_now_add=True)
