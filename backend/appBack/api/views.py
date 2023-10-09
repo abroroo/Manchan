@@ -15,62 +15,24 @@ from datetime import datetime
 font_path = r"D:\\Github\\Manchan\backend\\appBack\\api\\NanumGothic.ttf"
 
 event_types = (
-    ('1', '개인 행사'),
-    ('2', '기업 행사'),
-    ('3', '지역 행사'),
-    ('4', '홍보 행사'),
-    ('5', '강연/간담회'),
-    ('6', '기타')
+    ('wedding', '가족 개인행사'),
+    ('business', '기업 이벤트'),
+    ('public', '사회 단체행사'),
+    ('festival', '기관, 축제등'),
+    ('birthday', '스몰웨딩, 야외결혼'),
+    ('steak', '스테이크 행사'),
+    ('fingerFood', '핑거푸드'),
+    ('other', '키타 행사')
 )
 
 event_places = (
-    ('1', '호텔'),
-    ('2', '이벤트/컨벤션홀'),
-    ('3', '주거 공간'),
-    ('4', '사내 공간'),
-    ('5', '기타 실내'),
-    ('6', '기타 야외'),
-    ('7', '미정'),
-    ('8', '기타')
-)
-
-people_counts = (
-    ('1', '30명 미만'),
-    ('2', '50명 미만'),
-    ('3', '100명 미만'),
-    ('4', '200명 미만'),
-    ('5', '300명 미만'),
-    ('6', '400명 미만'),
-    ('7', '기타')
-)
-
-event_durations = (
-    ('1', '1시간'),
-    ('2', '2시간'),
-    ('3', '3시간'),
-    ('4', '4시간'),
-    ('5', '5시간'),
-    ('6', '하루 이상'),
-    ('7', '기타')
-)
-
-meal_costs = (
-    ('1', '10.000 원'),
-    ('2', '15.000 원'),
-    ('3', '20.000 원'),
-    ('4', '30.000 원'),
-    ('5', '40.000 원'),
-    ('6', '50.000 원'),
-    ('7', '기타')
-)
-
-tools = (
-    ('1', '테이블'),
-    ('2', '의자'),
-    ('3', '텐트'),
-    ('4', '음악'),
-    ('5', '행사 액세서리'),
-    ('6', '기타')
+    ('실내', '실내'),
+    ('야외', '야외'),
+    ('체육관', '체육관'),
+    ('연회장', '연회장'),
+    ('호텔', '호텔'),
+    ('미정', '미정'),
+    ('other', '기타')
 )
 
 
@@ -78,23 +40,6 @@ tools = (
 def api(request):
     return Response({"message": "Welcome to the API"})
 
-
-# class CustomerCreateAPIView(generics.CreateAPIView):
-#     queryset = models.Customer.objects.all()
-#     serializer_class = models.CustomerSerializer
-#     def perform_create(self, serializer):
-#         all_customers = models.Customer.objects.values()
-#         all_tickets = []
-
-#         for k in all_customers:
-#             all_tickets.append(k['ticket_number'])
-
-#         while True:
-#             my_ticket_number = random.randint(1, 100000000)
-#             if my_ticket_number not in all_tickets:
-#                     serializer.save(ticket_number=my_ticket_number)
-#                     Response({'ticket_number': my_ticket_number})
-#             break
 
 class CustomerViewAPIView(generics.RetrieveAPIView):
     queryset = models.Customer.objects.all()
@@ -132,19 +77,16 @@ def generatePDF(request, ticket_number):
 
     line_spacing = 5
 
-    pdf.set_draw_color(0, 0, 0)  # Set border color
-    pdf.rect(10, 10, pdf.w - 20, pdf.h - 20)  # Create a rectangle for the border
+    pdf.set_draw_color(0, 0, 0)
+    pdf.rect(10, 10, pdf.w - 20, pdf.h - 20) 
 
-    # Calculate the height of the border and the total height of the data fields
     border_height = pdf.h - 100
     border_width = pdf.w - 40
-    total_data_height = 12 * 12  # 12 data fields multiplied by the cell height
+    total_data_height = 12 * 12  
 
-    # Calculate the starting y-coordinate for the data fields to center them vertically
     y = (border_height - total_data_height) / 2 + 10
 
-    # Add data to the PDF
-    pdf.set_xy(20, y)  # Set the starting position for the data fields
+    pdf.set_xy(20, y)
 
     tool_data = ", ".join(k.name for k in data.tool.all())
 
@@ -153,11 +95,8 @@ def generatePDF(request, ticket_number):
                                       f"고객 전화 번호: {data.phone_number}\n\n"
                                       f"이벤트 유형: {event_types[int(data.event_type)-1][1]}\n\n"
                                       f"행사 장소: {event_places[int(data.event_place)-1][1]}\n\n"
-                                      f"인원 수: {people_counts[int(data.people_count)-1][1]}\n\n"
-                                      f"이벤트 기간: {event_durations[int(data.event_duration)-1][1]}\n\n"
                                       f"개최 날짜: {data.event_date}\n\n"
                                       f"주소: {data.address}\n\n"
-                                      f"식사 비용: {meal_costs[int(data.meal_cost)-1][1]}\n\n"
                                       f"고객 등록 날짜: {data.date_registered}\n\n"
                                       f"티켓 번호: {data.ticket_number}\n\n"
                                       f"추가: {tool_data}",
@@ -167,44 +106,6 @@ def generatePDF(request, ticket_number):
     pdf_file = f"../../documents/{data.name}.pdf"
     pdf.output(pdf_file, 'F')
     return Response({"message" : f"{ticket_number}.pdf is created in the documents folder"})
-
-# @api_view(['GET'])
-# def check_date(request):
-#     date_available = True
-#     error = ""
-#     try:
-#         date_request = datetime.fromisoformat(request.GET.get('datetime'))
-#         database_dates = models.Date.objects.all()
-#         dates = []
-#         hours = []
-#         for k in database_dates:
-#             day_database = datetime.strftime(k.event_date, '%Y-%m-%d')
-#             hour_database = datetime.strftime(k.event_date, '%Y:%m:%d:%H:%M:%S')
-#             dates.append(day_database)
-#             hours.append(hour_database)
-
-#         day_request = datetime.strftime(date_request, '%Y-%m-%d')
-#         hour_request = datetime.strftime(date_request, '%Y:%m:%d:%H:%M:%S')
-
-#         if (day_request in day_database):
-#             date_available = False
-#             error = "We have an event on that day!"
-
-#         if (hour_request in hour_database):
-#             date_available = False
-#             error = "We already have an event with this specific time!"
-#     except Exception as e:
-#         date_available = False
-#         error = str(e)
-#     return Response({"date_available" : date_available, "error" : error})
-
-# class FoodListAPIView(generics.ListAPIView):
-#     queryset = models.Food.objects.all()
-#     serializer_class = models.FoodSerializer
-
-# class SetListAPIView(generics.ListAPIView):
-#     queryset = models.Set.objects.all()
-#     serializer_class = models.SetSerializer
 
 # class MenuDetail(APIView):
 #     def get_object(self, ticket_number):
