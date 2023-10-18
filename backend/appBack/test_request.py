@@ -32,16 +32,14 @@ apidata = {'name': name, 'phone_number': phone_number}
 data = {
     "id": 1,
     "tool": [
-        2, 4
+        2, 6
     ],
+    "event_type": "스테이크 행사",
     "name": "Ilhom",
-    "event_type" : "3",
-    "date_registered": "2023-07-14T07:32:20.097721Z",
+    "people_count": 300,
+    "meal_cost": 30000,
     "ticket_number": 243242313
 }
-
-# response = requests.put(f"http://127.0.0.1:8000/api/customer_update/243242313", json=data)
-# print(response.json)
 
 event_types = (
     ('1', '개인 행사'),
@@ -63,16 +61,6 @@ event_places = (
     ('8', '기타')
 )
 
-people_counts = (
-    ('1', '30명 미만'),
-    ('2', '50명 미만'),
-    ('3', '100명 미만'),
-    ('4', '200명 미만'),
-    ('5', '300명 미만'),
-    ('6', '400명 미만'),
-    ('7', '기타')
-)
-
 event_durations = (
     ('1', '1시간'),
     ('2', '2시간'),
@@ -80,16 +68,6 @@ event_durations = (
     ('4', '4시간'),
     ('5', '5시간'),
     ('6', '하루 이상'),
-    ('7', '기타')
-)
-
-meal_costs = (
-    ('1', '10.000 원'),
-    ('2', '15.000 원'),
-    ('3', '20.000 원'),
-    ('4', '30.000 원'),
-    ('5', '40.000 원'),
-    ('6', '50.000 원'),
     ('7', '기타')
 )
 
@@ -107,6 +85,8 @@ tool_data = [
         4
     ]
 
-result = ", ".join(str(tools[int(k)-1][1]) for k in tool_data)
+#result = ", ".join(str(tools[int(k)-1][1]) for k in tool_data)
 
-print(result)
+#print(result)
+response = requests.put(f"http://127.0.0.1:8000/api/customer_update/243242313", json=data)
+print(response.json)
