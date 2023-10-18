@@ -1,7 +1,9 @@
-// pages/_document.js
+// pages/_document.tsx
 
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import Script from "next/script"
+import Document ,{ Html, Head, Main, NextScript } from 'next/document';
+
+
+
 const MyDocument = () =>  {
 
  
@@ -9,15 +11,18 @@ const MyDocument = () =>  {
   
     return (
       <Html>
-        <Head>
+         <Head>
           {/* Include the Kakao Map SDK script here */}
-          <Script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=88fa5e46979c83c2b9f77cf0c4da1025&libraries=services,clusterer"></Script>
+           
         
         </Head>
         <body>
           <Main />
           <NextScript />
-        </body>
+        </body> 
+        <footer>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=88fa5e46979c83c2b9f77cf0c4da1025&libraries=services,clusterer"></script>
+        </footer>
       </Html>
     );
 }

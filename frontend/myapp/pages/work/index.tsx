@@ -112,7 +112,7 @@ const handleMouseLeave = () => {
 
     
 <motion.div
-        className=" fixed inset-0 w-screen h-screen bg-[#fff] px-0  py-0 md:py-10 flex items-center justify-center z-[110] overflow-y-scroll  mt-20 "
+        className=" fixed inset-0 w-screen h-screen bg-[#fff] px-0  py-0 md:py-10 flex items-center justify-center z-[110] overflow-hidden  mt-20 "
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0 }}

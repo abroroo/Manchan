@@ -176,8 +176,8 @@ const yPostionDivText = useTransform(scrollY, [0, 400], [0, -200])
               transition={{delay: 3.9, type: "spring", duration: 0.7, bounce: 0 }}
               viewport={{once: true}}
               className=' flex items-center justify-center flex-col p-5 md:px-7 xl:px-10 pb-0  font-light '>
-                <p className='text-[#49111c]/90  text-[18px] md:text-[20px]  leading-relaxed  '> <span className='flex items-center justify-center'>30년경력 실무 전문가들의 고객 맞춤형 무료견적 플랫폼 -  “FOOD COM”
- </span> <span className='flex items-center justify-center'>가족. 기업. 단체등 식사에서 이벤트까지 30년 경력의 전문가들이 </span><span className='flex items-center justify-center'>모여 맞춤형 서비스로 최고의 만족을 드립니다. </span><span className='flex justify-center items-center'>– 언제나 함께하는 푸드컴 –</span></p>
+                <p className='text-[#49111c]/90  text-[18px] md:text-[20px]  leading-relaxed '> <span className='flex items-center justify-center'>30년경력 실무 전문가들의 <br className='md:hidden block'/>고객 맞춤형 무료견적 플랫폼 
+ </span> <span className='flex flex-col items-center justify-center'><span className='md:hidden flex items-center justify-center'>가족. 기업. 단체등 식사에서</span> <span className='md:hidden flex items-center justify-center'>이벤트까지 30년 경력의 전문가들이 </span></span><span className='flex items-center justify-center'>모여 맞춤형 서비스로 최고의 만족을 드립니다. </span><span className='flex justify-center items-center'>– 언제나 함께하는 푸드컴 –</span></p>
                 
               </motion.div>
 

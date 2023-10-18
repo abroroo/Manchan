@@ -28,8 +28,10 @@ const Form = ({ onButtonBackgroundChange, eventTypeOther }: ChildComponentProps)
 
   const [eventDate, setEventDate] = useState<Date | null>(new Date());
   const [eventAddress, setEventAddress] = useState('');
+  const [customerName, setCustomerName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-
+  const [customerMessage, setCustomerMessage] = useState('');
+  const [eventVenue, setEventVenue] = useState('');
       // ...
       
   // const currentDate = new Date(); // Get the current date and time
@@ -156,6 +158,10 @@ const iconPositionForBudget = {
       setSliderPeopleNum(parseInt(value))
     } else if (name === 'meal_cost'){
       setSliderBudgetNum(parseInt(value))
+    } else if (name === 'event_place'){
+      setEventVenue(value)
+    } else if (name === 'name'){
+      setCustomerName(value)
     }
 
   };
@@ -197,24 +203,30 @@ const iconPositionForBudget = {
 
 
 
-  //     // validate phone number 
-  // const [phoneNumberError, setPhoneNumberError] = useState('');
+      const [phoneNumberError, setPhoneNumberError] = useState('');
 
-  // const validatePhoneNumber = () => {
-  //   const phoneNumberRegex = /^010\d{8}$/; // Regex pattern for Korean phone number starting with 010 and followed by 8 numbers
+      const validatePhoneNumber = (value: any) => {
+        const phoneNumberRegex = /\d{11}$/;
+    
+        if (phoneNumberRegex.test(value)) {
+          setPhoneNumberError('완벽해요!');
+          return value;
+        } else if (value === '') { 
+          setPhoneNumberError('');
+        } else {
+          setPhoneNumberError('11개의 숫자만 입력하십시오');
+          return formData.phone_number; // Return the previous value if the new value doesn't pass the checks
+        }
+      };
+    
+      const handlePhoneNumberChange = (event: any) => {
+        const { name, value } = event.target;
+    
+        // Call the validation function and set the phoneNumber value
+        const validatedPhoneNumber = validatePhoneNumber(value);
+        setFormData((prevFormData: any) => ({ ...prevFormData, [name]: validatedPhoneNumber }));
+      };
 
-  //   if (!phoneNumber.match(phoneNumberRegex)) {
-  //     setPhoneNumberError('010으로 시작하는 전화 번호를 입력하십시오');
-  //   } else {
-  //     setPhoneNumberError('');
-  //   }
-  // };
-
-  const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData : any) => ({ ...prevFormData, [name]: value }));
-   
-  };
 
 
 
@@ -311,7 +323,7 @@ const [sliderBudgetValStart, setSliderBudgetValStart] = useState(0);
 
   useEffect(() => {
     // Initialize the buttonBackground state on the client-side
-    let initialButtonBackground = "#EEEEEE";
+    let initialButtonBackground = "#F1F5F9EEE";
     if (selectedEvent === "wedding") initialButtonBackground = "#F25287";
     else if (selectedEvent === "festival") initialButtonBackground = "#7C3AED";
     else if (selectedEvent === "business") initialButtonBackground = "#2563EB";
@@ -341,7 +353,7 @@ const [sliderBudgetValStart, setSliderBudgetValStart] = useState(0);
     setSelectedEvent(value);
 
     // Set the selected event and pass the buttonBackground value to the parent
-    let updatedButtonBackground = "#eeeeee";
+    let updatedButtonBackground = "#F1F5F9eee";
     if (value === "wedding") updatedButtonBackground = "#F25287";
     else if (value === "festival") updatedButtonBackground = "#7C3AED";
     else if (value === "business") updatedButtonBackground = "#2563EB";
@@ -380,9 +392,13 @@ const [sliderBudgetValStart, setSliderBudgetValStart] = useState(0);
     date_rigistered: currentDate,
     event_time: eventDate,
     meal_cost: sliderBudgetVal,
+    event_place: eventVenue,
+    name: customerName,
+    phone_number: phoneNumber,
+    message: customerMessage
   }));
 
-}, [eventAddress,  selectedAccesories, selectedEvent, currentDate, eventDate, sliderBudgetVal]);
+}, [eventAddress,  selectedAccesories, selectedEvent, currentDate, eventDate, sliderBudgetVal, eventVenue, customerName, phoneNumber, customerMessage]);
 
  // Initialize state to store the selected options for each question
  const [formData, setFormData] = useState<any>({
@@ -412,14 +428,14 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
   return (<>
   
 
-          <form className='w-full  h-full  bg-opacity-[0.98] p-10 md:p-32  flex items-center justify-center flex-col  ' onSubmit={handleSubmit}>
+          <form className='w-full  h-full  bg-opacity-[0.98] p-10 md:p-32  flex items-center justify-center flex-col overflow-y-scroll ' onSubmit={handleSubmit}>
 
 
 {/* Intro to Form */}
 
 {currentQuestion === 0 && (
   <div className='flex flex-col items-center justify-center'>
-     <h1 className='font-semibold font-kr text-lg lg:text-[22px] flex justify-center items-center'><PartyPopper style={{color: buttonBackground}}className='h-9 w-9 mr-2' /> 어떤 행사를 계획하고 계십니까?
+     <h1 className='font-semibold font-kr text-[1rem] lg:text-[22px] flex justify-center items-center'><PartyPopper style={{color: buttonBackground}}className='h-9 w-9 mr-2' /> 어떤 행사를 계획하고 계십니까?
 </h1>
   
 
@@ -427,18 +443,19 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
 
     <motion.div 
     whileTap={checkboxAnimations}
-    className='event_range_wrapper w-28 h-28 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-[3px] cursor-pointer peer-checked:border-[#F25287] peer-checked:text-[#F25287] hover:text-[#F25287] hover:bg-gray-50 text-[14px] md:text-md select-none pl-[6px] pt-[2px]'>
+    className='event_range_wrapper w-20 h-20 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-lg cursor-pointer peer-checked:border-[#F25287] peer-checked:text-[#F25287] hover:text-[#F25287] hover:bg-gray-50 
+    text-[12px] md:text-[15px] select-none pl-[6px] pt-[4px]'>
       <input type="checkbox"
         value="wedding"
         id='wedding'
         checked={selectedEvent === 'wedding'}
         onChange={() => handleCheckboxChange('wedding')}
         className=''
-        style={{ accentColor: buttonBackground }}
+        style={{ accentColor: buttonBackground  }}
       />
       <label htmlFor="wedding" className='absolute inset-0 flex flex-col items-center justify-center '>
       
-      <Image width="54" height="54" src="/images/icons/wedding.png" alt="wedding" className='mb-2 '/>
+      <Image width="54" height="54" src="/images/icons/wedding.png" alt="wedding" className='mb-2 w-10 h-10 md:h-[54px] md:w-[54px]'/>
       가족 개인행사
       </label>
     </motion.div>
@@ -446,26 +463,26 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
    
         <motion.div
         whileTap={checkboxAnimations}
-         className='event_range_wrapper w-28 h-28 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-[3px]cursor-pointer peer-checked:border-[#2563EB] peer-checked:text-[#2563EB] hover:text-[#2563EB] hover:bg-gray-50 text-[14px] md:text-md select-none pl-[6px] pt-[2px]'>
+         className='event_range_wrapper w-20 h-20 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-lg cursor-pointer peer-checked:border-[#2563EB] peer-checked:text-[#2563EB] hover:text-[#2563EB] hover:bg-gray-50 text-[12px] md:text-[15px] select-none pl-[6px] pt-[4px]'>
         <input 
          style={{ accentColor: buttonBackground }}
          type='checkbox' 
-        value='bussiness' 
-        id='bussiness'
+        value='business' 
+        id='business'
         checked={selectedEvent === 'business'} 
         onChange={() => handleCheckboxChange('business')} className='flex-start' />
-          <label htmlFor="bussiness" className="absolute inset-0 flex flex-col items-center justify-center ">
-          <img width="54" height="54" src="/images/icons/bussiness.png" alt="wedding" className='mb-2'/>
+          <label htmlFor="business" className="absolute inset-0 flex flex-col items-center justify-center ">
+          <Image width="54" height="54" src="/images/icons/bussiness.png" alt="business" className='mb-2 h-11 w-11 md:h-[54px] md:w-[54px]'/>
           기업 이벤트
           </label>
         </motion.div>
 
         <motion.div 
         whileTap={checkboxAnimations}
-        className='event_range_wrapper w-28 h-28 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-[3px] cursor-pointer peer-checked:border-[#047857] peer-checked:text-[#047857] hover:text-[#047857] hover:bg-gray-50 text-[14px] md:text-md select-none pl-[6px] pt-[2px]'>
+        className='event_range_wrapper w-20 h-20 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-lg  cursor-pointer peer-checked:border-[#047857] peer-checked:text-[#047857] hover:text-[#047857] hover:bg-gray-50 text-[12px] md:text-[15px] select-none pl-[6px] pt-[4px]'>
         <input  style={{ accentColor: buttonBackground }} type='checkbox' value='public' id='public' checked={selectedEvent === 'public'} onChange={() => handleCheckboxChange('public')} className='flex-start' />
           <label htmlFor="public" className="absolute inset-0 flex flex-col items-center justify-center ">
-          <img width="54" height="54" src="/images/icons/public.png" alt="wedding" className='mb-2'/>
+          <Image width="54" height="54" src="/images/icons/public.png" alt="public" className='mb-2 h-10 w-10 md:h-[54px] md:w-[54px]'/>
           사회 단체행사
           </label>
         </motion.div>
@@ -473,10 +490,10 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
 
         <motion.div 
         whileTap={checkboxAnimations}
-        className='event_range_wrapper w-28 h-28 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-[3px] cursor-pointer peer-checked:border-[#7C3AED] peer-checked:text-[#7C3AED] hover:text-[#7C3AED] hover:bg-gray-50 text-[14px] md:text-md select-none pl-[6px] pt-[2px]'>
+        className='event_range_wrapper w-20 h-20 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-lg  cursor-pointer peer-checked:border-[#7C3AED] peer-checked:text-[#7C3AED] hover:text-[#7C3AED] hover:bg-gray-50 text-[12px] md:text-[15px] select-none pl-[6px] pt-[4px]'>
             <input style={{ accentColor: buttonBackground, alignSelf: 'flex-start' }} type='checkbox' value='festival' id='festival' checked={selectedEvent === 'festival'} onChange={() => handleCheckboxChange('festival')}  />
             <label htmlFor="festival" className="absolute inset-0 flex flex-col items-center justify-center">
-            <img width="64" height="64" src="/images/icons/festival.png" alt="festival" className=''/>
+            <Image width="64" height="64" src="/images/icons/festival.png" alt="festival" className='h-10 w-10 md:h-[64px] md:w-[64px]'/>
             기관, 축제등
             </label>
         </motion.div>
@@ -484,24 +501,25 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
 
         <motion.div 
         whileTap={checkboxAnimations}
-        className='event_range_wrapper w-28 h-28 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-[3px] cursor-pointer peer-checked:border-[#9D174D] peer-checked:text-[#9D174D] hover:text-[#9D174D] hover:bg-gray-50 text-[14px] md:text-md select-none pl-[6px] pt-[2px]'>
+        className='event_range_wrapper w-20 h-20 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-lg  cursor-pointer peer-checked:border-[#9D174D] peer-checked:text-[#9D174D] hover:text-[#9D174D] hover:bg-gray-50 text-[12px] md:text-[15px] select-none pl-[6px] pt-[4px]'>
         <input  style={{ accentColor: buttonBackground }} type='checkbox' value='birthday' id='birthday' checked={selectedEvent === 'birthday'} onChange={() => handleCheckboxChange('birthday')} className='flex-start' />
           <label htmlFor="birthday" className="absolute inset-0 flex flex-col items-center justify-center ">
-          <img width="54" height="54" src="/images/icons/birthday.png" alt="birthday" className='mb-2'/>
-          스몰웨딩, 야외결혼
+          <Image width="54" height="54" src="/images/icons/birthday.png" alt="birthday" className='mb-2 h-10 w-10 md:h-[54px] md:w-[54px]'/>
+          <span className='flex'>
+          스몰웨딩<span className='hidden md:block'>, 야외결혼</span></span>
           </label>
         </motion.div>
 
 
         <motion.div 
         whileTap={checkboxAnimations}
-        className='event_range_wrapper w-28 h-28 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-[3px] cursor-pointer peer-checked:border-[#FE0000] peer-checked:text-[#FE0000] hover:text-[#FE0000] hover:bg-gray-50 text-[14px] md:text-md select-none pl-[6px] pt-[2px]'>
+        className='event_range_wrapper w-20 h-20 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-lg  cursor-pointer peer-checked:border-[#FE0000] peer-checked:text-[#FE0000] hover:text-[#FE0000] hover:bg-gray-50 text-[12px] md:text-[15px] select-none pl-[6px] pt-[4px]'>
             <input style={{ accentColor: buttonBackground, alignSelf: 'flex-start' }} 
             type='checkbox' value='steak' id='steak' 
             checked={selectedEvent === 'steak'} 
             onChange={() => handleCheckboxChange('steak')}  />
             <label htmlFor="steak" className="absolute inset-0 flex flex-col items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FE0000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-beef mb-2"><circle cx="12.5" cy="8.5" r="2.5"/><path d="M12.5 2a6.5 6.5 0 0 0-6.22 4.6c-1.1 3.13-.78 3.9-3.18 6.08A3 3 0 0 0 5 18c4 0 8.4-1.8 11.4-4.3A6.5 6.5 0 0 0 12.5 2Z"/><path d="m18.5 6 2.19 4.5a6.48 6.48 0 0 1 .31 2 6.49 6.49 0 0 1-2.6 5.2C15.4 20.2 11 22 7 22a3 3 0 0 1-2.68-1.66L2.4 16.5"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FE0000" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-beef mb-2 h-10 w-10 md:h-[48px] md:w-[48px]"><circle cx="12.5" cy="8.5" r="2.5"/><path d="M12.5 2a6.5 6.5 0 0 0-6.22 4.6c-1.1 3.13-.78 3.9-3.18 6.08A3 3 0 0 0 5 18c4 0 8.4-1.8 11.4-4.3A6.5 6.5 0 0 0 12.5 2Z"/><path d="m18.5 6 2.19 4.5a6.48 6.48 0 0 1 .31 2 6.49 6.49 0 0 1-2.6 5.2C15.4 20.2 11 22 7 22a3 3 0 0 1-2.68-1.66L2.4 16.5"/></svg>
             스테이크 행사
             </label>
         </motion.div>
@@ -509,14 +527,14 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
 
         <motion.div 
         whileTap={checkboxAnimations}
-        className='event_range_wrapper w-28 h-28 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-[3px] cursor-pointer peer-checked:border-[#F8B400] peer-checked:text-[#F8B400] hover:text-[#F8B400] hover:bg-gray-50 text-[14px] md:text-md select-none pl-[6px] pt-[2px]'>
+        className='event_range_wrapper w-20 h-20 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-lg  cursor-pointer peer-checked:border-[#F8B400] peer-checked:text-[#F8B400] hover:text-[#F8B400] hover:bg-gray-50 text-[12px] md:text-[15px] select-none pl-[6px] pt-[4px]'>
             <input style={{ accentColor: buttonBackground, alignSelf: 'flex-start' }} 
             type='checkbox' value='fingerFood' 
             id='fingerFood' 
             checked={selectedEvent === 'fingerFood'} 
             onChange={() => handleCheckboxChange('fingerFood')}  />
             <label htmlFor="fingerFood" className="absolute inset-0 flex flex-col items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F8B400" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-dessert mb-2"><circle cx="12" cy="2" r="1"/><path d="M10.2 3.2C5.5 4 2 8.1 2 13a2 2 0 0 0 4 0v-1a2 2 0 0 1 4 0v4a2 2 0 0 0 4 0v-4a2 2 0 0 1 4 0v1a2 2 0 0 0 4 0c0-4.9-3.5-9-8.2-9.8"/><path d="M3.2 14.8a9 9 0 0 0 17.6 0"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F8B400" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-dessert mb-2 h-10 w-10 md:h-[48px] md:w-[48px]"><circle cx="12" cy="2" r="1"/><path d="M10.2 3.2C5.5 4 2 8.1 2 13a2 2 0 0 0 4 0v-1a2 2 0 0 1 4 0v4a2 2 0 0 0 4 0v-4a2 2 0 0 1 4 0v1a2 2 0 0 0 4 0c0-4.9-3.5-9-8.2-9.8"/><path d="M3.2 14.8a9 9 0 0 0 17.6 0"/></svg>
             핑거푸드
             </label>
         </motion.div>
@@ -526,15 +544,38 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
 
         <motion.div 
         whileTap={checkboxAnimations}
-        className='event_range_wrapper w-28 h-28 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-[3px] cursor-pointer peer-checked:border-[#C05621] peer-checked:text-[#C05621] hover:text-[#C05621] hover:bg-gray-50 text-[14px] md:text-md select-none pl-[6px] pt-[2px]'>
+        className='event_range_wrapper w-20 h-20 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-lg  cursor-pointer peer-checked:border-[#C05621] peer-checked:text-[#C05621] hover:text-[#C05621] hover:bg-gray-50 text-[12px] md:text-[15px] select-none pl-[6px] pt-[4px]'>
         <input  style={{ accentColor: buttonBackground }} type='checkbox' id='other'  checked={selectedEvent === ''} onChange={(e) => handleCheckboxChange(e.target.value)} className='flex-start' />
           <label htmlFor="other" className="absolute inset-0 flex flex-col items-center justify-center ">
-          <img width="54" height="54" src="/images/icons/other.png" alt="birthday" className='mb-2'/>
+          <Image width="54" height="54" src="/images/icons/other.png" alt="birthday" className='mb-2 h-10 w-10 md:h-[54px] md:w-[54px]'/>
           키타 행사
           </label>
         </motion.div>
       
     </div>
+
+<div className='flex items-center justify-center w-full'>
+
+
+   
+
+<motion.button
+
+ style={ selectedEvent !== "" || eventTypeOther !== "" ? { background: buttonBackground, color: "#fff" } : { background: '#F1F5F9', color: "#fff", border: '1px solid #fff'}}
+ disabled={selectedEvent !== "" || eventTypeOther !== "" ? false : true}
+ onClick={handleNext} 
+ type='submit'
+ className=' w-[40%] md:w-[15%] h-[41px] text-md py-2  tracking-wider rounded-lg border text-[#49111c] focus:outline-none focus:bg-blue mt-5 max-w-sm  text-[14px] md:text-[16px] bg-[#900C3F] font-semibold'
+ draggable="false"
+>
+
+   <>
+     다음 <FontAwesomeIcon icon={faCaretRight} />
+   </>
+
+</motion.button>
+
+</div>
     </div>
 
     )}
@@ -544,16 +585,15 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
 {currentQuestion === 1 && (
         <div className=" w-full mx-auto ">
           <motion.h4 
-          className="font-semibold font-kr text-md lg:text-[22px] mb-5 flex items-center justify-center"
-          initial={{ x: -100}}
-          whileInView={{ x: 0}}
-          transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
+          className="font-semibold font-kr text-[0.99rem] lg:text-[22px] mb-5 flex items-center justify-center"
+          initial={{ x: -200, opacity: 0}}
+          whileInView={{ x: 0, opacity: 1}}
+          transition={{ duration: 1,  ease: [0.25, 1, 0.5, 1] }}
           ><FontAwesomeIcon icon={faUserGroup} style={{color: buttonBackground}}className='h-8 w-8 mr-2' />행사 참석 예상 인원을 선택해주세요</motion.h4>
 
 <div 
 className='relative mt-10'>
 <motion.div 
-
  id="tickmarks" style={iconPositionForPeopleNum} className='w-24 absolute transform -translate-x-[39%]  text-center '>
   <FontAwesomeIcon style={{color: buttonBackground}} icon={faPerson} className='w-9 h-9' />
   <div className='flex items-center justify-center font-semibold text-[18px]'> {sliderPeopleNum} </div>
@@ -561,9 +601,9 @@ className='relative mt-10'>
 
 
 <motion.div 
-initial={{ x: -100}}
-whileInView={{ x: 0}}
-transition={{ duration: 0.5, delay: 0.02, ease: [0.25, 1, 0.5, 1] }}
+initial={{ x: -100, opacity: 0}}
+whileInView={{ x: 0, opacity: 1}}
+transition={{ duration: 0.7, ease: [0.25, 1, 0.5, 1] }}
 className='flex justify-center items-center'><motion.input 
     style={{ accentColor: buttonBackground , }}
     type="range"  
@@ -597,6 +637,40 @@ className='flex justify-center items-center'><motion.input
     
 </div>
    
+<div className='flex items-center justify-center'>
+   <motion.button
+  // initial={{ x: -10}}
+  // whileInView={{ x: 0}}
+  // transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
+    type='button'
+    className='w-[30%] md:w-[10%] h-[40px] text-md py-2 border text-[#49111c] hover:bg-[#6161ff]/10  tracking-wider rounded-lg  focus:outline-none focus:bg-blue mt-5 max-w-md  text-[14px] md:text-[16px] mr-2 border-slate-100'
+    onClick={() => {setCurrentQuestion(currentQuestion - 1); setSelectedEvent('')}}
+  >
+    
+      <>
+      <FontAwesomeIcon icon={faCaretLeft} />
+      </> 
+  </motion.button>
+
+
+  <motion.button
+//  initial={{ x: 20}}
+//  whileInView={{ x: 0}}
+//  transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+ style={ sliderPeopleNum !== 0 ? { background: buttonBackground, color: "#fff", border: '1px solid #fff' } : { background: '#F1F5F9', color: "#fff", border: '1px solid #fff'}}
+ disabled={sliderPeopleNum === 0 ? true : false}
+ onClick={handleNext} 
+ type='submit'
+ className=' w-[40%] md:w-[15%] h-[42px] text-md py-2  tracking-wider rounded-lg border text-[#49111c] focus:outline-none focus:bg-blue mt-5 max-w-sm  text-[14px] md:text-[16px] bg-[#900C3F] font-semibold'
+ draggable="false"
+>
+
+   <>
+     다음 <FontAwesomeIcon icon={faCaretRight} />
+   </>
+
+</motion.button>
+   </div>
          
         </div>
    
@@ -610,9 +684,9 @@ className='flex justify-center items-center'><motion.input
  
  <div className=' mx-auto w-full '>
    <motion.h4 
-   initial={{ x: -100}}
-   whileInView={{ x: 0}}
-   transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
+   initial={{ x: -100, opacity: 0}}
+   whileInView={{ x: 0, opacity: 1}}
+   transition={{ duration: 1, ease: [0.25, 1, 0.5, 1] }}
    className='font-semibold font-kr text-lg lg:text-[22px] mb-5 flex items-center justify-center'><FontAwesomeIcon icon={faSackDollar} style={{color: buttonBackground}}className='h-8 w-8 mr-2' />식사 요청 예정금액 - 1인당</motion.h4>
 
 
@@ -629,7 +703,7 @@ className='flex justify-center items-center'><motion.input
           icon={faWonSign}
           className="w-4 h-4 mr-[6px]"
         />
-        <div className="flex flex-row items-center justify-end font-semibold text-[14px] md:text-[17px] w-10 md:w-14  ">
+        <div className="flex flex-row items-center justify-end font-semibold text-[14px] md:text-[17px]   ">
           {(sliderBudgetValStart).toLocaleString('ko-KR')}
         </div>
       </div>
@@ -674,6 +748,42 @@ className='flex justify-center items-center'><motion.input
       </datalist>
     </div>
 
+
+    <div className='flex items-center justify-center'>
+   <motion.button
+  // initial={{ x: -10}}
+  // whileInView={{ x: 0}}
+  // transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
+    type='button'
+    className='w-[30%] md:w-[10%] h-[40px] text-md py-2 border text-[#49111c] hover:bg-[#6161ff]/10  tracking-wider rounded-lg  focus:outline-none focus:bg-blue mt-5 max-w-md  text-[14px] md:text-[16px] mr-2 border-slate-100'
+    onClick={() => {setCurrentQuestion(currentQuestion - 1); setSliderPeopleNum(0)}}
+  >
+    
+      <>
+      <FontAwesomeIcon icon={faCaretLeft} />
+      </> 
+  </motion.button>
+
+
+  <motion.button
+//  initial={{ x: 20}}
+//  whileInView={{ x: 0}}
+//  transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+ style={ sliderBudgetVal !== 0 ? { background: buttonBackground, color: "#fff", border: '1px solid #fff'} : { background: '#F1F5F9', color: "#fff", border: '1px solid #fff' }}
+ onClick={handleNext} 
+ type='submit'
+ disabled={sliderBudgetVal === 0 ? true : false}
+ className=' w-[40%] md:w-[15%] h-[42px] text-md py-2  tracking-wider rounded-lg border text-[#49111c] focus:outline-none focus:bg-blue mt-5 max-w-sm  text-[14px] md:text-[16px] bg-[#900C3F] font-semibold'
+ draggable="false"
+>
+
+   <>
+     다음 <FontAwesomeIcon icon={faCaretRight} />
+   </>
+
+</motion.button>
+   </div>
+
  </div>
 )}
 
@@ -685,10 +795,10 @@ className='flex justify-center items-center'><motion.input
         {currentQuestion === 3 && (
   <div className=" w-full mx-auto ">
     <motion.h4 
-    initial={{ x: -100}}
-    whileInView={{ x: 0}}
+    initial={{ x: -100, opacity: 0}}
+    whileInView={{ x: 0, opacity: 1}}
     transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
-    className="font-semibold font-kr text-lg lg:text-[22px] mb-5 flex items-center justify-center"><FontAwesomeIcon icon={faBuilding} style={{color: buttonBackground}}className='h-9 w-9 mr-2 text-[#49111c]' />행사 예정 장소는 어디인가요?</motion.h4>
+    className="font-semibold font-kr text-[1rem] lg:text-[22px] mb-5 flex items-center justify-center"><FontAwesomeIcon icon={faBuilding} style={{color: buttonBackground}}className='h-9 w-9 mr-2 text-[#49111c]' />행사 예정 장소는 어디인가요?</motion.h4>
 
               <div className='flex flex-wrap justify-center'>
             <motion.label 
@@ -696,7 +806,7 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1]  }}
-             className="flex items-center justify-center border  text-[#49111c] w-[92px] h-[92px] md:w-28 md:h-28 relative m-1 md:m-2 xl:m-4 rounded-[3px]  hover:bg-indigo-50 cursor-pointer ">
+             className="flex items-center justify-center border  text-[#49111c] w-20 h-20 md:w-28 md:h-28 relative m-1 md:m-2 xl:m-4 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
                   <input style={{ accentColor: buttonBackground }} type='radio' required name="event_place" value='실내' onChange={handleInputChange} />
                   <span className="pl-2 text-[14px] md:text-[17px]">실내</span>
             </motion.label>
@@ -706,7 +816,7 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.04, ease: [0.25, 1, 0.5, 1]  }}
-             className="flex items-center justify-center border  text-[#49111c] w-[92px] h-[92px] md:w-28 md:h-28 relative m-1 md:m-2 xl:m-4 rounded-[3px]  hover:bg-indigo-50 cursor-pointer ">
+             className="flex items-center justify-center border  text-[#49111c] w-20 h-20 md:w-28 md:h-28 relative m-1 md:m-2 xl:m-4 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
                 <input style={{ accentColor: buttonBackground }} type='radio' required  name="event_place"  value='야외' onChange={handleInputChange}/>
                 
                 <span className="pl-2 text-[14px] md:text-[17px]">야외</span>
@@ -719,7 +829,7 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5,  delay:0.02 , ease: [0.25, 1, 0.5, 1]  }}
-            className="flex items-center justify-center border  text-[#49111c] w-[92px] h-[92px] md:w-28 md:h-28 relative m-1 md:m-2 xl:m-4 rounded-[3px]  hover:bg-indigo-50 cursor-pointer ">
+            className="flex items-center justify-center border  text-[#49111c] w-20 h-20 md:w-28 md:h-28 relative m-1 md:m-2 xl:m-4 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
                 <input style={{ accentColor: buttonBackground }} type='radio' required  name="event_place" value='체육관' onChange={handleInputChange} />
                 <span className="pl-2 text-[14px] md:text-[17px]">체육관</span>
                 
@@ -732,7 +842,7 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0, ease: [0.25, 1, 0.5, 1]  }}
-            className="flex items-center justify-center border  text-[#49111c] w-[92px] h-[92px] md:w-28 md:h-28 relative m-1 md:m-2 xl:m-4 rounded-[3px]  hover:bg-indigo-50 cursor-pointer ">
+            className="flex items-center justify-center border  text-[#49111c] w-20 h-20 md:w-28 md:h-28 relative m-1 md:m-2 xl:m-4 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
                 <input style={{ accentColor: buttonBackground }} type='radio' required  name="event_place" value='연회장' onChange={handleInputChange}/>
                 <span className="pl-2 text-[14px] md:text-[17px]">연회장</span>
                 
@@ -745,7 +855,7 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1]  }}
-             className="flex items-center justify-center border  text-[#49111c] w-[92px] h-[92px] md:w-28 md:h-28 relative m-1 md:m-2 xl:m-4 rounded-[3px]  hover:bg-indigo-50 cursor-pointer ">
+             className="flex items-center justify-center border  text-[#49111c] w-20 h-20 md:w-28 md:h-28 relative m-1 md:m-2 xl:m-4 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
                   <input style={{ accentColor: buttonBackground }} type='radio' required name="event_place" value='호텔' onChange={handleInputChange}/>
                   <span className="pl-2 text-[14px] md:text-[17px]">호텔</span> 
                  
@@ -757,7 +867,7 @@ className='flex justify-center items-center'><motion.input
                initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.04, ease: [0.25, 1, 0.5, 1]  }}
-               className="flex items-center justify-center border  text-[#49111c] w-[92px] h-[92px] md:w-28 md:h-28 relative m-1 md:m-2 xl:m-4 rounded-[3px]  hover:bg-indigo-50 cursor-pointer ">
+               className="flex items-center justify-center border  text-[#49111c] w-20 h-20 md:w-28 md:h-28 relative m-1 md:m-2 xl:m-4 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
                   <input style={{ accentColor: buttonBackground }} type='radio' required name="event_place" value='미정' onChange={handleInputChange}/>
                   <span className="pl-2 text-[14px] md:text-[17px]">미정</span>
           
@@ -771,7 +881,7 @@ className='flex justify-center items-center'><motion.input
                initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.02,  ease: [0.25, 1, 0.5, 1] }}
-               className="flex items-center justify-center border  text-[#49111c] w-[92px] h-[92px] md:w-28 md:h-28 relative m-1 md:m-2 xl:m-4 rounded-[3px]  hover:bg-indigo-50 cursor-pointer">
+               className="flex items-center justify-center border  text-[#49111c] w-20 h-20 md:w-28 md:h-28 relative m-1 md:m-2 xl:m-4 rounded-lg   hover:bg-indigo-50 cursor-pointer">
             <input
               type='radio' required
               name="event_place"
@@ -795,6 +905,34 @@ className='flex justify-center items-center'><motion.input
           )}
 
         </div>
+
+
+        <div className='flex items-center justify-center'>
+   <motion.button
+    type='button'
+    className='w-[30%] md:w-[10%] h-[40px] text-md py-2 border text-[#49111c] hover:bg-[#6161ff]/10  tracking-wider rounded-lg  focus:outline-none focus:bg-blue mt-5 max-w-md  text-[14px] md:text-[16px] mr-2 border-slate-100'
+    onClick={() => {setCurrentQuestion(currentQuestion - 1); setSliderBudgetNum(0); setSliderBudgetValStart(0)}}
+  >
+      <>
+      <FontAwesomeIcon icon={faCaretLeft} />
+      </> 
+  </motion.button>
+
+
+  <motion.button
+
+ style={ eventVenue !== "" ? { background: buttonBackground, color: "#fff", border: '1px solid #fff' } : { background: '#F1F5F9', color: "#fff", border: '1px solid #fff' }}
+ onClick={handleNext} 
+ type='submit'
+ disabled={eventVenue === "" ? true : false}
+ className=' w-[40%] md:w-[15%] h-[42px] text-md py-2  tracking-wider rounded-lg border text-[#49111c] focus:outline-none focus:bg-blue mt-5 max-w-sm  text-[14px] md:text-[16px] bg-[#900C3F] font-semibold'
+ draggable="false"
+>
+   <>
+     다음 <FontAwesomeIcon icon={faCaretRight} />
+   </>
+</motion.button>
+   </div>
   </div>
 
 
@@ -806,7 +944,7 @@ className='flex justify-center items-center'><motion.input
   {/* Event accessory */}
 
    {currentQuestion === 4 && (
-  <div className=" w-full mx-auto">
+  <div className=" w-full  mx-auto mb-0 md:m-0 ">
     <motion.h4 
      initial={{ x: -100, opacity: 0}}
      whileInView={{ x: 0, opacity: 1}}
@@ -819,10 +957,10 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1] }}
-             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[92px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-[3px]  hover:bg-indigo-50 cursor-pointer ">
+             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
                   <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='사각 테이블' onChange={handleCheckboxAccesories}/>
                   
-                <span className="pl-2 text-[12px] md:text-[15px]">사각 테이블</span>
+                <span className="pl-1 text-[12px] md:text-[15px]">사각 테이블</span>
                 
                 
             </motion.label>
@@ -832,10 +970,10 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.04, ease: [0.25, 1, 0.5, 1] }}
-             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[92px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-[3px]  hover:bg-indigo-50 cursor-pointer ">
+             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
                 <input style={{ accentColor: buttonBackground }} type='checkbox' required  name="tool" value='원탁테이블' onChange={handleCheckboxAccesories}/>
                 
-                <span className="pl-2 text-[12px] md:text-[15px]">원탁테이블</span>
+                <span className="pl-1 text-[12px] md:text-[15px]">원탁테이블</span>
                 
                 
                 
@@ -846,10 +984,10 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.02, ease: [0.25, 1, 0.5, 1] }}
-             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[92px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-[3px]  hover:bg-indigo-50 cursor-pointer ">
+             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
                 <input style={{ accentColor: buttonBackground }} type='checkbox' required  name="tool" value='스텐딩 테이블' onChange={handleCheckboxAccesories}/>
                 
-                <span className="pl-2 text-[12px] md:text-[15px]">스텐딩 <br />테이블</span>
+                <span className="pl-1 text-[12px] md:text-[15px]">스텐딩 <br />테이블</span>
                 
                
                 
@@ -860,10 +998,10 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0, ease: [0.25, 1, 0.5, 1] }}
-             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[92px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-[3px]  hover:bg-indigo-50 cursor-pointer ">
+             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
                 <input style={{ accentColor: buttonBackground }} type='checkbox' required  name="tool" value='의자' onChange={handleCheckboxAccesories}/>
                 
-                <span className="pl-2 text-[12px] md:text-[15px]">의자</span>
+                <span className="pl-1 text-[12px] md:text-[15px]">의자</span>
                 
                
                 
@@ -874,9 +1012,9 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1] }}
-             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[92px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-[3px]  hover:bg-indigo-50 cursor-pointer ">
+             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
                   <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='의자커버' onChange={handleCheckboxAccesories}/>
-                  <span className="pl-2 text-[12px] md:text-[15px]">의자커버</span> 
+                  <span className="pl-1 text-[12px] md:text-[15px]">의자커버</span> 
                 
               </motion.label>
 
@@ -885,9 +1023,9 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.04, ease: [0.25, 1, 0.5, 1] }}
-             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[92px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-[3px]  hover:bg-indigo-50 cursor-pointerr ">
+             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointerr ">
                   <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='자바라 텐트 (3m * 6m)' onChange={handleCheckboxAccesories}/>
-                  <span className="pl-2 text-[12px] md:text-[15px]">자바라 텐트 (3m * 6m)</span> 
+                  <span className="pl-1 text-[12px] md:text-[15px]">자바라 텐트 (3m * 6m)</span> 
                 
               </motion.label>
 
@@ -896,9 +1034,9 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.02, ease: [0.25, 1, 0.5, 1] }}
-             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[92px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-[3px]  hover:bg-indigo-50 cursor-pointer ">
+             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
                   <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='몽골텐트 (5m * 5m)' onChange={handleCheckboxAccesories}/>
-                  <span className="pl-2 text-[12px] md:text-[15px]">몽골텐트 (5m * 5m)</span> 
+                  <span className="pl-1 text-[12px] md:text-[15px]">몽골텐트 (5m * 5m)</span> 
                 
               </motion.label>
 
@@ -907,9 +1045,9 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0, ease: [0.25, 1, 0.5, 1] }}
-             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[92px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-[3px]  hover:bg-indigo-50 cursor-pointer ">
+             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
                   <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='단상' onChange={handleCheckboxAccesories}/>
-                  <span className="pl-2 text-[12px] md:text-[15px]">단상</span> 
+                  <span className="pl-1 text-[12px] md:text-[15px]">단상</span> 
                 
               </motion.label>
 
@@ -918,9 +1056,9 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1] }}
-             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[92px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-[3px]  hover:bg-indigo-50 cursor-pointer  ">
+             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer  ">
                   <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='기본음향' onChange={handleCheckboxAccesories}/>
-                  <span className="pl-2 text-[12px] md:text-[15px]">기본음향</span> 
+                  <span className="pl-1 text-[12px] md:text-[15px]">기본음향</span> 
                 
               </motion.label>
 
@@ -929,9 +1067,9 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1] }}
-             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[92px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-[3px]  hover:bg-indigo-50 cursor-pointer  ">
-                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='기본음향' onChange={handleCheckboxAccesories}/>
-                  <span className="pl-2 text-[12px] md:text-[15px]">무대</span> 
+             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer  ">
+                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='무대' onChange={handleCheckboxAccesories}/>
+                  <span className="pl-1 text-[12px] md:text-[15px]">무대</span> 
                 
               </motion.label>
 
@@ -941,9 +1079,9 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1] }}
-             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[92px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-[3px]  hover:bg-indigo-50 cursor-pointer  ">
-                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='기본음향' onChange={handleCheckboxAccesories}/>
-                  <span className="pl-2 text-[12px] md:text-[15px]">진행</span> 
+             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer  ">
+                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='진행' onChange={handleCheckboxAccesories}/>
+                  <span className="pl-1 text-[12px] md:text-[15px]">진행</span> 
                 
               </motion.label>
 
@@ -952,9 +1090,9 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1] }}
-             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[92px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-[3px]  hover:bg-indigo-50 cursor-pointer  ">
-                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='기본음향' onChange={handleCheckboxAccesories}/>
-                  <span className="pl-2 text-[12px] md:text-[15px]">마스터 밴드</span> 
+             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer  ">
+                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='마스터 밴드' onChange={handleCheckboxAccesories}/>
+                  <span className="pl-1 text-[12px] md:text-[15px]">마스터 밴드</span> 
                 
               </motion.label>
 
@@ -963,9 +1101,9 @@ className='flex justify-center items-center'><motion.input
              initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1] }}
-             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[92px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-[3px]  hover:bg-indigo-50 cursor-pointer  ">
-                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='기본음향' onChange={handleCheckboxAccesories}/>
-                  <span className="pl-2 text-[12px] md:text-[15px]">플래카드</span> 
+             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer  ">
+                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='플래카드' onChange={handleCheckboxAccesories}/>
+                  <span className="pl-1 text-[12px] md:text-[15px]">플래카드</span> 
                 
               </motion.label>
 
@@ -974,7 +1112,7 @@ className='flex justify-center items-center'><motion.input
                initial={{ x: -100, opacity: 0}}
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.04, ease: [0.25, 1, 0.5, 1] }}
-               className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[92px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-[3px]  hover:bg-indigo-50 cursor-pointer">
+               className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer">
             <input
               type='radio' required
               name="tool"
@@ -983,7 +1121,7 @@ className='flex justify-center items-center'><motion.input
               placeholder='직접 입력'
               style={{ accentColor: buttonBackground }}
             />
-            <span className="pl-2 text-[14px] md:text-[17px]">기타</span>
+            <span className="pl-1 text-[14px] md:text-[17px]">기타</span>
           </motion.label>
 
           {showInput == 'true' && (
@@ -993,6 +1131,33 @@ className='flex justify-center items-center'><motion.input
           )}
 
         </div>
+
+        <div className='flex items-center justify-center'>
+   <motion.button
+    type='button'
+    className='w-[30%] md:w-[10%] h-[40px] text-md py-2 border text-[#49111c] hover:bg-[#6161ff]/10  tracking-wider rounded-lg  focus:outline-none focus:bg-blue mt-5 max-w-md  text-[14px] md:text-[16px] mr-2 border-slate-100'
+    onClick={() => {setCurrentQuestion(currentQuestion - 1); setEventVenue("")}}
+  >
+      <>
+      <FontAwesomeIcon icon={faCaretLeft} />
+      </> 
+  </motion.button>
+
+
+  <motion.button
+
+ style={ selectedAccesories.length !== 0 ? { background: buttonBackground, color: "#fff", border: '1px solid #fff' } : { background: '#F1F5F9', color: "#fff", border: '1px solid #fff' }}
+ onClick={handleNext} 
+ type='submit'
+ disabled={selectedAccesories.length === 0 ? true : false}
+ className=' w-[40%] md:w-[15%] h-[42px] text-md py-2  tracking-wider rounded-lg border text-[#49111c] focus:outline-none focus:bg-blue mt-5 max-w-sm  text-[14px] md:text-[16px] bg-[#900C3F] font-semibold'
+ draggable="false"
+>
+   <>
+     다음 <FontAwesomeIcon icon={faCaretRight} />
+   </>
+</motion.button>
+   </div>
   </div>
 
 
@@ -1004,15 +1169,15 @@ className='flex justify-center items-center'><motion.input
 
        {/* Event Date */}
        {currentQuestion === 5 && (
-        <div className=''>
+        <div className='mb-10 md:m-0'>
            <motion.h4 
-            initial={{ x: -100}}
-            whileInView={{ x: 0}}
+            initial={{ x: -100, opacity: 0}}
+            whileInView={{ x: 0, opacity: 1}}
             transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
-            className="font-semibold font-kr text-lg lg:text-[22px]  flex items-center justify-center mb-5"><FontAwesomeIcon icon={faCalendarDays} style={{color: buttonBackground}}className='h-9 w-9 mr-2' />행사 예상 시간을 선택해주세요</motion.h4>
+            className="font-semibold font-kr text-lg lg:text-[22px]  flex items-center justify-center mb-5"><FontAwesomeIcon icon={faCalendarDays} style={{color: buttonBackground}} className='h-9 w-9 mr-2' />행사 예상 시간을 선택해주세요</motion.h4>
        <motion.div 
-        initial={{ x: -100}}
-        whileInView={{ x: 0}}
+        initial={{ x: -100, opacity: 0}}
+        whileInView={{ x: 0, opacity: 1}}
         transition={{ duration: 0.2, ease: [0.25, 1, 0.5, 1] }}
         className=" w-[90%] md:w-full  flex justify-between ">
     
@@ -1034,13 +1199,70 @@ className='flex justify-center items-center'><motion.input
 
 
       </motion.div>
+
+      <div className='flex items-center justify-center'>
+   <motion.button
+    type='button'
+    className='w-[30%] md:w-[10%] h-[40px] text-md py-2 border text-[#49111c] hover:bg-[#6161ff]/10  tracking-wider rounded-lg  focus:outline-none focus:bg-blue mt-5 max-w-md  text-[14px] md:text-[16px] mr-2 border-slate-100'
+    onClick={() => {setCurrentQuestion(currentQuestion - 1); selectedAccesories.length = 0}}
+  >
+      <>
+      <FontAwesomeIcon icon={faCaretLeft} />
+      </> 
+  </motion.button>
+
+
+  <motion.button
+
+ style={ eventDate !== currentDate ? { background: buttonBackground, color: "#fff", border: '1px solid #fff' } : { background: '#F1F5F9', color: "#fff", border: '1px solid #fff' }}
+ onClick={handleNext} 
+ type='submit'
+ disabled={eventDate === currentDate ? true : false}
+ className=' w-[40%] md:w-[15%] h-[41px] text-md py-2  tracking-wider rounded-lg border text-[#49111c] focus:outline-none focus:bg-blue mt-5 max-w-sm  text-[14px] md:text-[16px] bg-[#900C3F] font-semibold'
+ draggable="false"
+>
+   <>
+     다음 <FontAwesomeIcon icon={faCaretRight} />
+   </>
+</motion.button>
+   </div>
       </div>
        )}
 
 
       {/* Address of the Event */}
 {currentQuestion === 6 && (
-      <AddressFinder setEventAddress={setEventAddress} buttonBackground={buttonBackground} />
+  <>
+<AddressFinder setEventAddress={setEventAddress} buttonBackground={buttonBackground} />
+<div className='w-full flex items-center justify-center'>
+   <motion.button
+    type='button'
+    className='w-[30%] md:w-[10%] h-[40px] text-md py-2 border text-[#49111c] hover:bg-[#6161ff]/10  tracking-wider rounded-lg  focus:outline-none focus:bg-blue mt-5 max-w-md  text-[14px] md:text-[16px] mr-2 border-slate-100'
+    onClick={() => {setCurrentQuestion(currentQuestion - 1); setEventDate(currentDate)}}
+  >
+      <>
+      <FontAwesomeIcon icon={faCaretLeft} />
+      </> 
+  </motion.button>
+
+
+  <motion.button
+
+ style={ eventAddress !== '' ? { background: buttonBackground, color: "#fff", border: '1px solid #fff' } : { background: '#F1F5F9', color: "#fff", border: '1px solid #fff' }}
+ onClick={handleNext} 
+ type='submit'
+ disabled={eventAddress === '' ? true : false}
+ className=' w-[40%] md:w-[15%] h-[42px] text-md py-2  tracking-wider rounded-lg border text-[#49111c] focus:outline-none focus:bg-blue mt-5 max-w-sm  text-[14px] md:text-[16px] bg-[#900C3F] font-semibold'
+ draggable="false"
+>
+   <>
+     다음 <FontAwesomeIcon icon={faCaretRight} />
+   </>
+</motion.button>
+   </div>
+  </>
+      
+      
 
 )}
 
@@ -1048,21 +1270,21 @@ className='flex justify-center items-center'><motion.input
       {currentQuestion === 7 && (
       <div className='w-full mx-auto flex flex-col items-center justify-center'>
               <motion.h1 
-              initial={{ x: -100}}
-              whileInView={{ x: 0}}
+              initial={{ x: -100, opacity: 0}}
+              whileInView={{ x: 0, opacity: 1}}
               transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
               className='text-lg lg:text-[22px] font-semibold font-kr  mb-5 flex items-center justify-center'><FontAwesomeIcon icon={faFileContract} style={{color: buttonBackground}} className='h-9 w-9 mr-2'/>연락처 정보를 입력하십시오</motion.h1>
       
 
       {/* Name */}
       <motion.div
-      initial={{ x: -100}}
-      whileInView={{ x: 0}}
+      initial={{ x: -100, opacity: 0}}
+      whileInView={{ x: 0, opacity: 1}}
       transition={{ duration: 0.2, delay: 0.02, ease: [0.25, 1, 0.5, 1] }}
-      className='mt-10 w-[70%]'
+      className='mt-10 md:w-[70%] w-full'
       >
       {/* <label htmlFor="input2" className="block text-md font-medium text-[#49111c] ">이름</label> */}
-      <input className="block w-full h-10  text-[#49111c]  focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c]" placeholder="이름" type="text" id="name" name='name' onChange={handleInputChange}
+      <input className="block w-full h-10  text-[#49111c]  focus:outline-none  pb-0 text-[14px] md:text-[15px] border-b-[1px] border-slate-200 focus:border-[#49111c]" placeholder="이름" type="text" id="name" name='name' onChange={handleInputChange}
       //value={name}
       //onChange={(e) => setName(e.target.value)}
       required/>
@@ -1071,75 +1293,143 @@ className='flex justify-center items-center'><motion.input
 
       {/* Phone number */}
        <motion.div 
-       initial={{ x: -100}}
-       whileInView={{ x: 0}}
+       initial={{ x: -100, opacity: 0}}
+       whileInView={{ x: 0, opacity: 1}}
        transition={{ duration: 0.2, ease: [0.25, 1, 0.5, 1] }}
-       className="mt-10 mb-7 w-[70%]">
+       className="mt-10 mb-7 md:w-[70%] w-full">
               {/* <label htmlFor="input2" className="block text-md font-medium text-[#49111c]">
                 전화번호
               </label> */}
               
-                <input
-                  type="text"
+              <input
+                  type="tel"
                   id="input2"
                   name='phone_number'
-                  
-                  className={`block w-full h-10 pr-3  text-[14px] focus:outline-none md:text-[17px] text-[#49111c] border-b-[1px] border-slate-200 focus:border-[#49111c]`}
-                  placeholder="전화번호 - 숫자만 입력"
+                  required={true}
+                  className={`phone_number_input block w-full h-10 pr-3 text-[13px] focus:outline-none md:text-[15px] text-[#49111c] border-b-[1px] border-slate-200 focus:border-[#49111c]`}
+                  // placeholder="전화번호 - 숫자만 입력"
+                  placeholder='전화번호: 010 1234 5678'
+                  //style={{'--placeholder-font-size' : '10px'}}
                   onChange={handlePhoneNumberChange}
-                  // onBlur={validatePhoneNumber}
-                  required
+                  pattern="^[0-9]{9,11}$" // Regular expression for 9 to 11 digits
                 />
-                {/* {phoneNumberError && <p className="text-red-500 mt-1">{phoneNumberError}</p>} */}
+
+                {phoneNumberError && <p className={`${phoneNumberError === '완벽해요!' ? 'text-green-900 mt-1 text-[12px]':'text-red-500 mt-1 text-[12px]'}`}>{phoneNumberError}</p>}
                 
               
             </motion.div>
 
-            <motion.div className='w-[70%]'>
-              <input type="text" className=" w-full h-10 mt-10 text-[#49111c] my-2  focus:outline-none text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] " placeholder="요청 사항"  name='message' onChange={handleInputChange}></input>
+            <motion.div className='w-full md:w-[70%]'>
+              <input type="text" className=" w-full h-10 mt-10 text-[#49111c] my-2  focus:outline-none text-[14px] md:text-[15px] border-b-[1px] border-slate-200 focus:border-[#49111c] " placeholder="요청 사항"  name='message' onChange={handleInputChange}></input>
             </motion.div>
+
+
+
+
+
+
+
+            <div className='w-full flex items-center justify-center'>
+   <motion.button
+    type='button'
+    className='w-[30%] md:w-[10%] h-[40px] text-md py-2 border text-[#49111c] hover:bg-[#6161ff]/10  tracking-wider rounded-lg  focus:outline-none focus:bg-blue mt-5 max-w-md  text-[14px] md:text-[16px] mr-2 border-slate-100'
+    onClick={() => {setCurrentQuestion(currentQuestion - 1); setEventAddress('')}}
+  >
+      <>
+      <FontAwesomeIcon icon={faCaretLeft} />
+      </> 
+  </motion.button>
+
+
+  <motion.button
+
+ style={ customerName !== '' && phoneNumber !== '' ? { background: buttonBackground, color: "#fff", border: '1px solid #fff' } : { background: '#F1F5F9', color: "#fff", border: '1px solid #fff' }}
+ onClick={handleNext} 
+ type='submit'
+ disabled={customerName === '' && phoneNumber === '' ? true : false}
+ className=' w-[40%] md:w-[15%] h-[41px] text-md py-2  tracking-wider rounded-lg border text-[#49111c] focus:outline-none focus:bg-blue mt-5 max-w-sm  text-[14px] md:text-[16px] bg-[#900C3F] font-semibold'
+ draggable="false"
+>
+   <>
+     다음 <FontAwesomeIcon icon={faCaretRight} />
+   </>
+</motion.button>
+   </div>
         </div>
       )}
 
 
 {currentQuestion === 8 && (
   <>
-  <div className='hidden md:block'>
+  <div className='hidden xl:block'>
+    <motion.div
+    initial={{ x: -100, opacity: 0}}
+    whileInView={{ x: 0, opacity: 1}}
+    transition={{ duration: 1, type: 'spring'}}>
+      <h1 className=' flex items-center justify-center text-lg font-semibold'>이벤트 세부 정보를 확인하십시오 </h1>
+    </motion.div>
      <Image src={'/images/female-chef.jpg'} alt='salt-bae' width={400} height={600} />
     
   </div>
  
 
-<div className='md:hidden block'>
+<div className='xl:hidden flex flex-col items-center justify-center'>
   {/* <h1 className='text-[60px] mb-10 font-[500] font-kr'>Congratulation! </h1> */}
   
 
    <motion.p 
-initial={{ x: -100}}
-whileInView={{ x: 0}}
+initial={{ x: -100, opacity: 0}}
+whileInView={{ x: 0, opacity: 1}}
 transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
-className='m-1 md:m-5 font-light'>이벤트 계획이 준비되었습니다!</motion.p>
-
+className='m-1 md:m-5 mb-5 text-[20px] font-kr font-bold'>이벤트 계획이 준비되었습니다!</motion.p>
+<h3 className='py-1 md:py-4 mb-2 text-slate-400 text-sm'>이벤트 세부 정보를 확인하십시오 </h3>
 <motion.div 
-initial={{ x: -100}}
-whileInView={{ x: 0}}
+initial={{ x: -100, opacity: 0}}
+whileInView={{ x: 0, opacity: 1}}
 transition={{ duration: 0.2, delay: 0.02, ease: [0.25, 1, 0.5, 1] }}
-className='flex flex-col justify-center items-start  font-bold w-full border p-5 md:p-10 rounded'>
-<h3 className='py-1 md:py-4'>이벤트 세부 정보를 확인하십시오: </h3>
-  <p>이벤트 유형: <span className='font-light pl-1'>{formData.event_type}</span></p>
-  <p>출석인원: <span className='font-light pl-1'>{formData.people_count} 명</span></p>
-  <p>식비: <span className='font-light pl-1'>{formData.meal_cost} 원 || {formData.meal_cost * formData.people_count}</span></p>
-  <p>이벤트 날짜: <span className='font-light pl-1'>{formattedEventTime}</span></p>
-  <p>장소: <span className='font-light pl-1'>{formData.event_place}</span></p>
-  <p>Tools: <span className='font-light pl-1'>{formData.tool.join(', ')}</span></p>
-  <p>주소: <span className='font-light pl-1'>{formData.address}</span></p>
-  <p>이름: <span className='font-light pl-1'>{formData.name}</span></p>
-  <p>전화번호: <span className='font-light pl-1'>{formData.phone_number}</span></p>
-  <p>추가 참고 사항: <span className='font-light pl-1'>{formData.message}</span></p>
+className='flex flex-col justify-center items-between  font-bold w-full border shadow-md p-7  rounded text-sm'>
+
+<div className='flex items-start justify-between'><p>이벤트 유형: </p> <span className='font-light pl-1'>{formData.event_type}</span></div>
+<div className='flex items-start justify-between'><p>출석인원: </p> <span className='font-light pl-1'>{formData.people_count} 명</span></div>
+<div className='flex items-start justify-between'><p>식비: </p> <span className='font-light pl-1'>{formData.meal_cost} 원 || {formData.meal_cost * formData.people_count}</span> </div>
+<div className='flex items-start justify-between'> <p>이벤트 날짜: </p><span className='font-light pl-1'>{formattedEventTime}</span></div>
+<div className='flex items-start justify-between'> <p>장소: </p><span className='font-light pl-1'>{formData.event_place}</span></div>
+<div className='flex items-start justify-between'> <p>Tools: </p><span className='font-light pl-1'>{formData.tool.join(', ')}</span></div>
+<div className='flex items-start justify-between'> <p>주소: </p><span className='font-light pl-1'>{formData.address}</span></div>
+<div className='flex items-start justify-between'> <p>이름: </p><span className='font-light pl-1'>{formData.name}</span></div>
+<div className='flex items-start justify-between'> <p>전화번호: </p><span className='font-light pl-1'>{formData.phone_number}</span></div>
+<div className='flex items-start justify-between'> <p>추가 참고 사항: </p><span className='font-light pl-1'>{formData.message}</span></div>
 
 
 </motion.div>
 </div>
+
+
+<div className='w-full flex items-center justify-center'>
+   <motion.button
+    type='button'
+    className='w-[30%] md:w-[10%] h-[40px] text-md py-2 border text-[#49111c] hover:bg-[#6161ff]/10  tracking-wider rounded-lg  focus:outline-none focus:bg-blue mt-5 max-w-md  text-[14px] md:text-[16px] mr-2'
+    onClick={() => {setCurrentQuestion(currentQuestion - 1); setCustomerName(''), setPhoneNumber(''), setCustomerMessage('')}}
+  >
+      <>
+      <FontAwesomeIcon icon={faCaretLeft} />
+      </> 
+  </motion.button>
+
+
+  <motion.button
+
+ style={  { background: buttonBackground, color: "#fff" }}
+ onClick={handleNext} 
+ type='submit'
+ className=' w-[40%] md:w-[20%] h-[41px] text-md py-2  tracking-wider rounded-lg border text-[#49111c] focus:outline-none focus:bg-blue mt-5 max-w-sm  text-[14px] md:text-[16px] bg-[#900C3F] font-semibold'
+ draggable="false"
+>
+   <>
+   예약하기 <FontAwesomeIcon icon={faEnvelopeCircleCheck} />
+   </>
+</motion.button>
+   </div>
 </>
 
 )}
@@ -1176,13 +1466,13 @@ className='w-[400px]'>
   <div className={`w-full flex flex-row items-center   ${currentQuestion < 1 ? 'justify-center' : 'justify-center'} ${currentQuestion > 8 ? 'hidden' : 'flex'}`}>
 
 
-  {currentQuestion > 0 && (
-  <motion.button
+  {/* {currentQuestion > 0 && ( */}
+  {/* <motion.button
   initial={{ x: -10}}
   whileInView={{ x: 0}}
   transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
     type='button'
-    className='w-[30%] md:w-[15%] h-[46px] text-md py-2 border text-[#49111c] hover:bg-[#6161ff]/10  tracking-wider rounded-[3px]  focus:outline-none focus:bg-blue mt-5 max-w-md  text-[14px] md:text-[16px] mr-2'
+    className='w-[30%] md:w-[15%] h-[46px] text-md py-2 border text-[#49111c] hover:bg-[#6161ff]/10  tracking-wider rounded-lg   focus:outline-none focus:bg-blue mt-5 max-w-md  text-[14px] md:text-[16px] mr-2'
     onClick={handlePrevious}
   >
     {currentQuestion < totalQuestions - 1 ? (
@@ -1191,14 +1481,14 @@ className='w-[400px]'>
       </> ) : ( <>
       <FontAwesomeIcon icon={faCaretLeft} />
       </> )}
-  </motion.button>
-  )}
- <motion.button
+  </motion.button> */}
+  {/* )} */}
+ {/* <motion.button
  
     style={{ background: buttonBackground, color: "#fff" }}
     onClick={handleNext} 
     type='submit'
-    className=' w-[40%] md:w-[20%] h-12 text-md py-2  tracking-wider rounded-[3px] border text-[#49111c] focus:outline-none focus:bg-blue mt-5 max-w-sm  text-[14px] md:text-[16px] bg-[#900C3F] font-semibold'
+    className=' w-[40%] md:w-[20%] h-12 text-md py-2  tracking-wider rounded-lg  border text-[#49111c] focus:outline-none focus:bg-blue mt-5 max-w-sm  text-[14px] md:text-[16px] bg-[#900C3F] font-semibold'
     draggable="false"
   >
     {currentQuestion < totalQuestions - 1 ? (
@@ -1210,7 +1500,7 @@ className='w-[400px]'>
       예약하기 <FontAwesomeIcon icon={faEnvelopeCircleCheck} />
       </>
     )}
-  </motion.button>
+  </motion.button> */}
 
   </div>
 

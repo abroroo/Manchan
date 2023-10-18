@@ -1,65 +1,248 @@
-import React, { useState, ChangeEvent, useEffect } from 'react';
-import getAddressData, { AddressData } from '../utils/getAddressData';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass, faMapLocationDot } from '@fortawesome/free-solid-svg-icons'
-import {motion} from 'framer-motion';
-import { createKakaoMap, createMarker } from '../utils/kakaoMap'; 
-//import * as kakao from 'kakao-maps-sdk';
+import React, { useState, ChangeEvent } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass, faMapLocationDot, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { motion } from 'framer-motion';
 import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk"
+import { set } from 'date-fns';
 
 interface AddressFinderProps {
   setEventAddress: React.Dispatch<React.SetStateAction<string>>;
   buttonBackground: string;
 }
 
+const AddressFinder: React.FC<AddressFinderProps> = ({ setEventAddress, buttonBackground }) => {
+  const [ loading, error ] = useKakaoLoader({
+    appkey: "88fa5e46979c83c2b9f77cf0c4da1025",
+    libraries: ["clusterer", "drawing", "services"],
+  });
 
+  const [addressQuery, setAddressQuery] = useState<string>('');
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [selectedAddress, setSelectedAddress] = useState<any | null>(null);
+  const [center, setCenter] = useState<{ lat: number; lng: number }>({ lat: 37.5566803113882, lng: 126.904501286522 });
+  const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
 
-const AddressFinder: React.FC<AddressFinderProps> = ({ setEventAddress, buttonBackground }, ) => {
-  const [addressQuery, setAddressQuery] = useState('');
-  const [addressData, setAddressData] = useState<AddressData | null>(null);
-  const [suggestedAddresses, setSuggestedAddresses] = useState<string[]>([]);
-  const [selectedAddress, setSelectedAddress] = useState<string>('');
-  const [isAddressComplete, setIsAddressComplete] = useState(false);
-  const [isSubmitClicked, setIsSubmitClicked] = useState(false);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+ 
+  const handleAddressChange = (e: ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
     setAddressQuery(query);
-    fetchSuggestedAddresses(query);
-    setIsAddressComplete(false);
-    setSelectedAddress('');
+
+    const ps = new window.kakao.maps.services.Geocoder();
+    ps.addressSearch(query, placesSearchCB);
   };
 
-  const handleAddressSuggestionClick = (suggestion: string) => {
-    setAddressQuery(suggestion);
-    setSuggestedAddresses([]);
-    setIsAddressComplete(true);
-    setSelectedAddress(suggestion);
-  };
-
-  const fetchSuggestedAddresses = async (query: string) => {
-    const data = await getAddressData(query);
-    if (data) {
-      const suggestions = data.documents.map((document) => {
-        const { address_name } = document;
-        return address_name;
-      });
-      setSuggestedAddresses(suggestions);
+  const placesSearchCB = (data: any, status: any, pagination: any) => {
+    if (status === window.kakao.maps.services.Status.OK) {
+      // No need to extract only address names, keep the entire data
+      setSearchResults(data);
     }
   };
+  
+  
+  
+  const handleAddressSelect = (place: any, index: number) => {
+    setSelectedItemIndex(index);
+    setSelectedAddress(place); // Pass the entire place object
+    console.log("This is selectedAddress: ", selectedAddress)
+    setCenter({
+      lat: place.y,
+      lng: place.x,
+    });
+      setEventAddress(place.address_name);
 
+  };
+  
+  
   const handleSubmitAddress = () => {
-    if (selectedAddress === '') {
+    if (selectedAddress) {
+      const { lat, lng } = selectedAddress; // Extract lat and lng
+      const exactAddress = `${lat}, ${lng}`; // Format the address as needed
+      // console.log('Selected Address:', exactAddress);
+      setEventAddress(selectedAddress.address_name);
+      
+    } else {
       alert('Please select an address from the suggestions.');
-      return;
     }
-
-    setEventAddress(selectedAddress);
-    setIsSubmitClicked(true);
-    setIsAddressComplete(true);
-    // You can perform any additional actions with the complete address here
-    console.log('Selected Address:', selectedAddress);
   };
+  
+
+  const handleMapClick = (map: any, mouseEvent: any) => {
+    // Create a new InfoWindow object
+    const newInfoWindow = new window.kakao.maps.InfoWindow({
+      content: addressQuery, // Use addressQuery here or the appropriate variable
+      position: selectedAddress.latLng,
+    });
+  
+    // setInfoWindow(newInfoWindow); // Uncomment this if needed
+  };
+  
+
+  return (
+    <div className="w-full">
+      <motion.h1
+        initial={{ x: -200 }}
+        whileInView={{ x: 0 }}
+        transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
+        className="mb-5 flex items-center justify-center text-lg lg:text-[22px] font-semibold font-kr"
+      >
+        <FontAwesomeIcon icon={faMapLocationDot} style={{ color: buttonBackground }} className='w-9 h-9 mr-2' /> 행사 예정 지역을 선택해주세요
+      </motion.h1>
+      <motion.div
+        initial={{ x: -200 }}
+        whileInView={{ x: 0 }}
+        transition={{ duration: 0.2, ease: [0.25, 1, 0.5, 1] }}
+        className="flex mb-4"
+      >
+        <input
+          type="text"
+          value={addressQuery}
+          onChange={handleAddressChange}
+          className="flex-grow w-[100%] h-[40px] mt-1 text-[#49111c] my-0 focus:outline-none pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c]"
+          required
+          placeholder='주소를 입력하세요'
+        />
+        
+      </motion.div>
+
+      <div className="search-results">
+  {searchResults.length > 0 && (
+    <ul className='flex flex-wrap '>
+      {searchResults.slice(0, 4).map((place, index) => (
+     <motion.li
+     initial={{ scale: 1 }}
+     whileTap={{ scale: 1.1 }}
+     transition={{ duration: 0.2, type: 'spring', bounce: 0.25 }}
+     key={`${index}-${place.address_name}`} // Use a unique key
+     onClick={() => handleAddressSelect(place, index)}
+     className='search-result cursor-pointer shadow-sm p-2 border-b hover:bg-slate-50 mb-2 md:mb-3 md:mx-[2px] w-full md:w-[49%] rounded-lg'
+     style={selectedItemIndex === index ? { background: buttonBackground, color: '#fff', fontWeight: 'bold' } : {}}
+  >
+     <FontAwesomeIcon style={{ color: buttonBackground }} icon={faLocationDot} /> {place.address_name}
+  </motion.li>
+  
+     
+      ))}
+    </ul>
+  )}
+</div>
+
+
+
+
+{selectedAddress && (
+  <Map
+    className="w-full h-[200px] md:h-[300px] border"
+    center={center}
+    level={3}
+    //onClick={handleMapClick}
+    onClick={(_target, mouseEvent) => {
+      setCenter({lat: mouseEvent.latLng.getLat(), lng: mouseEvent.latLng.getLng()})
+      handleMapClick
+    }}
+  >
+    <MapMarker
+      position={center}
+    />
+  </Map>
+)}
+
+    </div>
+  );
+};
+
+export default AddressFinder;
+
+
+
+
+
+
+// onClick={(_t, mouseEvent) => {
+//   setCenter({
+//     lat: mouseEvent.latLng.getLat(),
+//     lng: mouseEvent.latLng.getLng(),
+//   });
+//   console.log("This is lat, lng inside onClick of Map: ", center.lat, center.lng)
+//   //getAddress(mouseEvent.latLng.getLat(), mouseEvent.latLng.getLng());
+// }}
+
+
+// const [addressData, setAddressData] = useState<AddressData | null>(null);
+// const [suggestedAddresses, setSuggestedAddresses] = useState<string[]>([]);
+// const [selectedAddress, setSelectedAddress] = useState<string>('');
+// const [isAddressComplete, setIsAddressComplete] = useState(false);
+// const [isSubmitClicked, setIsSubmitClicked] = useState(false);
+
+// const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+//   const query = e.target.value;
+//   setAddressQuery(query);
+//   fetchSuggestedAddresses(query);
+//   setIsAddressComplete(false);
+//   setSelectedAddress('');
+// };
+
+// const handleAddressSuggestionClick = (suggestion: string) => {
+//   setAddressQuery(suggestion);
+//   setSuggestedAddresses([]);
+//   setIsAddressComplete(true);
+//   setSelectedAddress(suggestion);
+// };
+
+// const fetchSuggestedAddresses = async (query: string) => {
+//   const data = await getAddressData(query);
+//   if (data) {
+//     const suggestions = data.documents.map((document) => {
+//       const { address_name } = document;
+//       return address_name;
+//     });
+//     setSuggestedAddresses(suggestions);
+//   }
+// };
+
+
+
+
+
+
+// {suggestedAddresses.length > 0 && (
+//   <div className="mt-2">
+//     {/* <p className="text-gray-500">Suggestions:</p> */}
+//     <div className="list-disc pl-4 ">
+//       <span className='font-bold'>Found Address:</span> 
+//       {suggestedAddresses.map((suggestion) => (
+//         <p
+//           key={suggestion}
+//           onClick={() => handleAddressSuggestionClick(suggestion)}
+//           className="cursor-pointer hover:text-blue-500"
+//         >
+//            {suggestion}
+//         </p>
+//       ))}
+//     </div>
+//   </div>
+// )}
+// {isAddressComplete && isSubmitClicked && (
+//   <div className="mt-4 flex">
+//     <h2 className="font-semibold mr-1">행사 주소: </h2>
+//     <p className='underline decoration-solid underline-offset-4'>{selectedAddress}</p>
+//   </div>
+// )}
+// {isSubmitClicked && (
+//   <div className="mt-4">
+//     <p className="font-semibold text-[green]">주소 확인이 완료되었습니다!</p>
+//   </div>
+// )}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -86,20 +269,10 @@ const AddressFinder: React.FC<AddressFinderProps> = ({ setEventAddress, buttonBa
 
 
 
-  const [ loading, error ] = useKakaoLoader({
-    appkey: "88fa5e46979c83c2b9f77cf0c4da1025", // 발급 받은 APPKEY
-    libraries: ["clusterer", "drawing", "services"], // 사용할 라이브러리 목록
-     // 추가 옵션
-  })
 
 
-  const { kakao } = window;
-	const [address, setAddress] = useState(null); // 현재 좌표의 주소를 저장할 상태
-  const [center, setCenter] = useState({ lat: 37.5566803113882, lng: 126.904501286522 });
-  
 
-
-	// const getAddress = (lat: any, lng: any) => {
+  	// const getAddress = (lat: any, lng: any) => {
   //   const geocoder = new kakao.maps.services.Geocoder(); // 좌표 -> 주소로 변환해주는 객체
   //   const coord = new kakao.maps.LatLng(37.5566803113882, 126.904501286522); // 주소로 변환할 좌표 입력
   //   const callback = function (result: any, status: string) {
@@ -124,94 +297,25 @@ const AddressFinder: React.FC<AddressFinderProps> = ({ setEventAddress, buttonBa
   
 
 
-  return (
-    <div className="w-full">
-      
-      <motion.h1 
-      initial={{ x: -200}}
-      whileInView={{ x: 0}}
-      transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
-      className="mb-5 flex items-center justify-center text-lg lg:text-[22px] font-semibold font-kr">
-        <FontAwesomeIcon icon={faMapLocationDot} style={{color: buttonBackground}} className='w-9 h-9 mr-2' /> 행사 예정 지역을 선택해주세요
-      </motion.h1>
-      <motion.div 
-      initial={{ x: -200}}
-      whileInView={{ x: 0}}
-      transition={{ duration: 0.2, ease: [0.25, 1, 0.5, 1] }}
-      className="flex mb-4">
-        <input
-          type="text"
-          value={addressQuery}
-          onChange={handleChange}
-          className="flex-grow  w-[100%] h-10 mt-1 text-[#49111c] my-0 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c]"
-          required
-          placeholder='주소를 입력하세요'
-        />
-        <button
-        type='submit'
-          onClick={handleSubmitAddress}
-          className="px-4 md:px-10 py-2 bg-[#6161ff] text-white rounded ml-2"
-          style={{ background: buttonBackground }}
-        >
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
-        </button>
-      </motion.div>
-      {suggestedAddresses.length > 0 && (
-        <div className="mt-2">
-          {/* <p className="text-gray-500">Suggestions:</p> */}
-          <div className="list-disc pl-4 ">
-            <span className='font-bold'>Found Address:</span> 
-            {suggestedAddresses.map((suggestion) => (
-              <p
-                key={suggestion}
-                onClick={() => handleAddressSuggestionClick(suggestion)}
-                className="cursor-pointer hover:text-blue-500"
-              >
-                 {suggestion}
-              </p>
-            ))}
-          </div>
-        </div>
-      )}
-      {isAddressComplete && isSubmitClicked && (
-        <div className="mt-4 flex">
-          <h2 className="font-semibold mr-1">행사 주소: </h2>
-          <p className='underline decoration-solid underline-offset-4'>{selectedAddress}</p>
-        </div>
-      )}
-      {isSubmitClicked && (
-        <div className="mt-4">
-          <p className="font-semibold text-[green]">주소 확인이 완료되었습니다!</p>
-        </div>
-      )}
 
-<Map className="w-full h-full border" 
-center={{ lat: 37.5566803113882, lng: 126.904501286522 }} 
-style={{ height: '300px' }} level={3}
-onClick={(_t, mouseEvent) => {
-  setCenter({
-    lat: mouseEvent.latLng.getLat(),
-    lng: mouseEvent.latLng.getLng(),
-  });
-  console.log("This is lat, lng inside onClick of Map: ", center.lat, center.lng)
-  //getAddress(mouseEvent.latLng.getLat(), mouseEvent.latLng.getLng());
-}}
->
-				<MapMarker position={{ lat: 37.5566803113882, lng: 126.904501286522 }} />
-        <div className='flex items-center'>
-        {/* <button style={{ background: buttonBackground }} className="text-[#fff]  rounded my-2 px-5 py-2 font-semibold" onClick={getAddress}>현재 좌표의 주소 얻기</button> */}
-        {address && (
-				<div className='my-5 '>
-					<p> {address}</p>
-					
-				</div>
-			)}
-      </div>
-			</Map>
 
-			
-    </div>
-  );
-};
 
-export default AddressFinder;
+
+//   const handleMapClick = (map: any, mouseEvent: any) => {
+//     // Create a new InfoWindow object
+//     const newInfoWindow = new window.kakao.maps.InfoWindow({
+//       content: address,
+//       position: mouseEvent.latLng,
+//     });
+
+//    // setInfoWindow(newInfoWindow);
+//   };
+
+
+
+// const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+//   const query = e.target.value;
+//   setAddressQuery(query);
+//   setAddress(query)
+// };
+

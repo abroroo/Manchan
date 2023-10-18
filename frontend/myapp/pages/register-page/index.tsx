@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion';
-import Step1 from '../../components/FormSteps/Step1';
+
 import FormPage from '../../components/FormPage';
 import SmoothScroll from '../../components/Scolling/SmoothScroll';
 

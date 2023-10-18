@@ -12,6 +12,7 @@ module.exports = {
             'quick': ['Quicksand', 'sans-serif'],
             'caveat': ['Caveat', 'cursive'],
             'kr': ['Noto Serif KR', 'serif'],
+            'cormorant': ['Cormorant Garamond', 'serif']
         }
     },
     

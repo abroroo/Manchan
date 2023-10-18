@@ -27,8 +27,29 @@ const App = ({ Component, pageProps, router }: AppProps) => {
 
   return (
     <>
-  
-       
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+  {/* <Head>
+        <meta charSet="UTF-8" />
+        <meta name="description" content="A brief description of your page's content." />
+        <meta name="keywords" content="keyword1, keyword2, keyword3" />
+        <meta name="author" content="Your Name" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        
+        <meta property="og:title" content="Your Page Title" />
+        <meta property="og:description" content="A description of your page's content." />
+        <meta property="og:image" content="URL to an image for sharing." />
+        
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@yourTwitterHandle" />
+        <meta name="twitter:title" content="Your Page Title" />
+        <meta name="twitter:description" content="A description of your page's content." />
+        
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/ico" href="/favicon.ico" />
+        
+        <link rel="canonical" href="https://www.yourwebsite.com/your-page" />
+      </Head> */}
     <motion.div
     // initial={{opacity: 0, y: -100, }}
     // animate={navLoader}

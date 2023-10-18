@@ -9,6 +9,7 @@ import { faWallet, faBuilding, faChair, faCalendarDays, faFileContract, faMapLoc
 import { PartyPopper, Users, Wallet, Dot } from 'lucide-react';
 import { set } from 'date-fns';
 import { formToJSON } from 'axios';
+import EventsModal from './EventsModal';
 
 
 
@@ -178,54 +179,63 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
 
 
 
+
+
+// const createNewCustomer = async () => {
+
+//   try {
+//     const res = await fetch('http://127.0.0.1:8000/api/new_customer', {
+//       method: 'GET',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     });
+//     const data = await res.json();
+//     console.log("Ticket Number: ", data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// createNewCustomer();
+
+
+
+
+
 // post formDataTransferred to the backend and save it to the database
 
-useEffect(() => {
+// useEffect(() => {
 
-  const createNewCustomer = async () => {
-
-    try {
-      const res = await fetch('/api/new_customer', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const data = await res.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+ 
 
 
-
-  const saveFormData = async () => {
-    try {
-      const res = await fetch('/api/form', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formDataTransfered),
-      });
-      const data = await res.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  if (isCurrentQuestion === 8) {
-    saveFormData();
-  }
-})
+//   const saveFormData = async () => {
+//     try {
+//       const res = await fetch('/api/form', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(formDataTransfered),
+//       });
+//       const data = await res.json();
+//       console.log(data);
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+//   if (isCurrentQuestion === 8) {
+//     saveFormData();
+//   }
+// })
 
 
 
 
   return (
   
-    <div className='flex w-screen h-screen '>
+    <div className='flex w-screen h-screen overflow-y-hidden'>
       
       <div className=' flex flex-col md:flex-row w-full  '>
       
@@ -236,7 +246,7 @@ useEffect(() => {
         {/* LEFT HALF */}
 
 
-        <div id='leftDiv' className=' h-screen  w-screen xl:w-[60%]  flex items-center justify-center  overflow-y-hidden   z-10 bg-[#fff]'>
+        <div id='leftDiv' className=' h-screen  w-screen xl:w-[60%]  flex items-center justify-center    z-10 bg-[#fff]'>
          
         <Form onButtonBackgroundChange={handleButtonBackgroundChange} eventTypeOther={eventTypeOther} />
       
@@ -258,7 +268,7 @@ useEffect(() => {
         
         <div id='rightDiv' className='hidden w-[40%] xl:flex   h-screen   '> 
         
-                <div className='flex flex-col items-center justify-center w-full h-full overflow-y-scroll '>
+                <div className='flex flex-col items-center justify-center w-full h-full overflow-y-hidden '>
 
               {/* <ScrollingTable /> */}
 
@@ -332,7 +342,7 @@ useEffect(() => {
                                   whileInView={{x: 0, opacity: 1}}
                                   transition={{ duration: 1, delay: 0, type: 'spring', bounce: 0.3 }}
                                   className=' flex'><PartyPopper style={{color: getColor(0)}} className='h-5 w-5 md:h-9 md:w-9  ' /> 
-                                  <input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2' value={`${formDataTransfered.event_type === 'wedding' ? '가쪽 개인행사' : formDataTransfered.event_type === 'business' ? '기업 이벤트' : formDataTransfered.event_type === 'public' ? '사회 단체행사' : formDataTransfered.event_type === 'festival' ? '기관, 축제등' : formDataTransfered.event_type === 'birthday' ? '스몰웨딩, 야외결혼' : formDataTransfered.event_type === 'fingerFood' ? '핑거푸드' : formDataTransfered.event_type === 'steak' ? '스테이크 행사' : eventTypeOther} ` }></input></motion.div>
+                                  <input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2 font-semibold' value={`${formDataTransfered.event_type === 'wedding' ? '가쪽 개인행사' : formDataTransfered.event_type === 'business' ? '기업 이벤트' : formDataTransfered.event_type === 'public' ? '사회 단체행사' : formDataTransfered.event_type === 'festival' ? '기관, 축제등' : formDataTransfered.event_type === 'birthday' ? '스몰웨딩, 야외결혼' : formDataTransfered.event_type === 'fingerFood' ? '핑거푸드' : formDataTransfered.event_type === 'steak' ? '스테이크 행사' : eventTypeOther} ` }></input></motion.div>
                                 </motion.div>
                               )}
                               {isCurrentQuestion >= 2 && (
@@ -342,7 +352,7 @@ useEffect(() => {
                                   whileInView={{x: 0, opacity: 1}}
                                   transition={{ duration: 1, delay: 0, type: 'spring', bounce: 0.3 }}
                                   className=' flex'><FontAwesomeIcon style={{color: getColor(1)}} icon={faPerson} className='w-9 h-9' />
-                                  <input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2' value={formDataTransfered.people_count + ' 명'}></input></motion.div>
+                                  <input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2 font-semibold' value={formDataTransfered.people_count + ' 명'}></input></motion.div>
                                 </motion.div>
                     )} 
                   </div>
@@ -354,7 +364,7 @@ useEffect(() => {
                                   whileInView={{x: 0, opacity: 1}}
                                   transition={{ duration: 1, delay: 0, type: 'spring', bounce: 0.3 }}
                                   className=' flex'> <FontAwesomeIcon style={{color: getColor(1)}} icon={faSackDollar} className='h-5 w-5 md:h-8 md:w-8 ' />
-                                 <input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2' value={(formDataTransfered.meal_cost * formDataTransfered.people_count).toLocaleString('ko-KR') + ' 원'}></input></motion.div>
+                                 <input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2 font-semibold' value={(formDataTransfered.meal_cost * formDataTransfered.people_count).toLocaleString('ko-KR') + ' 원'}></input></motion.div>
                                 </motion.div>
                               )}
                               {isCurrentQuestion >= 4 && (
@@ -364,44 +374,44 @@ useEffect(() => {
                                   whileInView={{x: 0, opacity: 1}}
                                   transition={{ duration: 1, delay: 0, type: 'spring', bounce: 0.3 }}
                                   className=' flex'><FontAwesomeIcon style={{color: getColor(1)}} icon={faBuilding} className='h-5 w-5 md:h-9 md:w-9 ' />
-                                  <input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2' value={formDataTransfered.event_place}></input></motion.div>
+                                  <input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2 font-semibold' value={formDataTransfered.event_place}></input></motion.div>
                                 </motion.div>
                     )} 
                   </div>
-                  <div className='flex items-center justify-start '>
+                  <div className='flex items-center justify-start w-[70%] '>
                   {isCurrentQuestion >= 5 && (
-                                <motion.div className=' flex items-center justify-between p-2'>
+                                <motion.div className=' flex items-center justify-between p-2 w-full'>
                                   <motion.div 
                                   initial={{x: 50, opacity: 0}}
                                   whileInView={{x: 0, opacity: 1}}
                                   transition={{ duration: 1, delay: 0, type: 'spring', bounce: 0.3 }}
-                                  className=' flex '> <FontAwesomeIcon style={{color: getColor(1)}} icon={faChair} className='h-5 w-5 md:h-9 md:w-9 ' />
-                                  <input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2' value={formDataTransfered.tool}></input>
+                                  className=' flex w-full'> <FontAwesomeIcon style={{color: getColor(1)}} icon={faChair} className='h-5 w-5 md:h-9 md:w-9 ' />
+                                  <input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2 font-semibold' value={formDataTransfered.tool}></input>
                                   </motion.div>
                                 </motion.div>
                               )}
                              
                   </div>
-                  <div className='flex items-center justify-start'>
+                  <div className='flex items-center justify-start w-[100%]'>
                   {isCurrentQuestion >= 6 && (
-                                <motion.div className=' flex items-center justify-between p-2'>
+                                <motion.div className=' flex items-center justify-between p-2 w-[50%]'>
                                   <motion.div 
                                   initial={{x: 50, opacity: 0}}
                                   whileInView={{x: 0, opacity: 1}}
                                   transition={{ duration: 1, delay: 0, type: 'spring', bounce: 0.3 }}
-                                  className=' flex'> <FontAwesomeIcon style={{color: getColor(1)}} icon={faCalendarDays} className='h-5 w-5 md:h-9 md:w-9 '/>
-                                  <input  className='appearance-none block w-[60%] h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2' 
+                                  className=' flex w-full'> <FontAwesomeIcon style={{color: getColor(1)}} icon={faCalendarDays} className='h-5 w-5 md:h-9 md:w-9 '/>
+                                  <input  className='appearance-none block w-[100%] h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2 font-semibold' 
                                   value={formattedEventTime}></input></motion.div>
                                 </motion.div>
                               )}
                   {isCurrentQuestion >= 7 && (
-                                <motion.div className=' flex items-center justify-between p-2'>
+                                <motion.div className=' flex items-center justify-between p-2 w-[50%]'>
                                   <motion.div 
                                   initial={{x: 50, opacity: 0}}
                                   whileInView={{x: 0, opacity: 1}}
                                   transition={{ duration: 1, delay: 0, type: 'spring', bounce: 0.3 }}
                                   className=' flex justify-between'>  <FontAwesomeIcon style={{color: getColor(1)}} icon={faMapLocationDot} className='h-5 w-5 md:h-9 md:w-9 ' />
-                                  <input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2' value={formDataTransfered.address}></input></motion.div>
+                                  <input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2 font-semibold' value={formDataTransfered.address}></input></motion.div>
                                 </motion.div>
                               )}
                                
@@ -413,7 +423,7 @@ useEffect(() => {
                                   initial={{x: 50, opacity: 0}}
                                   whileInView={{x: 0, opacity: 1}}
                                   transition={{ duration: 1, delay: 0, type: 'spring', bounce: 0.3 }}
-                                  className=' flex'> <input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2' value={formDataTransfered.name} placeholder='이름'></input></motion.div>
+                                  className=' flex'> <input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2 font-semibold' value={formDataTransfered.name} placeholder='이름'></input></motion.div>
                                 </motion.div>
                               )}
                               {isCurrentQuestion >= 8 && (
@@ -422,18 +432,18 @@ useEffect(() => {
                                   initial={{x: 50, opacity: 0}}
                                   whileInView={{x: 0, opacity: 1}}
                                   transition={{ duration: 1, delay: 0, type: 'spring', bounce: 0.3 }}
-                                  className=' flex'><input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2' value={formDataTransfered.phone_number} placeholder='연락처'></input></motion.div>
+                                  className=' flex'><input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2 font-semibold' value={formDataTransfered.phone_number} placeholder='연락처'></input></motion.div>
                                 </motion.div>
                               )}
                   </div>
-                  <div className='flex items-center justify-start'>
+                  <div className='flex items-center justify-start w-full'>
                   {isCurrentQuestion >= 8 && (
-                                <motion.div className=' flex items-center justify-between p-2'>
+                                <motion.div className=' flex items-center justify-center p-2 w-full'>
                                   <motion.div 
                                   initial={{x: 50, opacity: 0}}
                                   whileInView={{x: 0, opacity: 1}}
                                   transition={{ duration: 1, delay: 0, type: 'spring', bounce: 0.3 }}
-                                  className=' flex'><input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2' value={formDataTransfered.message} placeholder='요청 사항'></input></motion.div>
+                                  className=' flex w-[90%]'><input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2 font-semibold' value={formDataTransfered.message} placeholder='요청 사항'></input></motion.div>
                                 </motion.div>
                               )}
                   </div>
@@ -548,7 +558,7 @@ useEffect(() => {
       </div>
       
       
-      {isModalOpen && <EventsGallery onClose={handleCloseModal} />}
+      {isModalOpen && <EventsModal onClose={handleCloseModal} />}
 
       
     </div>
