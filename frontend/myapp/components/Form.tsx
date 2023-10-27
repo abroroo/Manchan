@@ -225,6 +225,7 @@ const iconPositionForBudget = {
         // Call the validation function and set the phoneNumber value
         const validatedPhoneNumber = validatePhoneNumber(value);
         setFormData((prevFormData: any) => ({ ...prevFormData, [name]: validatedPhoneNumber }));
+        setPhoneNumber(validatedPhoneNumber);
       };
 
 
@@ -455,7 +456,7 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
       />
       <label htmlFor="wedding" className='absolute inset-0 flex flex-col items-center justify-center '>
       
-      <Image width="54" height="54" src="/images/icons/wedding.png" alt="wedding" className='mb-2 w-10 h-10 md:h-[54px] md:w-[54px]'/>
+      <Image width="54" height="54" src="/images/icons/birthday.png" alt="wedding" className='mb-2 w-10 h-10 md:h-[54px] md:w-[54px]'/>
       가족 개인행사
       </label>
     </motion.div>
@@ -504,7 +505,7 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
         className='event_range_wrapper w-20 h-20 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-lg  cursor-pointer peer-checked:border-[#9D174D] peer-checked:text-[#9D174D] hover:text-[#9D174D] hover:bg-gray-50 text-[12px] md:text-[15px] select-none pl-[6px] pt-[4px]'>
         <input  style={{ accentColor: buttonBackground }} type='checkbox' value='birthday' id='birthday' checked={selectedEvent === 'birthday'} onChange={() => handleCheckboxChange('birthday')} className='flex-start' />
           <label htmlFor="birthday" className="absolute inset-0 flex flex-col items-center justify-center ">
-          <Image width="54" height="54" src="/images/icons/birthday.png" alt="birthday" className='mb-2 h-10 w-10 md:h-[54px] md:w-[54px]'/>
+          <Image width="54" height="54" src="/images/icons/wedding.png" alt="birthday" className='mb-2 h-10 w-10 md:h-[54px] md:w-[54px]'/>
           <span className='flex'>
           스몰웨딩<span className='hidden md:block'>, 야외결혼</span></span>
           </label>
@@ -1104,6 +1105,17 @@ className='flex justify-center items-center'><motion.input
              className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer  ">
                   <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='플래카드' onChange={handleCheckboxAccesories}/>
                   <span className="pl-1 text-[12px] md:text-[15px]">플래카드</span> 
+                
+              </motion.label>
+
+              <motion.label 
+             whileTap={checkboxAnimationsGeneral}
+             initial={{ x: -100, opacity: 0}}
+               whileInView={{ x: 0, opacity: 1}}
+               transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1] }}
+             className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer  ">
+                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='필요없는' onChange={handleCheckboxAccesories}/>
+                  <span className="pl-1 text-[12px] md:text-[15px]">필요없는</span> 
                 
               </motion.label>
 

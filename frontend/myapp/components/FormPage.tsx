@@ -176,28 +176,29 @@ const options = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeri
 // as Month Day, hour:minute 
 const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
 
+const [ticket_number, setTicketNumber] = useState<string>("");
 
 
 
 
+const createNewCustomer = async () => {
 
-// const createNewCustomer = async () => {
+  try {
+    const res = await fetch('http://127.0.0.1:8000/api/new_customer', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await res.json();
+    console.log("Ticket Number: ", data);
+    setTicketNumber(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-//   try {
-//     const res = await fetch('http://127.0.0.1:8000/api/new_customer', {
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     });
-//     const data = await res.json();
-//     console.log("Ticket Number: ", data);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// createNewCustomer();
+createNewCustomer();
 
 
 
@@ -205,30 +206,30 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
 
 // post formDataTransferred to the backend and save it to the database
 
-// useEffect(() => {
+useEffect(() => {
 
  
 
 
-//   const saveFormData = async () => {
-//     try {
-//       const res = await fetch('/api/form', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(formDataTransfered),
-//       });
-//       const data = await res.json();
-//       console.log(data);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-//   if (isCurrentQuestion === 8) {
-//     saveFormData();
-//   }
-// })
+  const saveFormData = async () => {
+    try {
+      const res = await fetch(`http://127.0.0.1:8000/api/customer_update/${ticket_number}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formDataTransfered),
+      });
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  if (isCurrentQuestion === 8) {
+    saveFormData();
+  }
+})
 
 
 

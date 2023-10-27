@@ -188,101 +188,48 @@ const [phoneNumberError, setPhoneNumberError] = useState('');
  우리와 함께 부드콤에서 모든 이벤트는 마법을 만들기 위한 기회입니다. 우리에게 꿈을 현실로 만들어드릴 수 있는 기회를 주세요. 한 번에 잊지 못할 경험을 만들어 드립니다.</motion.p>
 
 
-<div>
-  <motion.div 
-  initial={{opacity: 0, x: -20, }}
-  whileInView={{opacity: 1, x: 0, }}
-  transition={{delay: 0.5, duration: 1.2, ease: [0.22, 1, 0.36, 1]}}
-  className='border-b-[#49111c]/70 border border-b-[5px] w-[10%] border-dotted mt-10 '></motion.div>
- {showForm && (
-<div>
 
-
-  
-   <motion.div
-      
-      className='mt-10 md:w-[70%] w-full'
-      >
-        <motion.h1 
-        initial={{opacity: 0, x: -20, }}
-        whileInView={{opacity: 1, x: 0, }}
-        transition={{delay: 0.7, duration: 1.2, ease: [0.22, 1, 0.36, 1]}}
-        className='text-[16px] font-semibold mb-10'>Contact Us </motion.h1>
-      <label htmlFor="input2" className="block text-md font-medium text-[#49111c] ">이름</label>
-      <input className="block w-full h-10  text-[#49111c]  focus:outline-none  pb-0 text-[14px] md:text-[15px] border-b-[1px] border-slate-200 focus:border-[#49111c]" placeholder="" type="text" id="name" name='name' 
-     
-      required/>
-      </motion.div>
-      
-
-    
-       <motion.div 
-       
-       className="mt-10 mb-7 md:w-[70%] w-full">
-              <label htmlFor="input2" className="block text-md font-medium text-[#49111c]">
-                전화번호
-              </label>
-              
-              <input
-                  type="tel"
-                  id="input2"
-                  name="phone_number"
-                  required={true}
-                  className={`phone_number_input block w-full h-10 pr-3 text-[13px] focus:outline-none md:text-[15px] text-[#49111c] border-b-[1px] border-slate-200 focus:border-[#49111c]`}
-                  placeholder="010" // This is your actual placeholder text
-                  //onChange={handleInputChange}
-                  onChange={handlePhoneNumberChange}
-                  pattern="^[0-9]{9,11}$" // Regular expression for 9 to 11 digits
-              />
-              {phoneNumberError && <p className={`${phoneNumberError === '완벽해요!' ? 'text-green-900 mt-1 text-[12px]':'text-red-500 mt-1 text-[12px]'}`}>{phoneNumberError}</p>}
-
-             
-                
-              
-            </motion.div>
-
-            <motion.div className='w-full md:w-[70%] '>
-            <label htmlFor="input3" className="block text-md font-medium text-[#49111c]">
-            요청 사항
-              </label>
-              <input type="text" id="input3" className=" w-full h-10 mt-5 text-[#49111c] my-2  focus:outline-none text-[14px] md:text-[15px] border-b-[1px] border-slate-200 focus:border-[#49111c] " placeholder=""  name='message' ></input>
-            </motion.div>
-
-            <motion.button
-
-
-                onClick={(event: any) => handleContactFormSubmit(event)} 
-                type='submit'
-                className=' w-[40%] md:w-[12%] h-[38px] text-md py-1  tracking-wider rounded-lg border text-[#fff] focus:outline-none focus:bg-[#5d9c59]/90 mt-5 max-w-sm  text-[14px] md:text-[15px] bg-[#5D9C59] '
-                draggable="false"
+ <div className="bg-gray-100 p-8">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="p-4 bg-white rounded shadow-md">
+            <h3 className="text-lg font-semibold mb-2">카카오톡 계정</h3>
+            <p>
+            모든 문의나 도움이 필요한 경우, 카카오톡을 통해 저희에게 연락하실 수 있습니다
+            </p>
+            <a
+              href="https://www.kakaotalk.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline mt-2 inline-block"
+            >
+              카카오톡 계정
+            </a>
+          </div>
+          <div className="p-4 bg-white rounded shadow-md">
+            <h3 className="text-lg font-semibold mb-2">연락 정보</h3>
+            <p>
+            만약 다른 커뮤니케이션 수단을 선호하신다면, 전화나 이메일로 저희에게 연락하실 수 있습니다
+            </p>
+            <div className="mt-2">
+              <p className="mb-2">
+                <strong>Phone:</strong> +1 (123) 456-7890
+              </p>
+              <p className="mb-2">
+                <strong>Email:</strong>{' '}
+                <a
+                  href="mailto:contact@example.com"
+                  className="text-blue-500 hover:underline"
                 >
-                  
-                  보내기
-                  
-                </motion.button>
-
-</div>
-
-)}
-{showThankYou && (
-        <div>
-          
-          <motion.p 
-          initial={{opacity: 0, scale: 0.9, }}
-          whileInView={{opacity: 1, scale: 1, }}
-          transition={{delay: 0.1, duration: 1.2, type: 'spring'}}
-          className='text-[16px]  mt-10'>귀하의 메시지를 정성스럽게 받았습니다. 곧 연락을 드리겠습니다 :)</motion.p>
-          <motion.h1 
-          initial={{opacity: 0, scale: 0.9, }}
-          whileInView={{opacity: 1, scale: 1, }}
-          transition={{delay: 0.2, duration: 1.2, type: 'spring'}}
-          className='text-[16px] font-semibold mt-2'>감사합니다! </motion.h1>
-          <button onClick={handleShowForm}
-          className='w-[40%] md:w-[15%] h-[38px] text-md py-1  tracking-wider rounded-lg border text-[#fff] focus:outline-none focus:bg-[#5d9c59]/90 mt-5 max-w-sm  text-[14px] md:text-[15px] bg-[#5D9C59]'>다시 연락</button>
+                  contact@example.com
+                </a>
+              </p>
+            </div>
+          </div>
         </div>
-      )}
-</div>
-
+      </div>
+    </div>
             
 
       
@@ -308,3 +255,104 @@ export default index;
  <h1 className="text-3xl font-medium font-cormorant ">Food Communication .Inc</h1>
 </div> 
 </header> */}
+
+
+
+
+
+
+
+
+
+
+// <div>
+//   <motion.div 
+//   initial={{opacity: 0, x: -20, }}
+//   whileInView={{opacity: 1, x: 0, }}
+//   transition={{delay: 0.5, duration: 1.2, ease: [0.22, 1, 0.36, 1]}}
+//   className='border-b-[#49111c]/70 border border-b-[5px] w-[10%] border-dotted mt-10 '></motion.div>
+//  {showForm && (
+// <div>
+
+
+  
+//    <motion.div
+      
+//       className='mt-10 md:w-[70%] w-full'
+//       >
+//         <motion.h1 
+//         initial={{opacity: 0, x: -20, }}
+//         whileInView={{opacity: 1, x: 0, }}
+//         transition={{delay: 0.7, duration: 1.2, ease: [0.22, 1, 0.36, 1]}}
+//         className='text-[16px] font-semibold mb-10'>Contact Us </motion.h1>
+//       <label htmlFor="input2" className="block text-md font-medium text-[#49111c] ">이름</label>
+//       <input className="block w-full h-10  text-[#49111c]  focus:outline-none  pb-0 text-[14px] md:text-[15px] border-b-[1px] border-slate-200 focus:border-[#49111c]" placeholder="" type="text" id="name" name='name' 
+     
+//       required/>
+//       </motion.div>
+      
+
+    
+//        <motion.div 
+       
+//        className="mt-10 mb-7 md:w-[70%] w-full">
+//               <label htmlFor="input2" className="block text-md font-medium text-[#49111c]">
+//                 전화번호
+//               </label>
+              
+//               <input
+//                   type="tel"
+//                   id="input2"
+//                   name="phone_number"
+//                   required={true}
+//                   className={`phone_number_input block w-full h-10 pr-3 text-[13px] focus:outline-none md:text-[15px] text-[#49111c] border-b-[1px] border-slate-200 focus:border-[#49111c]`}
+//                   placeholder="010" // This is your actual placeholder text
+//                   //onChange={handleInputChange}
+//                   onChange={handlePhoneNumberChange}
+//                   pattern="^[0-9]{9,11}$" // Regular expression for 9 to 11 digits
+//               />
+//               {phoneNumberError && <p className={`${phoneNumberError === '완벽해요!' ? 'text-green-900 mt-1 text-[12px]':'text-red-500 mt-1 text-[12px]'}`}>{phoneNumberError}</p>}
+
+             
+                
+              
+//             </motion.div>
+
+//             <motion.div className='w-full md:w-[70%] '>
+//             <label htmlFor="input3" className="block text-md font-medium text-[#49111c]">
+//             요청 사항
+//               </label>
+//               <input type="text" id="input3" className=" w-full h-10 mt-5 text-[#49111c] my-2  focus:outline-none text-[14px] md:text-[15px] border-b-[1px] border-slate-200 focus:border-[#49111c] " placeholder=""  name='message' ></input>
+//             </motion.div>
+
+//             <motion.button
+//                 disabled={name === '' && phone_number === '' && message == '' ? true : false}
+//                 style={ name === '' && phone_number === '' && message === '' ? { background: '#F1F5F9', color: "#fff", border: '1px solid #fff' } : { background: '#5d9c59', color: "#fff", border: '1px solid #fff' }}
+//                 onClick={(event: any) => handleContactFormSubmit(event)} 
+//                 type='submit'
+//                 className=' w-[40%] md:w-[12%] h-[38px] text-md py-1  tracking-wider rounded-lg  focus:outline-none  mt-5 max-w-sm  text-[14px] md:text-[15px]'
+//                 draggable="false"
+//                 >보내기
+//             </motion.button>
+
+// </div>
+
+// )}
+// {showThankYou && (
+//         <div>
+          
+//           <motion.p 
+//           initial={{opacity: 0, scale: 0.9, }}
+//           whileInView={{opacity: 1, scale: 1, }}
+//           transition={{delay: 0.1, duration: 1.2, type: 'spring'}}
+//           className='text-[16px]  mt-10'>귀하의 메시지를 정성스럽게 받았습니다. 곧 연락을 드리겠습니다 :)</motion.p>
+//           <motion.h1 
+//           initial={{opacity: 0, scale: 0.9, }}
+//           whileInView={{opacity: 1, scale: 1, }}
+//           transition={{delay: 0.2, duration: 1.2, type: 'spring'}}
+//           className='text-[16px] font-semibold mt-2'>감사합니다! </motion.h1>
+//           <button onClick={handleShowForm}
+//           className='w-[40%] md:w-[15%] h-[38px] text-md py-1  tracking-wider rounded-lg border text-[#fff] focus:outline-none focus:bg-[#5d9c59]/90 mt-5 max-w-sm  text-[14px] md:text-[15px] bg-[#5D9C59]'>다시 연락</button>
+//         </div>
+//       )}
+// </div>
