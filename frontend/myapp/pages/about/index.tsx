@@ -125,7 +125,7 @@ const [phoneNumberError, setPhoneNumberError] = useState('');
              whileInView={{opacity: 1, x: 0, }}
              transition={{delay: 0.25, duration: 1.2, ease: [0.22, 1, 0.36, 1]}}
              viewport={{once: true}}
-             className='font-semibold leading-relaxed'>부드콤에 오신 것을 환영합니다 - 1995년부터 기억에 남는 순간을 만들어 왔습니다 </motion.h4>
+             className='font-semibold leading-relaxed'>푸드컴에 오신 것을 환영합니다 - 1995년부터 기억에 남는 순간을 만들어 왔습니다 </motion.h4>
              <motion.p 
              initial={{opacity: 0, x: -50, }}
              whileInView={{opacity: 1, x: 0, }}
@@ -134,7 +134,7 @@ const [phoneNumberError, setPhoneNumberError] = useState('');
              className="text-[#49111c] leading-relaxed mb-6">
             
 
-             20년 이상 동안 부드콤은 기억에 남을 만한 순간의 중심 역할을 해왔습니다. 1995년에 창립된 이후, 우리는 훌륭한 음식 서비스와 이벤트 관리에 대한 열정으로 산업 내에서 신뢰할 수 있는 이름이 되었습니다.
+             30년 이상 동안 푸드컴은 기억에 남을 만한 순간의 중심 역할을 해왔습니다. 1995년에 창립된 이후, 우리는 훌륭한 음식 서비스와 이벤트 관리에 대한 열정으로 산업 내에서 신뢰할 수 있는 이름이 되었습니다.
  </motion.p>
 
 
@@ -175,7 +175,7 @@ const [phoneNumberError, setPhoneNumberError] = useState('');
   whileInView={{opacity: 1, x: 0, }}
   transition={{delay: 0.55, duration: 1.2, ease: [0.22, 1, 0.36, 1]}}
   viewport={{once: true}}
-  className='font-semibold leading-relaxed'>왜 부드콤을 선택해야 하는가: 당신의 축제 파트너</motion.h4>
+  className='font-semibold leading-relaxed'>왜 푸드컴을 선택해야 하는가: 당신의 축제 파트너</motion.h4>
 
  <motion.p 
   initial={{opacity: 0, x: -50, }}
@@ -183,7 +183,7 @@ const [phoneNumberError, setPhoneNumberError] = useState('');
   transition={{delay: 0.6, duration: 1.2, ease: [0.22, 1, 0.36, 1]}}
   viewport={{once: true}}
   className="text-[#49111c] leading-relaxed mb-6">
- 부드콤을 선택하면 단순히 행사가 아닌 소중한 기억이 되도록 헌신하는 파트너를 선택하는 것입니다. 우리는 물류를 처리하므로 여러 해 동안 얘기될 순간을 만드는 데 집중할 수 있습니다.
+ 푸드컴을 선택하면 단순히 행사가 아닌 소중한 기억이 되도록 헌신하는 파트너를 선택하는 것입니다. 우리는 물류를 처리하므로 여러 해 동안 얘기될 순간을 만드는 데 집중할 수 있습니다.
  <br />
  우리와 함께 부드콤에서 모든 이벤트는 마법을 만들기 위한 기회입니다. 우리에게 꿈을 현실로 만들어드릴 수 있는 기회를 주세요. 한 번에 잊지 못할 경험을 만들어 드립니다.</motion.p>
 
@@ -191,7 +191,7 @@ const [phoneNumberError, setPhoneNumberError] = useState('');
 
  <div className="bg-gray-100 p-8">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
+        <h2 className="text-2xl font-semibold mb-4">연락처</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="p-4 bg-white rounded shadow-md">
             <h3 className="text-lg font-semibold mb-2">카카오톡 계정</h3>
@@ -199,7 +199,7 @@ const [phoneNumberError, setPhoneNumberError] = useState('');
             모든 문의나 도움이 필요한 경우, 카카오톡을 통해 저희에게 연락하실 수 있습니다
             </p>
             <a
-              href="https://www.kakaotalk.com/"
+              href="https://www.kakaotalk.com/hw6556"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-500 hover:underline mt-2 inline-block"
@@ -214,7 +214,7 @@ const [phoneNumberError, setPhoneNumberError] = useState('');
             </p>
             <div className="mt-2">
               <p className="mb-2">
-                <strong>Phone:</strong> +1 (123) 456-7890
+                <strong>Phone:</strong> 010 3655 6556
               </p>
               <p className="mb-2">
                 <strong>Email:</strong>{' '}
@@ -222,7 +222,7 @@ const [phoneNumberError, setPhoneNumberError] = useState('');
                   href="mailto:contact@example.com"
                   className="text-blue-500 hover:underline"
                 >
-                  contact@example.com
+                  hw3030@naver.com
                 </a>
               </p>
             </div>

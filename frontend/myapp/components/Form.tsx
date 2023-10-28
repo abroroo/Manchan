@@ -395,7 +395,7 @@ const [sliderBudgetValStart, setSliderBudgetValStart] = useState(0);
     meal_cost: sliderBudgetVal,
     event_place: eventVenue,
     name: customerName,
-    phone_number: phoneNumber,
+    phone_number: parseInt(phoneNumber),
     message: customerMessage
   }));
 
@@ -959,7 +959,7 @@ className='flex justify-center items-center'><motion.input
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1] }}
              className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
-                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='사각 테이블' onChange={handleCheckboxAccesories}/>
+                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value={1} onChange={handleCheckboxAccesories}/>
                   
                 <span className="pl-1 text-[12px] md:text-[15px]">사각 테이블</span>
                 
@@ -972,7 +972,7 @@ className='flex justify-center items-center'><motion.input
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.04, ease: [0.25, 1, 0.5, 1] }}
              className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
-                <input style={{ accentColor: buttonBackground }} type='checkbox' required  name="tool" value='원탁테이블' onChange={handleCheckboxAccesories}/>
+                <input style={{ accentColor: buttonBackground }} type='checkbox' required  name="tool" value={2} onChange={handleCheckboxAccesories}/>
                 
                 <span className="pl-1 text-[12px] md:text-[15px]">원탁테이블</span>
                 
@@ -986,7 +986,7 @@ className='flex justify-center items-center'><motion.input
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.02, ease: [0.25, 1, 0.5, 1] }}
              className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
-                <input style={{ accentColor: buttonBackground }} type='checkbox' required  name="tool" value='스텐딩 테이블' onChange={handleCheckboxAccesories}/>
+                <input style={{ accentColor: buttonBackground }} type='checkbox' required  name="tool" value={3} onChange={handleCheckboxAccesories}/>
                 
                 <span className="pl-1 text-[12px] md:text-[15px]">스텐딩 <br />테이블</span>
                 
@@ -1000,7 +1000,7 @@ className='flex justify-center items-center'><motion.input
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0, ease: [0.25, 1, 0.5, 1] }}
              className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
-                <input style={{ accentColor: buttonBackground }} type='checkbox' required  name="tool" value='의자' onChange={handleCheckboxAccesories}/>
+                <input style={{ accentColor: buttonBackground }} type='checkbox' required  name="tool" value={4} onChange={handleCheckboxAccesories}/>
                 
                 <span className="pl-1 text-[12px] md:text-[15px]">의자</span>
                 
@@ -1014,7 +1014,7 @@ className='flex justify-center items-center'><motion.input
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1] }}
              className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
-                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='의자커버' onChange={handleCheckboxAccesories}/>
+                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value={5} onChange={handleCheckboxAccesories}/>
                   <span className="pl-1 text-[12px] md:text-[15px]">의자커버</span> 
                 
               </motion.label>
@@ -1025,7 +1025,7 @@ className='flex justify-center items-center'><motion.input
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.04, ease: [0.25, 1, 0.5, 1] }}
              className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointerr ">
-                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='자바라 텐트 (3m * 6m)' onChange={handleCheckboxAccesories}/>
+                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value={6} onChange={handleCheckboxAccesories}/>
                   <span className="pl-1 text-[12px] md:text-[15px]">자바라 텐트 (3m * 6m)</span> 
                 
               </motion.label>
@@ -1036,7 +1036,7 @@ className='flex justify-center items-center'><motion.input
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.02, ease: [0.25, 1, 0.5, 1] }}
              className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16  md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
-                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='몽골텐트 (5m * 5m)' onChange={handleCheckboxAccesories}/>
+                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value={7} onChange={handleCheckboxAccesories}/>
                   <span className="pl-1 text-[12px] md:text-[15px]">몽골텐트 (5m * 5m)</span> 
                 
               </motion.label>
@@ -1047,7 +1047,7 @@ className='flex justify-center items-center'><motion.input
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0, ease: [0.25, 1, 0.5, 1] }}
              className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer ">
-                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='단상' onChange={handleCheckboxAccesories}/>
+                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value={8} onChange={handleCheckboxAccesories}/>
                   <span className="pl-1 text-[12px] md:text-[15px]">단상</span> 
                 
               </motion.label>
@@ -1058,7 +1058,7 @@ className='flex justify-center items-center'><motion.input
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1] }}
              className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer  ">
-                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='기본음향' onChange={handleCheckboxAccesories}/>
+                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value={9} onChange={handleCheckboxAccesories}/>
                   <span className="pl-1 text-[12px] md:text-[15px]">기본음향</span> 
                 
               </motion.label>
@@ -1069,7 +1069,7 @@ className='flex justify-center items-center'><motion.input
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1] }}
              className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer  ">
-                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='무대' onChange={handleCheckboxAccesories}/>
+                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value={10} onChange={handleCheckboxAccesories}/>
                   <span className="pl-1 text-[12px] md:text-[15px]">무대</span> 
                 
               </motion.label>
@@ -1081,7 +1081,7 @@ className='flex justify-center items-center'><motion.input
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1] }}
              className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer  ">
-                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='진행' onChange={handleCheckboxAccesories}/>
+                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value={11} onChange={handleCheckboxAccesories}/>
                   <span className="pl-1 text-[12px] md:text-[15px]">진행</span> 
                 
               </motion.label>
@@ -1092,7 +1092,7 @@ className='flex justify-center items-center'><motion.input
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1] }}
              className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer  ">
-                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='마스터 밴드' onChange={handleCheckboxAccesories}/>
+                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value={12} onChange={handleCheckboxAccesories}/>
                   <span className="pl-1 text-[12px] md:text-[15px]">마스터 밴드</span> 
                 
               </motion.label>
@@ -1103,7 +1103,7 @@ className='flex justify-center items-center'><motion.input
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1] }}
              className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer  ">
-                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='플래카드' onChange={handleCheckboxAccesories}/>
+                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value={13} onChange={handleCheckboxAccesories}/>
                   <span className="pl-1 text-[12px] md:text-[15px]">플래카드</span> 
                 
               </motion.label>
@@ -1114,7 +1114,7 @@ className='flex justify-center items-center'><motion.input
                whileInView={{ x: 0, opacity: 1}}
                transition={{ duration: 0.5, delay: 0.06, ease: [0.25, 1, 0.5, 1] }}
              className="flex items-center justify-start md:justify-center p-1 border  text-[#49111c] w-[85px] h-16 md:w-28 md:h-20 relative m-1 md:m-2 xl:m-3 rounded-lg   hover:bg-indigo-50 cursor-pointer  ">
-                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value='필요없는' onChange={handleCheckboxAccesories}/>
+                  <input style={{ accentColor: buttonBackground }} type='checkbox' required name="tool" value={14} onChange={handleCheckboxAccesories}/>
                   <span className="pl-1 text-[12px] md:text-[15px]">필요없는</span> 
                 
               </motion.label>

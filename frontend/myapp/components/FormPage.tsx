@@ -10,7 +10,7 @@ import { PartyPopper, Users, Wallet, Dot } from 'lucide-react';
 import { set } from 'date-fns';
 import { formToJSON } from 'axios';
 import EventsModal from './EventsModal';
-
+import axios from 'axios';
 
 
 
@@ -176,13 +176,13 @@ const options = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeri
 // as Month Day, hour:minute 
 const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
 
-const [ticket_number, setTicketNumber] = useState<string>("");
+const [ticket_number, setTicketNumber] = useState<string>('');
 
 
 
 
 const createNewCustomer = async () => {
-
+if (ticket_number === '') {
   try {
     const res = await fetch('http://127.0.0.1:8000/api/new_customer', {
       method: 'GET',
@@ -196,9 +196,69 @@ const createNewCustomer = async () => {
   } catch (error) {
     console.log(error);
   }
+}
 };
 
 createNewCustomer();
+
+
+// const dataExample = {
+//   // "tool": [
+//   //     9,
+//   //     11,
+//   //     13
+//   // ],
+//   "name": "test 121",
+//   //"phone_number": 1057195554,
+//   //"event_type": "wedding",
+//   //"event_place": "연회장",
+//   //"people_count": 900,
+//   //"event_date": "2023-07-26T07:35:08Z",
+//   //"address": "전주시 덕진구 금암1길",
+//   //"meal_cost": 30000,
+//   //"date_registered": "2023-07-14T07:32:20.097721Z",
+//   "ticket_number": 243242313
+// }
+
+// const [count, setCount] = useState<number>(0);
+
+
+// const saveFormData = async () => {
+//   try {
+//     const res = await fetch(`http://127.0.0.1/:8000/api/customer_update/243242313`, {
+//       method: 'PUT',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(dataExample),
+//     });
+//     const data = await res.json();
+//     console.log(data);
+//     console.log("this is example Data : ", JSON.stringify(dataExample) )
+//     setCount(1)
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// if(count === 0) {
+// saveFormData(); }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -206,30 +266,26 @@ createNewCustomer();
 
 // post formDataTransferred to the backend and save it to the database
 
-useEffect(() => {
-
- 
-
-
-  const saveFormData = async () => {
-    try {
-      const res = await fetch(`http://127.0.0.1:8000/api/customer_update/${ticket_number}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formDataTransfered),
-      });
-      const data = await res.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  if (isCurrentQuestion === 8) {
-    saveFormData();
-  }
-})
+// useEffect(() => {
+//   const saveFormData = async () => {
+//     try {
+//       const res = await fetch(`http://127.0.0.1:8000/api/customer_update/243242313`, {
+//         method: 'PUT',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(dataExample),
+//       });
+//       const data = await res.json();
+//       console.log(data);
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+//   if (isCurrentQuestion === 8) {
+//     saveFormData();
+//   }
+// })
 
 
 
@@ -580,13 +636,6 @@ export default FormPage;
 <Link className='p-2' href="/about">스토리</Link>
 
 </div> */}
-
-
-
-
-
-
-
 
 
 
