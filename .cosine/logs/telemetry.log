@@ -1,0 +1,99 @@
+
+INFO [2023-10-27T23:35:08.476Z]: Set User: 4ecf0d6a-2098-446d-82cf-4d6547014a67
+INFO [2023-10-27T23:35:08.477Z]: Initializing feature flags
+INFO [2023-10-27T23:35:08.595Z]: Tracking open event
+INFO [2023-10-27T23:35:08.600Z]: {}
+INFO [2023-10-29T06:17:10.392Z]: Set User: 4ecf0d6a-2098-446d-82cf-4d6547014a67
+INFO [2023-10-29T06:17:12.679Z]: Tracking open event
+INFO [2023-10-29T06:17:12.689Z]: {}
+INFO [2023-10-30T00:22:39.915Z]: Set User: 4ecf0d6a-2098-446d-82cf-4d6547014a67
+INFO [2023-10-30T00:22:39.915Z]: Initializing feature flags
+INFO [2023-10-30T00:22:42.128Z]: Tracking open event
+INFO [2023-10-30T00:22:42.138Z]: {}
+INFO [2023-10-30T00:49:21.984Z]: Preparing to initialize extension
+INFO [2023-10-30T00:49:22.988Z]: Registering flag observer
+INFO [2023-10-30T00:49:23.000Z]: Get languages
+INFO [2023-10-30T00:49:23.578Z]: Get Overview
+INFO [2023-10-30T00:49:23.581Z]: Creating semantic
+INFO [2023-10-30T00:49:23.663Z]: Creating project bot props
+INFO [2023-10-30T00:49:23.671Z]: Initializing plan controller
+INFO [2023-10-30T00:49:24.285Z]: Creating status controller
+INFO [2023-10-30T00:49:24.343Z]: Fully initialized!
+INFO [2023-10-30T00:49:24.345Z]: {"timeToInit":2360}
+INFO [2023-10-30T02:05:47.450Z]: Set User: 4ecf0d6a-2098-446d-82cf-4d6547014a67
+INFO [2023-10-30T02:05:47.451Z]: Initializing feature flags
+INFO [2023-10-30T02:05:49.231Z]: Tracking open event
+INFO [2023-10-30T02:05:49.237Z]: {}
+INFO [2023-10-31T23:15:22.412Z]: Set User: 4ecf0d6a-2098-446d-82cf-4d6547014a67
+INFO [2023-10-31T23:15:22.435Z]: Set Tag: sentry_scope: vscode-extension
+INFO [2023-11-01T17:16:53.565Z]: Set User: 4ecf0d6a-2098-446d-82cf-4d6547014a67
+INFO [2023-11-01T17:16:53.565Z]: Initializing feature flags
+INFO [2023-11-01T17:17:05.574Z]: Split failed to initialize
+INFO [2023-11-01T17:17:05.595Z]: Initializing workspace controller
+INFO [2023-11-02T17:09:10.377Z]: Set User: 4ecf0d6a-2098-446d-82cf-4d6547014a67
+INFO [2023-11-02T17:09:12.799Z]: {}
+INFO [2023-11-05T02:44:50.701Z]: Tracking open event
+INFO [2023-11-05T02:44:50.706Z]: Creating language service
+INFO [2023-11-05T02:44:50.706Z]: Creating settings service
+INFO [2023-11-05T02:44:50.707Z]: Creating workspace service
+INFO [2023-11-05T02:44:50.708Z]: Creating remote AI
+INFO [2023-11-05T02:44:50.709Z]: Creating feedback service
+INFO [2023-11-05T02:44:50.709Z]: Creating share service
+INFO [2023-11-05T02:44:50.709Z]: Creating workspace controller
+INFO [2023-11-05T02:44:50.709Z]: Enabling workspace listeners
+INFO [2023-11-05T02:44:50.710Z]: Creating source
+INFO [2023-11-05T02:44:50.711Z]: Initializing workspace controller
+INFO [2023-11-05T02:44:50.714Z]: opened
+INFO [2023-11-05T02:44:50.714Z]: {}
+INFO [2023-11-05T06:17:55.506Z]: Tracking open event
+INFO [2023-11-05T06:17:55.508Z]: Creating language service
+INFO [2023-11-05T06:17:55.508Z]: Creating settings service
+INFO [2023-11-05T06:17:55.508Z]: Creating workspace service
+INFO [2023-11-05T06:17:55.509Z]: Creating remote AI
+INFO [2023-11-05T06:17:55.509Z]: Creating feedback service
+INFO [2023-11-05T06:17:55.509Z]: Creating share service
+INFO [2023-11-05T06:17:55.509Z]: Creating workspace controller
+INFO [2023-11-05T06:17:55.509Z]: Enabling workspace listeners
+INFO [2023-11-05T06:17:55.509Z]: Creating source
+INFO [2023-11-05T06:17:55.509Z]: Initializing workspace controller
+INFO [2023-11-05T06:17:55.511Z]: opened
+INFO [2023-11-05T06:17:55.511Z]: {}
+INFO [2023-11-06T02:36:29.863Z]: Tracking open event
+INFO [2023-11-06T02:36:29.867Z]: Creating language service
+INFO [2023-11-06T02:36:29.867Z]: Creating settings service
+INFO [2023-11-06T02:36:29.867Z]: Creating workspace service
+INFO [2023-11-06T02:36:29.867Z]: Creating remote AI
+INFO [2023-11-06T02:36:29.867Z]: Creating feedback service
+INFO [2023-11-06T02:36:29.867Z]: Creating share service
+INFO [2023-11-06T02:36:29.867Z]: Creating workspace controller
+INFO [2023-11-06T02:36:29.867Z]: Enabling workspace listeners
+INFO [2023-11-06T02:36:29.868Z]: Creating source
+INFO [2023-11-06T02:36:29.868Z]: Initializing workspace controller
+INFO [2023-11-06T02:36:29.870Z]: opened
+INFO [2023-11-06T02:36:29.870Z]: {}
+INFO [2023-11-06T19:04:19.289Z]: Tracking open event
+INFO [2023-11-06T19:04:19.295Z]: Creating language service
+INFO [2023-11-06T19:04:19.295Z]: Creating settings service
+INFO [2023-11-06T19:04:19.295Z]: Creating workspace service
+INFO [2023-11-06T19:04:19.295Z]: Creating remote AI
+INFO [2023-11-06T19:04:19.295Z]: Creating feedback service
+INFO [2023-11-06T19:04:19.295Z]: Creating share service
+INFO [2023-11-06T19:04:19.295Z]: Creating workspace controller
+INFO [2023-11-06T19:04:19.296Z]: Enabling workspace listeners
+INFO [2023-11-06T19:04:19.299Z]: Creating source
+INFO [2023-11-06T19:04:19.299Z]: Initializing workspace controller
+INFO [2023-11-06T19:04:19.302Z]: opened
+INFO [2023-11-06T19:04:19.302Z]: {}
+INFO [2023-11-06T19:34:55.473Z]: Tracking open event
+INFO [2023-11-06T19:34:55.476Z]: Creating language service
+INFO [2023-11-06T19:34:55.476Z]: Creating settings service
+INFO [2023-11-06T19:34:55.476Z]: Creating workspace service
+INFO [2023-11-06T19:34:55.477Z]: Creating remote AI
+INFO [2023-11-06T19:34:55.477Z]: Creating feedback service
+INFO [2023-11-06T19:34:55.477Z]: Creating share service
+INFO [2023-11-06T19:34:55.477Z]: Creating workspace controller
+INFO [2023-11-06T19:34:55.477Z]: Enabling workspace listeners
+INFO [2023-11-06T19:34:55.477Z]: Creating source
+INFO [2023-11-06T19:34:55.477Z]: Initializing workspace controller
+INFO [2023-11-06T19:34:55.478Z]: opened
+INFO [2023-11-06T19:34:55.478Z]: {}
