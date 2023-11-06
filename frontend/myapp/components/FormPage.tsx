@@ -47,6 +47,7 @@ const FormPage = () => {
   const [isMouseWithinHero, setIsMouseWithinHero] = useState(false)
   const [cursorX, setCursorX] = useState(0)
   const [cursorY, setCursorY] = useState(0)
+  const zoomFactor = 1.1
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const imageElement = imageWrapperRef.current
@@ -63,7 +64,8 @@ const FormPage = () => {
 
       // Apply blur and darkness to the image
       if (imageFirstParent.current) {
-        imageFirstParent.current.style.filter = " brightness(0.9) "
+        // imageFirstParent.current.style.backgroundSize = `${zoomFactor * 100}%`
+        // imageFirstParent.current.style.filter = " brightness(0.95) "
       }
     }
   }
@@ -75,8 +77,10 @@ const FormPage = () => {
   const handleMouseLeave = () => {
     setIsMouseWithinHero(false)
     // Remove blur and darkness when the cursor leaves the image
+
     if (imageFirstParent.current) {
-      imageFirstParent.current.style.filter = "none"
+      // imageFirstParent.current.style.backgroundSize = "100%"
+      // imageFirstParent.current.style.filter = "none"
     }
   }
 
@@ -284,6 +288,10 @@ const FormPage = () => {
                 onMouseMove={handleMouseMove}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
+                whileHover={{
+                  backgroundSize: 110,
+                  transition: { duration: 0.2 },
+                }}
                 className="relative flex-col"
               >
                 {isMouseWithinHero && (

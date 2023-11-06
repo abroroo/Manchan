@@ -26,6 +26,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { setHours, setMinutes } from "date-fns" // Import the functions
+
+import { tr } from "date-fns/locale"
 import ko from "date-fns/locale/ko"
 import { PartyPopper, Users, Wallet } from "lucide-react"
 import ConfettiExplosion from "react-confetti-explosion"
@@ -178,7 +180,7 @@ const Form = ({
 
   // Animation for the checkboxes in the all questions exept the first one
   const checkboxAnimationsGeneral = {
-    scale: [1, 1.05, 1],
+    scale: [1.1, 1.05, 1],
     transition: {
       duration: 0.2,
     },
@@ -348,6 +350,7 @@ const Form = ({
             <div className="mt-5 flex  flex-wrap justify-between md:mt-4">
               <motion.div
                 whileTap={checkboxAnimations}
+                whileHover={{ scale: 1.1, transition: { duration: 0.15 } }}
                 className="event_range_wrapper relative m-1 h-20 w-20 cursor-pointer select-none rounded-lg border pl-[6px] pt-[4px] text-[12px] text-[#49111c] hover:bg-gray-50 hover:text-[#F25287] peer-checked:border-[#F25287] peer-checked:text-[#F25287] 
     md:m-2 md:h-32 md:w-32 md:text-[15px] xl:m-2"
               >
@@ -379,6 +382,7 @@ const Form = ({
 
               <motion.div
                 whileTap={checkboxAnimations}
+                whileHover={{ scale: 1.1, transition: { duration: 0.15 } }}
                 className="event_range_wrapper relative m-1 h-20 w-20 cursor-pointer select-none rounded-lg border pl-[6px] pt-[4px] text-[12px] text-[#49111c] hover:bg-gray-50 hover:text-[#2563EB] peer-checked:border-[#2563EB] peer-checked:text-[#2563EB] md:m-2 md:h-32 md:w-32 md:text-[15px] xl:m-2"
               >
                 <input
@@ -407,6 +411,7 @@ const Form = ({
 
               <motion.div
                 whileTap={checkboxAnimations}
+                whileHover={{ scale: 1.1, transition: { duration: 0.15 } }}
                 className="event_range_wrapper relative m-1 h-20 w-20 cursor-pointer select-none rounded-lg border pl-[6px] pt-[4px] text-[12px]  text-[#49111c] hover:bg-gray-50 hover:text-[#047857] peer-checked:border-[#047857] peer-checked:text-[#047857] md:m-2 md:h-32 md:w-32 md:text-[15px] xl:m-2"
               >
                 <input
@@ -435,6 +440,7 @@ const Form = ({
 
               <motion.div
                 whileTap={checkboxAnimations}
+                whileHover={{ scale: 1.1, transition: { duration: 0.15 } }}
                 className="event_range_wrapper relative m-1 h-20 w-20 cursor-pointer select-none rounded-lg border pl-[6px] pt-[4px] text-[12px]  text-[#49111c] hover:bg-gray-50 hover:text-[#7C3AED] peer-checked:border-[#7C3AED] peer-checked:text-[#7C3AED] md:m-2 md:h-32 md:w-32 md:text-[15px] xl:m-2"
               >
                 <input
@@ -465,6 +471,7 @@ const Form = ({
 
               <motion.div
                 whileTap={checkboxAnimations}
+                whileHover={{ scale: 1.1, transition: { duration: 0.15 } }}
                 className="event_range_wrapper relative m-1 h-20 w-20 cursor-pointer select-none rounded-lg border pl-[6px] pt-[4px] text-[12px]  text-[#49111c] hover:bg-gray-50 hover:text-[#9D174D] peer-checked:border-[#9D174D] peer-checked:text-[#9D174D] md:m-2 md:h-32 md:w-32 md:text-[15px] xl:m-2"
               >
                 <input
@@ -493,6 +500,7 @@ const Form = ({
 
               <motion.div
                 whileTap={checkboxAnimations}
+                whileHover={{ scale: 1.1, transition: { duration: 0.15 } }}
                 className="event_range_wrapper relative m-1 h-20 w-20 cursor-pointer select-none rounded-lg border pl-[6px] pt-[4px] text-[12px]  text-[#49111c] hover:bg-gray-50 hover:text-[#FE0000] peer-checked:border-[#FE0000] peer-checked:text-[#FE0000] md:m-2 md:h-32 md:w-32 md:text-[15px] xl:m-2"
               >
                 <input
@@ -532,6 +540,7 @@ const Form = ({
 
               <motion.div
                 whileTap={checkboxAnimations}
+                whileHover={{ scale: 1.1, transition: { duration: 0.15 } }}
                 className="event_range_wrapper relative m-1 h-20 w-20 cursor-pointer select-none rounded-lg border pl-[6px] pt-[4px] text-[12px]  text-[#49111c] hover:bg-gray-50 hover:text-[#F8B400] peer-checked:border-[#F8B400] peer-checked:text-[#F8B400] md:m-2 md:h-32 md:w-32 md:text-[15px] xl:m-2"
               >
                 <input
@@ -571,6 +580,7 @@ const Form = ({
 
               <motion.div
                 whileTap={checkboxAnimations}
+                whileHover={{ scale: 1.1, transition: { duration: 0.15 } }}
                 className="event_range_wrapper relative m-1 h-20 w-20 cursor-pointer select-none rounded-lg border pl-[6px] pt-[4px] text-[12px]  text-[#49111c] hover:bg-gray-50 hover:text-[#C05621] peer-checked:border-[#C05621] peer-checked:text-[#C05621] md:m-2 md:h-32 md:w-32 md:text-[15px] xl:m-2"
               >
                 <input
@@ -707,14 +717,15 @@ const Form = ({
             <div className="flex items-center justify-center">
               <motion.button
                 type="button"
-                className="text-md focus:bg-blue mr-2 mt-5 h-[40px] w-[30%] max-w-md rounded-lg  border border-slate-100  py-2 text-[14px] tracking-wider text-[#49111c]  hover:bg-[#6161ff]/10 focus:outline-none md:w-[10%] md:text-[16px]"
+                className="text-md  mr-2 mt-5 flex  items-end justify-center py-2  text-[14px] tracking-wider text-[#49111c] underline decoration-solid underline-offset-2 md:w-[10%] md:text-[16px]"
                 onClick={() => {
                   setCurrentQuestion(currentQuestion - 1)
                   setSelectedEvent("")
                 }}
               >
                 <>
-                  <FontAwesomeIcon icon={faCaretLeft} />
+                  뒤로
+                  {/* <FontAwesomeIcon icon={faCaretLeft} /> */}
                 </>
               </motion.button>
 

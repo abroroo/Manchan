@@ -29,6 +29,7 @@ type EventImages = {
   public: any[]
   steak: any[]
   fingerFood: any[]
+  real: any[]
   // Add more event types as needed
 }
 
@@ -109,6 +110,7 @@ const EventsModal: FC<GalleryProps> = ({ onClose }) => {
     public: Public,
     steak: Steak,
     fingerFood: FingerFood,
+    real: Real,
     // Add other event types and their image arrays here
   }
 

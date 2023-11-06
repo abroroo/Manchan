@@ -115,7 +115,32 @@ const EventsModal: FC<GalleryProps> = ({ onClose }) => {
     // Add other event types and their image arrays here
   }
 
-  console.log("THis is selcted event: ", selectedEvent)
+  // Horizontal scroll of inner-carousel while scrolling vertically
+
+  // Scroll-related state
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const handleVerticalScroll = () => {
+    // Handle vertical scroll here
+    if (containerRef.current) {
+      const scrollY = window.scrollY
+      const scrollFactor = 0.5 // Adjust as needed
+
+      // Update the horizontal scroll position of the container
+      containerRef.current.scrollLeft = scrollY * scrollFactor
+    }
+  }
+
+  useEffect(() => {
+    // Add scroll event listener
+    window.addEventListener("scroll", handleVerticalScroll)
+
+    // Remove scroll event listener when the component unmounts
+    return () => {
+      window.removeEventListener("scroll", handleVerticalScroll)
+    }
+  }, [])
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0 }}
@@ -385,7 +410,7 @@ const EventsModal: FC<GalleryProps> = ({ onClose }) => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           whileTap={{ cursor: "grabbing" }}
-          className="h-full w-full cursor-grab "
+          className="h-full w-full cursor-grab"
         >
           <SmoothScroll>
             <motion.div className="inner-corousel relative flex overflow-y-hidden overflow-x-scroll">
