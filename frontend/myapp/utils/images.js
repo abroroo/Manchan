@@ -1,4 +1,4 @@
-const importAll = (r) => r.keys().map((fileName) => ({ id: fileName, imageSrc: r(fileName).default }));
+export const importAll = (r) => r.keys().map((fileName) => ({ id: fileName, imageSrc: r(fileName).default }));
 
 // require.context returns 
 // an array with images pathes ['./cat.png', './dog.png', './bird.svg']
