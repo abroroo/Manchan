@@ -56,18 +56,25 @@ const Form = ({ onButtonBackgroundChange, eventTypeOther }: ChildComponentProps)
 
 
   // 키다 option handling var
-  const [showInput, setShowInput] = useState<string>('false');
-
+  const [showInputOtherPlace, setShowInputOtherPlace] = useState<string>('false');
+  const [showOtherEventInput, setShowOtherEventInput] = useState<string>('false');
+  const [showOtherToolInput, setShowOtherToolInput] = useState<string>('false');
   
   // other option handling
 const handleRadioChange = (e: any) => {
   const { value } = e.target;
 
   // Update the showInput state based on the radio option checked or unchecked
-  if (value === 'other') {
-    setShowInput('true');
+  if (value === 'otherEventType') {
+    setShowOtherEventInput('true');
+  } else if (value === 'otherPlace') {
+    setShowInputOtherPlace('false');
+  } else if (value === 'otherTool') {
+    setShowOtherToolInput('true');
   } else {
-    setShowInput('false');
+    setShowOtherEventInput('false');
+    setShowInputOtherPlace('false');
+    setShowOtherToolInput('false');
   }
 };
 
@@ -320,11 +327,11 @@ const [sliderBudgetValStart, setSliderBudgetValStart] = useState(0);
   // background chnage Event
 
   const [selectedEvent, setSelectedEvent] = useState("");
-  const [buttonBackground, setButtonBackground] = useState("");
+  const [buttonBackground, setButtonBackground] = useState("#F1F5F9");
 
   useEffect(() => {
     // Initialize the buttonBackground state on the client-side
-    let initialButtonBackground = "#F1F5F9EEE";
+    let initialButtonBackground = "#F1F5F9";
     if (selectedEvent === "wedding") initialButtonBackground = "#F25287";
     else if (selectedEvent === "festival") initialButtonBackground = "#7C3AED";
     else if (selectedEvent === "business") initialButtonBackground = "#2563EB";
@@ -354,7 +361,7 @@ const [sliderBudgetValStart, setSliderBudgetValStart] = useState(0);
     setSelectedEvent(value);
 
     // Set the selected event and pass the buttonBackground value to the parent
-    let updatedButtonBackground = "#F1F5F9eee";
+    let updatedButtonBackground = "#F1F5F9";
     if (value === "wedding") updatedButtonBackground = "#F25287";
     else if (value === "festival") updatedButtonBackground = "#7C3AED";
     else if (value === "business") updatedButtonBackground = "#2563EB";
@@ -436,7 +443,7 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
 
 {currentQuestion === 0 && (
   <div className='flex flex-col items-center justify-center'>
-     <h1 className='font-semibold font-kr text-[1rem] lg:text-[22px] flex justify-center items-center'><PartyPopper style={{color: buttonBackground}}className='h-9 w-9 mr-2' /> 어떤 행사를 계획하고 계십니까?
+     <h1 className='font-semibold font-kr text-[1rem] lg:text-[22px] flex justify-center items-center'><PartyPopper style={{color: buttonBackground}} className='h-9 w-9 mr-2' /> 어떤 행사를 계획하고 계십니까?
 </h1>
   
 
@@ -456,8 +463,9 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
       />
       <label htmlFor="wedding" className='absolute inset-0 flex flex-col items-center justify-center '>
       
-      <Image width="54" height="54" src="/images/icons/birthday.png" alt="wedding" className='mb-2 w-10 h-10 md:h-[54px] md:w-[54px]'/>
-      가족 개인행사
+      <Image width="54" height="54" src="/images/icons/wedding.png" alt="wedding" className='mb-2 w-10 h-10 md:h-[54px] md:w-[54px]'/>
+      <span className='flex'>
+          스몰웨딩<span className='hidden md:block'>, 야외결혼</span></span>
       </label>
     </motion.div>
 
@@ -505,9 +513,8 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
         className='event_range_wrapper w-20 h-20 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-lg  cursor-pointer peer-checked:border-[#9D174D] peer-checked:text-[#9D174D] hover:text-[#9D174D] hover:bg-gray-50 text-[12px] md:text-[15px] select-none pl-[6px] pt-[4px]'>
         <input  style={{ accentColor: buttonBackground }} type='checkbox' value='birthday' id='birthday' checked={selectedEvent === 'birthday'} onChange={() => handleCheckboxChange('birthday')} className='flex-start' />
           <label htmlFor="birthday" className="absolute inset-0 flex flex-col items-center justify-center ">
-          <Image width="54" height="54" src="/images/icons/wedding.png" alt="birthday" className='mb-2 h-10 w-10 md:h-[54px] md:w-[54px]'/>
-          <span className='flex'>
-          스몰웨딩<span className='hidden md:block'>, 야외결혼</span></span>
+          <Image width="54" height="54" src="/images/icons/birthday.png" alt="birthday" className='mb-2 h-10 w-10 md:h-[54px] md:w-[54px]'/>
+          가족 개인행사
           </label>
         </motion.div>
 
@@ -546,12 +553,23 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
         <motion.div 
         whileTap={checkboxAnimations}
         className='event_range_wrapper w-20 h-20 md:w-32 md:h-32 relative m-1 md:m-2 xl:m-2 text-[#49111c] border rounded-lg  cursor-pointer peer-checked:border-[#C05621] peer-checked:text-[#C05621] hover:text-[#C05621] hover:bg-gray-50 text-[12px] md:text-[15px] select-none pl-[6px] pt-[4px]'>
-        <input  style={{ accentColor: buttonBackground }} type='checkbox' id='other'  checked={selectedEvent === ''} onChange={(e) => handleCheckboxChange(e.target.value)} className='flex-start' />
-          <label htmlFor="other" className="absolute inset-0 flex flex-col items-center justify-center ">
+        <input  style={{ accentColor: buttonBackground }} type='checkbox' id='otherEventType' value='otherEventType' checked={selectedEvent === 'otherEventType'} onChange={(e) => {handleCheckboxChange(e.target.value); handleRadioChange(e)}} className='flex-start' />
+          <label htmlFor="otherEventType" className="absolute inset-0 flex flex-col items-center justify-center ">
           <Image width="54" height="54" src="/images/icons/other.png" alt="birthday" className='mb-2 h-10 w-10 md:h-[54px] md:w-[54px]'/>
           키타 행사
           </label>
         </motion.div>
+
+        {showOtherEventInput == 'true' && (
+            <motion.div 
+            initial={{ x: -100, opacity: 0}}
+              whileInView={{ x: 0, opacity: 1}}
+              transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
+              className="mt-3 md:hidden flex items-end justify-center">
+              <input 
+              type="text" className="block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-4" name='event_type' placeholder='명기해주세요' onChange={handleInputChange} />
+            </motion.div>
+          )}
       
     </div>
 
@@ -586,7 +604,7 @@ const formattedEventTime = eventTime.toLocaleString('ko-KR', options);
 {currentQuestion === 1 && (
         <div className=" w-full mx-auto ">
           <motion.h4 
-          className="font-semibold font-kr text-[0.99rem] lg:text-[22px] mb-5 flex items-center justify-center"
+          className="font-semibold font-kr text-[0.90rem] lg:text-[22px] mb-5 flex items-center justify-center"
           initial={{ x: -200, opacity: 0}}
           whileInView={{ x: 0, opacity: 1}}
           transition={{ duration: 1,  ease: [0.25, 1, 0.5, 1] }}
@@ -617,32 +635,14 @@ className='flex justify-center items-center'><motion.input
     required  
     name="people_count" 
     onChange={handleInputChange} 
-    //</div>list='people_count_list'
     >
     </motion.input><p className='font-bold text-[20px] transform translate-x-4 -translate-y-1.5'>명</p></motion.div>
 
-{/* 
-    <datalist id="people_count_list" className="list-none absolute top-[50%] left-0 w-[96%] h-1">
-      <option className="w-2 h-1 rounded-full  bg-[#49111c] " value="0"></option>
-      <option className="w-2 h-1 rounded-full  bg-[#49111c] " value="100"></option>
-      <option className="w-2 h-1 rounded-full  bg-[#49111c] " value="200"></option>
-      <option value="300"></option>
-      <option value="400"></option>
-      <option value="500"></option>
-      <option value="600"></option>
-      <option value="700"></option>
-      <option value="800"></option>
-      <option value="900"></option>
-      <option value="1000"></option>
-      </datalist> */}
     
 </div>
    
 <div className='flex items-center justify-center'>
    <motion.button
-  // initial={{ x: -10}}
-  // whileInView={{ x: 0}}
-  // transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
     type='button'
     className='w-[30%] md:w-[10%] h-[40px] text-md py-2 border text-[#49111c] hover:bg-[#6161ff]/10  tracking-wider rounded-lg  focus:outline-none focus:bg-blue mt-5 max-w-md  text-[14px] md:text-[16px] mr-2 border-slate-100'
     onClick={() => {setCurrentQuestion(currentQuestion - 1); setSelectedEvent('')}}
@@ -655,9 +655,6 @@ className='flex justify-center items-center'><motion.input
 
 
   <motion.button
-//  initial={{ x: 20}}
-//  whileInView={{ x: 0}}
-//  transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
  style={ sliderPeopleNum !== 0 ? { background: buttonBackground, color: "#fff", border: '1px solid #fff' } : { background: '#F1F5F9', color: "#fff", border: '1px solid #fff'}}
  disabled={sliderPeopleNum === 0 ? true : false}
  onClick={handleNext} 
@@ -752,9 +749,7 @@ className='flex justify-center items-center'><motion.input
 
     <div className='flex items-center justify-center'>
    <motion.button
-  // initial={{ x: -10}}
-  // whileInView={{ x: 0}}
-  // transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
+ 
     type='button'
     className='w-[30%] md:w-[10%] h-[40px] text-md py-2 border text-[#49111c] hover:bg-[#6161ff]/10  tracking-wider rounded-lg  focus:outline-none focus:bg-blue mt-5 max-w-md  text-[14px] md:text-[16px] mr-2 border-slate-100'
     onClick={() => {setCurrentQuestion(currentQuestion - 1); setSliderPeopleNum(0)}}
@@ -767,9 +762,7 @@ className='flex justify-center items-center'><motion.input
 
 
   <motion.button
-//  initial={{ x: 20}}
-//  whileInView={{ x: 0}}
-//  transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+
  style={ sliderBudgetVal !== 0 ? { background: buttonBackground, color: "#fff", border: '1px solid #fff'} : { background: '#F1F5F9', color: "#fff", border: '1px solid #fff' }}
  onClick={handleNext} 
  type='submit'
@@ -886,7 +879,7 @@ className='flex justify-center items-center'><motion.input
             <input
               type='radio' required
               name="event_place"
-              value="other"
+              value="otherPlace"
               onChange={handleRadioChange}
               placeholder='직접 입력'
               style={{ accentColor: buttonBackground }}
@@ -894,7 +887,7 @@ className='flex justify-center items-center'><motion.input
             <span className="pl-2 text-[14px] md:text-[17px]">기타</span>
           </motion.label>
 
-          {showInput == 'true' && (
+          {showInputOtherPlace == 'true' && (
             <motion.div 
             initial={{ x: -100, opacity: 0}}
               whileInView={{ x: 0, opacity: 1}}
@@ -1128,7 +1121,7 @@ className='flex justify-center items-center'><motion.input
             <input
               type='radio' required
               name="tool"
-              value="other"
+              value="otherTool"
               onChange={handleRadioChange}
               placeholder='직접 입력'
               style={{ accentColor: buttonBackground }}
@@ -1136,7 +1129,7 @@ className='flex justify-center items-center'><motion.input
             <span className="pl-1 text-[14px] md:text-[17px]">기타</span>
           </motion.label>
 
-          {showInput == 'true' && (
+          {showOtherToolInput == 'true' && (
             <div className="mt-3 flex items-end justify-center pb-2">
               <input type="text" className="block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-4"  placeholder='명기해주세요' name='tool' onChange={handleCheckboxAccesories}/>
             </div>
@@ -1393,13 +1386,13 @@ className='flex justify-center items-center'><motion.input
 initial={{ x: -100, opacity: 0}}
 whileInView={{ x: 0, opacity: 1}}
 transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
-className='m-1 md:m-5 mb-5 text-[20px] font-kr font-bold'>이벤트 계획이 준비되었습니다!</motion.p>
+className='m-1 md:m-5 mb-5 text-[1rem] font-kr font-bold'>이벤트 계획이 준비되었습니다!</motion.p>
 <h3 className='py-1 md:py-4 mb-2 text-slate-400 text-sm'>이벤트 세부 정보를 확인하십시오 </h3>
 <motion.div 
 initial={{ x: -100, opacity: 0}}
 whileInView={{ x: 0, opacity: 1}}
 transition={{ duration: 0.2, delay: 0.02, ease: [0.25, 1, 0.5, 1] }}
-className='flex flex-col justify-center items-between  font-bold w-full border shadow-md p-7  rounded text-sm'>
+className='flex flex-col justify-center items-between  font-bold w-full border shadow-md p-5 px-4  rounded text-[0.8rem]'>
 
 <div className='flex items-start justify-between'><p>이벤트 유형: </p> <span className='font-light pl-1'>{formData.event_type}</span></div>
 <div className='flex items-start justify-between'><p>출석인원: </p> <span className='font-light pl-1'>{formData.people_count} 명</span></div>

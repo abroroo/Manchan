@@ -14,7 +14,7 @@ const Navbar = () => {
 
 
   const currentRoute = router.route;
-  const isRegisterPage = currentRoute === '/register-page';
+  const isRegisterPage = currentRoute === '/form';
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -69,11 +69,11 @@ const Navbar = () => {
           <FontAwesomeIcon icon={faXmark} size='lg' className='text-[#49111c] text-[20px]'/>
           </button> : <button onClick={handleMenuClick} className='xl:hidden block'><FontAwesomeIcon icon={faBars} className='text-[#49111c] md:text-[#49111c]' size='lg'  /> </button>}
 
-          {currentRoute === '/register-page' ? 
+          {currentRoute === '/form' ? 
             <Link href="/about"  className='hidden xl:block mx-1 w-10 h-10 text-[16px] font-semibold'>
            대해
             </Link>
-            : <Link href="/register-page"  className='hidden mx-1 w-10 h-10 xl:block text-[16px] font-semibold'>
+            : <Link href="/form"  className='hidden mx-1 w-10 h-10 xl:block text-[16px] font-semibold'>
             용지
              </Link>}
         </div>
@@ -87,8 +87,8 @@ const Navbar = () => {
         >
          
            <div className="xl:hidden flex flex-col items-center text-[40px] md:text-[60px] font-bold">
-          <Link href="/register-page" onClick={() => setIsModalOpen(false)} className='leading-relaxed border rounded-md  md:border-none my-3 px-2'>
-              <p className={`my-3 ${isCurrentPage('/register-page') ? 'text-white hidden' : 'text-[#49111c] block'}`}>계획 행사</p>
+          <Link href="/form" onClick={() => setIsModalOpen(false)} className='leading-relaxed border rounded-md  md:border-none my-3 px-2'>
+              <p className={`my-3 ${isCurrentPage('/form') ? 'text-white hidden' : 'text-[#49111c] block'}`}>계획 행사</p>
             </Link>
            
             <Link href="/work" onClick={() => setIsModalOpen(false)} className=' leading-relaxed border rounded-md  md:border-none my-3 px-2'>

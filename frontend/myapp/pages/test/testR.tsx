@@ -37,28 +37,28 @@ const dataExample = {
 //   };
 
 
-const saveFormData = async () => {
-      try {
-        const res = await fetch(`http://127.0.0.1/:8000/api/customer_update/243242313`, {
-          method: 'PUT',
-          mode: 'cors',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-          body: JSON.stringify(dataExample),
-        });
-        const data = await res.json();
-        console.log(data);
-        console.log("this is example Data : ", JSON.stringify(dataExample) )
+// const saveFormData = async () => {
+//       try {
+//         const res = await fetch(`http://127.0.0.1/:8000/api/customer_update/243242313`, {
+//           method: 'PUT',
+//           mode: 'cors',
+//         //   headers: {
+//         //     'Content-Type': 'application/json',
+//         //   },
+//           body: JSON.stringify(dataExample),
+//         });
+//         const data = await res.json();
+//         console.log(data);
+//         console.log("this is example Data : ", JSON.stringify(dataExample) )
       
-      } catch (error) {
-        console.log(error);
-      }
-    };
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     };
     
 
  
-    saveFormData();
+//     saveFormData();
 
   
   

@@ -119,7 +119,7 @@ const yPostionDivText = useTransform(scrollY, [0, 400], [0, -200])
                 
               <h1  className='flex flex-col mt-[50px] md:mt-[100px]   text-[25px] md:text-[35px] xl:text-[45px] font-[900]  text-[#49111c] px-2 md:px-5 rounded-md font-kr leading-relaxed'><span className='flex items-center justify-center'>음식이 필요한 모든행사</span>  <span className='flex items-center justify-center'>  
               {/* <FontAwesomeIcon icon={faPlus}  className='text-[25px] mr-16 hidden md:block' /> */}
-              – 푸드, 이벤트 견적 플랫폼 –
+              * 푸드, 이벤트 견적 플랫폼 *
               {/* <FontAwesomeIcon icon={faPlus}  className='text-[25px] ml-16 hidden md:block' /> */}
               </span>
               </h1>
@@ -176,8 +176,8 @@ const yPostionDivText = useTransform(scrollY, [0, 400], [0, -200])
               transition={{delay: 3.9, type: "spring", duration: 0.7, bounce: 0 }}
               viewport={{once: true}}
               className=' flex items-center justify-center flex-col p-5 md:px-7 xl:px-10 pb-0  font-light '>
-                <p className='text-[#49111c]/90  text-[18px] md:text-[20px]  leading-relaxed '> <span className='flex items-center justify-center'>30년경력 실무 전문가들의 <br className='md:hidden block'/>고객이 원하는 맞춤형 무료견적 플랫폼 
- </span> <span className='flex flex-col items-center justify-center'><span className='md:hidden flex items-center justify-center'>가족. 기업. 단체등 식사에서</span> <span className='md:hidden flex items-center justify-center'>이벤트까지 30년 경력의 전문가들이 </span></span><span className='flex items-center justify-center'> 최고의 서비스로 만족을 드립니다. </span><span className='flex justify-center items-center'>– Food Communication  –</span><span className='flex items-center justify-center'>푸드컴</span></p>
+                <p className='text-[#49111c]/90  text-[18px] md:text-[20px]  leading-relaxed '> <span className='  flex items-center justify-center'>30년경력 실무 전문가들의</span> <span> 고객이 원하는 맞춤형 무료견적 플랫폼 
+ </span> <span className='flex flex-col items-center justify-center'><span className='md:hidden flex items-center justify-center'>가족. 기업. 단체등 식사에서</span> <span className='md:hidden flex items-center justify-center'>이벤트까지 30년 경력의 전문가들이 </span></span><span className='flex items-center justify-center'> 최고의 서비스로 만족을 드립니다. </span><span className='flex justify-center items-center font-semibold font-kalam'> Food Communication  </span><span className='flex items-center justify-center'>푸드컴</span></p>
                 
               </motion.div>
 
@@ -208,7 +208,7 @@ const yPostionDivText = useTransform(scrollY, [0, 400], [0, -200])
               transition={{delay: 4, type: "spring", duration: 0.7, bounce: 0 }}
               viewport={{once: true}}
              className=' w-full flex items-center justify-center mt-5 md:mt-10 mb-28' >
-              <Link className="flex  items-start justify-center p-0 xl:px-5  " href= "/register-page">
+              <Link className="flex  items-start justify-center p-0 xl:px-5  " href= "/form">
               
                     <motion.button
                       style={{

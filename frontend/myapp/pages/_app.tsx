@@ -5,15 +5,15 @@ import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import SmoothScroll from '../components/Scolling/SmoothScroll';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Html, Main, NextScript } from 'next/document';
 import Script from "next/script"
 import SmoothScrollSimple from '../components/Scolling/SmoothScrollSimple';
-
+import Head from 'next/head';
 
 const App = ({ Component, pageProps, router }: AppProps) => {
   const currentRoute = router.route;
   const isHomePage = currentRoute === '/';
-  const isRegisterPage = currentRoute === '/register-page';
+  const isRegisterPage = currentRoute === '/form';
   const isIntroPage = currentRoute === '/intro';
 
   const navLoader = useAnimation();
@@ -27,19 +27,21 @@ const App = ({ Component, pageProps, router }: AppProps) => {
 
   return (
     <>
+    
+  <Head>
+  <meta charSet="UTF-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-  {/* <Head>
-        <meta charSet="UTF-8" />
+   
         <meta name="description" content="A brief description of your page's content." />
         <meta name="keywords" content="keyword1, keyword2, keyword3" />
         <meta name="author" content="Your Name" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
         
-        <meta property="og:title" content="Your Page Title" />
-        <meta property="og:description" content="A description of your page's content." />
+        <meta property="og:title" content="FoodCom, custom catering service platform " />
+        <meta property="og:description" content="" />
         <meta property="og:image" content="URL to an image for sharing." />
         
-        <meta name="twitter:card" content="summary" />
+        {/* <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@yourTwitterHandle" />
         <meta name="twitter:title" content="Your Page Title" />
         <meta name="twitter:description" content="A description of your page's content." />
@@ -48,8 +50,9 @@ const App = ({ Component, pageProps, router }: AppProps) => {
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/ico" href="/favicon.ico" />
         
-        <link rel="canonical" href="https://www.yourwebsite.com/your-page" />
-      </Head> */}
+        <link rel="canonical" href="https://www.yourwebsite.com/your-page" /> */}
+  </Head>
+ 
     <motion.div
     // initial={{opacity: 0, y: -100, }}
     // animate={navLoader}
@@ -113,7 +116,7 @@ const App = ({ Component, pageProps, router }: AppProps) => {
       
       
     
-      
+     
     </>
   );
 };

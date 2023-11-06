@@ -1,7 +1,7 @@
 // pages/_document.tsx
 
 import Document ,{ Html, Head, Main, NextScript } from 'next/document';
-
+//import Head from 'next/head';
 
 
 const MyDocument = () =>  {
@@ -11,11 +11,13 @@ const MyDocument = () =>  {
   
     return (
       <Html>
-         <Head>
-          {/* Include the Kakao Map SDK script here */}
-           
-        
+        <Head >
+        <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/manifest/icon-512x512.png"></link>
+    <meta name="theme-color" content="#000" />
         </Head>
+      
+      
         <body>
           <Main />
           <NextScript />

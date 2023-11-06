@@ -1,17 +1,23 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const runtimeCaching = require('next-pwa/cache');
 
-module.exports = nextConfig
+
 module.exports = {
     pageExtensions: ['jsx', 'tsx', 'ts', 'js', 'mdx'],
     images: {
         domains: ['localhost'],
     }
-    // async rewrites() {
-    //     return [{
-    //         source: '/api/:path*',
-    //         destination: 'http://localhost:8000/:path*'
-    //     }]
-    // },
-
 };
+
+const withPWA = require("next-pwa")({
+    dest: "public",
+    register: true,
+    skipWaiting: true,
+    runtimeCaching
+    // Other PWA options      
+});
+
+const nextConfig = withPWA({
+});
+
+module.exports = nextConfig;

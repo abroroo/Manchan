@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Form from './Form';
-import { motion, useMotionValue, useAnimation } from 'framer-motion';
-import { FC } from 'react';
-import EventsGallery from './EventsGallery';
+import { motion,  useAnimation } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWallet, faBuilding, faChair, faCalendarDays, faFileContract, faMapLocationDot, faSackDollar, faPerson, faUserGroup } from '@fortawesome/free-solid-svg-icons'
-import { PartyPopper, Users, Wallet, Dot } from 'lucide-react';
-import { set } from 'date-fns';
-import { formToJSON } from 'axios';
+import {  faBuilding, faChair, faCalendarDays, faFileContract, faMapLocationDot, faSackDollar, faPerson, faUserGroup } from '@fortawesome/free-solid-svg-icons'
+import { PartyPopper, Dot } from 'lucide-react';
+
 import EventsModal from './EventsModal';
 import axios from 'axios';
 
@@ -16,7 +13,7 @@ import axios from 'axios';
 
 const FormPage = () => {
   
-  const router = useRouter();
+ 
 
 
 
@@ -33,7 +30,7 @@ const handleButtonBackgroundChange = (background: string, event: string, current
   setEventType(event);
   setIsCurrentQuestion(currentQuestion);
   setFormDataTransfered(formData);
-  console.log("This is formDataTransfered: ", formDataTransfered);
+  console.log("This is formDataTransfered to FromPage: ", formDataTransfered);
 };
 
 
@@ -135,7 +132,7 @@ const imageSources: ImageSources = {
   festival: 'images/real/festival.jpg',
   public: 'images/real/public.jpg',
   birthday: 'images/real/birthday.jpg',
-  fingerFood: 'images/real/finger_food.jpeg',
+  fingerFood: 'images/real/fingerFood.jpg',
   steak: 'images/real/steak.jpg',
   other: '',
 };
@@ -181,46 +178,29 @@ const [ticket_number, setTicketNumber] = useState<string>('');
 
 
 
-const createNewCustomer = async () => {
-if (ticket_number === '') {
-  try {
-    const res = await fetch('http://127.0.0.1:8000/api/new_customer', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await res.json();
-    console.log("Ticket Number: ", data);
-    setTicketNumber(data);
-  } catch (error) {
-    console.log(error);
-  }
-}
-};
-
-createNewCustomer();
-
-
-// const dataExample = {
-//   // "tool": [
-//   //     9,
-//   //     11,
-//   //     13
-//   // ],
-//   "name": "test 121",
-//   //"phone_number": 1057195554,
-//   //"event_type": "wedding",
-//   //"event_place": "연회장",
-//   //"people_count": 900,
-//   //"event_date": "2023-07-26T07:35:08Z",
-//   //"address": "전주시 덕진구 금암1길",
-//   //"meal_cost": 30000,
-//   //"date_registered": "2023-07-14T07:32:20.097721Z",
-//   "ticket_number": 243242313
+// const createNewCustomer = async () => {
+// if (ticket_number === '') {
+//   try {
+//     const res = await fetch('http://127.0.0.1:8000/api/new_customer', {
+//       method: 'GET',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     });
+//     const data = await res.json();
+//     console.log("Ticket Number: ", data);
+//     setTicketNumber(data);
+//   } catch (error) {
+//     console.log(error);
+//   }
 // }
+// };
 
-// const [count, setCount] = useState<number>(0);
+// createNewCustomer();
+
+
+
+const [count, setCount] = useState<number>(0);
 
 
 // const saveFormData = async () => {
@@ -230,11 +210,11 @@ createNewCustomer();
 //       headers: {
 //         'Content-Type': 'application/json',
 //       },
-//       body: JSON.stringify(dataExample),
+//       body: JSON.stringify(formDataTransfered),
 //     });
 //     const data = await res.json();
 //     console.log(data);
-//     console.log("this is example Data : ", JSON.stringify(dataExample) )
+//     console.log("this is example Data : ", JSON.stringify(formDataTransfered) )
 //     setCount(1)
 //   } catch (error) {
 //     console.log(error);
@@ -286,6 +266,62 @@ createNewCustomer();
 //     saveFormData();
 //   }
 // })
+
+const toolNames: {
+  [key: number]: string;
+  1: string;
+  2: string;
+  3: string;
+  4: string;
+  5: string;
+  6: string;
+  7: string;
+  8: string;
+  9: string;
+  10: string;
+  11: string;
+  12: string;
+  13: string;
+  14: string;
+} = {
+  1: '사각 테이블',
+  2: '원탁테이블',
+  3: '스텐딩 테이블',
+  4: '의자',
+  5: '의자커버',
+  6: '자바라 텐트 (3m * 6m)',
+  7: '몽골텐트 (5m * 5m)',
+  8: '단상',
+  9: '기본음향',
+  10: '무대',
+  11: '진행',
+  12: '마스터 밴드',
+  13: '플래카드',
+  14: '필요없는'
+};
+
+
+let toolNamesArr: string[] = [];
+
+
+  if (isCurrentQuestion >= 5) {
+    toolNamesArr = formDataTransfered.tool.map((tool: number) => {
+      return toolNames[tool];
+    });
+    toolNamesArr = toolNamesArr.map((tool: string) => {
+      return '  ' + tool;
+    });
+  }
+
+
+  
+ 
+
+
+
+
+
+
 
 
 
@@ -344,7 +380,7 @@ createNewCustomer();
          initial={{ opacity: 0, scale: 0.5, x: cursorX - 40, y: cursorY - 50 }} // Add a slight delay and position the cursor below
          animate={isModalOpen ? { scale: 400, opacity: 1 } : { scale: 1, opacity: 1, x: cursorX - 40, y: cursorY - 50 }}
          exit={{ opacity: 0, scale: 0.5 }} // Optional exit animation
-         transition={isModalOpen ? { duration: 0.2, ease: [0.55, 0, 1, 0.45] } : { duration: 0.3 } }
+         transition={isModalOpen ? { duration: 0.2, ease: [0.16, 1, 0.3, 1] } : { duration: 0.3 } }
          style={{
            width: "90px",
            height: "90px",
@@ -366,7 +402,7 @@ createNewCustomer();
         className={eventType === 'wedding' || eventType === 'festival' || eventType === 'business' || eventType === 'public' || eventType === 'birthday' || eventType === 'fingerFood' || eventType === 'steak' ? 'flex cursor-pointer' : 'hidden'}
       >
         <motion.img
-          src={eventType === '' ? 'images/real/wedding2.jpg' : imageSources[eventType]}
+          src={eventType === '' ? 'images/real/festival.jpg' : imageSources[eventType]}
           style={{ width: 450, height: 450 }}
           className="mr-[5px] mb-[5px] rounded brightness-110"
         />
@@ -443,7 +479,7 @@ createNewCustomer();
                                   whileInView={{x: 0, opacity: 1}}
                                   transition={{ duration: 1, delay: 0, type: 'spring', bounce: 0.3 }}
                                   className=' flex w-full'> <FontAwesomeIcon style={{color: getColor(1)}} icon={faChair} className='h-5 w-5 md:h-9 md:w-9 ' />
-                                  <input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2 font-semibold' value={formDataTransfered.tool}></input>
+                                  <input className='block w-full h-10 mt-1 text-[#49111c] my-2 focus:outline-none  pb-0 text-[14px] md:text-[17px] border-b-[1px] border-slate-200 focus:border-[#49111c] ml-2 font-semibold' value={toolNamesArr}></input>
                                   </motion.div>
                                 </motion.div>
                               )}
@@ -520,7 +556,7 @@ createNewCustomer();
             <div className='flex flex-col items-center '>
             <motion.div
             initial={{ y: 0 }}
-            animate={{y : isCurrentQuestion === 0 ? -20 :  0 , backgroundColor: isCurrentQuestion === 0 ? getColor(0) : '', color: isCurrentQuestion === 0 ? '#fff' : getColor(0)}}
+            animate={{y : isCurrentQuestion === 0 ? -20 :  0 , backgroundColor: isCurrentQuestion === 0 ? getColor(0) : 'transparent', color: isCurrentQuestion === 0 ? '#fff' : getColor(0)}}
             transition={{ duration: 0.3, type: 'spring', bounce: 0.1, stiffness: 220 }}
             className='rounded-md p-2'>
             <PartyPopper  className='h-5 w-5 md:h-9 md:w-9  ' />
@@ -532,7 +568,7 @@ createNewCustomer();
           <div className='flex flex-col items-center '>
           <motion.div
           initial={{ y: 0 }}
-          animate={{y : isCurrentQuestion === 1 ? -20 :  0 , backgroundColor: isCurrentQuestion === 1 ? getColor(1) : '', color: isCurrentQuestion === 1 ? '#fff' : getColor(1)}}
+          animate={{y : isCurrentQuestion === 1 ? -20 :  0 , backgroundColor: isCurrentQuestion === 1 ? getColor(1) : 'transparent', color: isCurrentQuestion === 1 ? '#fff' : getColor(1)}}
           transition={{ duration: 0.3, type: 'spring', bounce: 0.1, stiffness: 220 }}
           className='rounded-md p-2'>
           <FontAwesomeIcon icon={faUserGroup}  className='h-5 w-5 md:h-8 md:w-8 ' />
@@ -543,7 +579,7 @@ createNewCustomer();
           <div className='flex flex-col items-center '>
           <motion.div
           initial={{ y: 0 }}
-          animate={{y : isCurrentQuestion === 2 ? -20 :  0 , backgroundColor: isCurrentQuestion === 2 ? getColor(2) : '', color: isCurrentQuestion === 2 ? '#fff' : getColor(2)}}
+          animate={{y : isCurrentQuestion === 2 ? -20 :  0 , backgroundColor: isCurrentQuestion === 2 ? getColor(2) : 'transparent', color: isCurrentQuestion === 2 ? '#fff' : getColor(2)}}
           transition={{ duration: 0.3, type: 'spring', bounce: 0.1, stiffness: 220 }}
           className='rounded-md p-2'> 
           <FontAwesomeIcon icon={faSackDollar} className='h-5 w-5 md:h-8 md:w-8 ' />
@@ -554,7 +590,7 @@ createNewCustomer();
           <div className='flex flex-col items-center '>
           <motion.div
           initial={{ y: 0 }}
-          animate={{y : isCurrentQuestion === 3 ? -20 :  0 , backgroundColor: isCurrentQuestion === 3 ? getColor(3) : '', color: isCurrentQuestion === 3 ? '#fff' : getColor(3)}}
+          animate={{y : isCurrentQuestion === 3 ? -20 :  0 , backgroundColor: isCurrentQuestion === 3 ? getColor(3) : 'transparent', color: isCurrentQuestion === 3 ? '#fff' : getColor(3)}}
           transition={{ duration: 0.3, type: 'spring', bounce: 0.1, stiffness: 220 }}
           className='rounded-md p-2'>
           <FontAwesomeIcon icon={faBuilding} className='h-5 w-5 md:h-9 md:w-9 ' />
@@ -565,7 +601,7 @@ createNewCustomer();
           <div className='flex flex-col items-center '>
           <motion.div
           initial={{ y: 0 }}
-          animate={{y : isCurrentQuestion === 4 ? -20 :  0 , backgroundColor: isCurrentQuestion === 4 ? getColor(4) : '', color: isCurrentQuestion === 4 ? '#fff' : getColor(4)}}
+          animate={{y : isCurrentQuestion === 4 ? -20 :  0 , backgroundColor: isCurrentQuestion === 4 ? getColor(4) : 'transparent', color: isCurrentQuestion === 4 ? '#fff' : getColor(4)}}
           transition={{ duration: 0.3, type: 'spring', bounce: 0.1, stiffness: 220 }}
           className='rounded-md p-2'>
           <FontAwesomeIcon icon={faChair} className='h-5 w-5 md:h-9 md:w-9 '/>
@@ -576,7 +612,7 @@ createNewCustomer();
           <div className='flex flex-col items-center '>
           <motion.div
           initial={{ y: 0 }}
-          animate={{y : isCurrentQuestion === 5 ? -20 :  0 , backgroundColor: isCurrentQuestion === 5 ? getColor(5) : '', color: isCurrentQuestion === 5 ? '#fff' : getColor(5)}}
+          animate={{y : isCurrentQuestion === 5 ? -20 :  0 , backgroundColor: isCurrentQuestion === 5 ? getColor(5) : 'transparent', color: isCurrentQuestion === 5 ? '#fff' : getColor(5)}}
           transition={{ duration: 0.3, type: 'spring', bounce: 0.1, stiffness: 220 }}
           className='rounded-md p-2'>
           <FontAwesomeIcon icon={faCalendarDays} className='h-5 w-5 md:h-9 md:w-9 ' />
@@ -587,7 +623,7 @@ createNewCustomer();
           <div className='flex flex-col items-center '>
           <motion.div
           initial={{ y: 0 }}
-          animate={{y : isCurrentQuestion === 6 ? -20 :  0 , backgroundColor: isCurrentQuestion === 6 ? getColor(6) : '', color: isCurrentQuestion === 6 ? '#fff' : getColor(6)}}
+          animate={{y : isCurrentQuestion === 6 ? -20 :  0 , backgroundColor: isCurrentQuestion === 6 ? getColor(6) : 'transparent', color: isCurrentQuestion === 6 ? '#fff' : getColor(6)}}
           transition={{ duration: 0.3, type: 'spring', bounce: 0.1, stiffness: 220 }}
           className='rounded-md p-2'>
           <FontAwesomeIcon icon={faMapLocationDot} className='h-5 w-5 md:w-9 md:h-9 ' />
@@ -598,7 +634,7 @@ createNewCustomer();
           <div className='flex flex-col items-center '>
           <motion.div
           initial={{ y: 0 }}
-          animate={{y : isCurrentQuestion === 7 ? -20 :  0 , backgroundColor: isCurrentQuestion === 7 ? getColor(7) : '', color: isCurrentQuestion === 7 ? '#fff' : getColor(7)}}
+          animate={{y : isCurrentQuestion === 7 ? -20 :  0 , backgroundColor: isCurrentQuestion === 7 ? getColor(7) : 'transparent', color: isCurrentQuestion === 7 ? '#fff' : getColor(7)}}
           transition={{ duration: 0.3, type: 'spring', bounce: 0.1, stiffness: 220 }}
           className='rounded-md p-2'>
           <FontAwesomeIcon icon={faFileContract} className='h-5 w-5 md:h-9 md:w-9 '/>

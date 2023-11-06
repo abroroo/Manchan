@@ -83,7 +83,7 @@ const AddressFinder: React.FC<AddressFinderProps> = ({ setEventAddress, buttonBa
         initial={{ x: -200 }}
         whileInView={{ x: 0 }}
         transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
-        className="mb-5 flex items-center justify-center text-lg lg:text-[22px] font-semibold font-kr"
+        className="mb-5 flex items-center justify-center text-[0.9rem] lg:text-[22px] font-semibold font-kr"
       >
         <FontAwesomeIcon icon={faMapLocationDot} style={{ color: buttonBackground }} className='w-9 h-9 mr-2' /> 행사 예정 지역을 선택해주세요
       </motion.h1>
